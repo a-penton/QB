@@ -442,6 +442,12 @@ class VisCube(Entity):
         invoke(self.reenableArrows, delay=self.turnSpeed+.15)
         func()
 
+    def emptyArrowFunc(self):
+        self.anim = True
+        for arrow in self.arrows:
+            arrow.enabled = False
+        invoke(self.reenableArrows, delay=self.turnSpeed+.15)
+
     def reenableArrows(self):
         self.anim = False
         for arrow in self.arrows:

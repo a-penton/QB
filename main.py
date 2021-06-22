@@ -180,52 +180,58 @@ def rotateR(): #rotates right
     global anim
     global reading
     if not anim and not reading:
+        cube.emptyArrowFunc()
         cube.rotateX()
         anim = True
-        invoke(endAnim, delay=.55)
+        invoke(endAnim, delay=speedSlider.value + .15)
 
 
 def rotateL(): #rotates left
     global anim
     global reading
     if not anim and not reading:
+        cube.emptyArrowFunc()
         anim = True
         cube.rotateXX()
-        invoke(endAnim, delay=.55)
+        invoke(endAnim, delay=speedSlider.value + .15)
 
 
 def rotateU(): #rotates upward
     global anim
     global reading
     if not anim and not reading:
+        cube.emptyArrowFunc()
         anim = True
         cube.rotateY()
-        invoke(endAnim, delay=.55)
+        invoke(endAnim, delay=speedSlider.value + .15)
 
 
 def rotateD(): #rotates downward
     global anim
     global reading
     if not anim and not reading:
+        cube.emptyArrowFunc()
         anim = True
         cube.rotateYY()
-        invoke(endAnim, delay=.55)
+        invoke(endAnim, delay=speedSlider.value + .15)
 
-def rotateZL(): #rotates right
+def rotateZL(): #rotates left on z axis
     global anim
     global reading
     if not anim and not reading:
+        cube.emptyArrowFunc()
         cube.rotateZ()
         anim = True
-        invoke(endAnim, delay=.55)
+        invoke(endAnim, delay=speedSlider.value + .15)
 
-def rotateZR(): #rotates right
+def rotateZR(): #rotates right on z axis
     global anim
     global reading
     if not anim and not reading:
+        cube.emptyArrowFunc()
         cube.rotateZZ()
         anim = True
-        invoke(endAnim, delay=.55)
+        invoke(endAnim, delay=speedSlider.value + .15)
 
 
 def resetCube():  # resets cube
@@ -292,87 +298,88 @@ def openHints(): #open hints menu
 def readString(rotations, scrambling = False):  # goes through string and does each move
     global reading
     global readSequence
-    cube.disableArrows()
-    cube.setTurnSpeed(.1)
-    stepTime = .3  # time between moves in sequence 65
-    reading = True
-    toggleInput()
-    rotations = rotations.upper()
-    rotations += '0'
-    readSequence = Sequence()
-    for i in range(len(rotations)):
-        if rotations[i] == '0':
-            readSequence.append(stepTime)
-            readSequence.append(Func(resetReading))
-            if not scrambling:
-                readSequence.append(Func(toggleInput))
-            readSequence.append(Func(cube.reenableArrows))
-            readSequence.append(Func(changeTurnSpeed))
-            readSequence.start()
-            return
-        elif rotations[i] == 'U':
-            if rotations[ i +1] == "'":
+    if not reading:
+        cube.disableArrows()
+        cube.setTurnSpeed(.1)
+        stepTime = .3  # time between moves in sequence 65
+        reading = True
+        toggleInput()
+        rotations = rotations.upper()
+        rotations += '0'
+        readSequence = Sequence()
+        for i in range(len(rotations)):
+            if rotations[i] == '0':
                 readSequence.append(stepTime)
-                readSequence.append(Func(cube.rotateUU))
-            else:
-                readSequence.append(stepTime)
-                readSequence.append(Func(cube.rotateU))
-        elif rotations[i] == 'E':
-            if rotations[i + 1] == "'":
-                readSequence.append(stepTime)
-                readSequence.append(Func(cube.rotateEE))
-            else:
-                readSequence.append(stepTime)
-                readSequence.append(Func(cube.rotateE))
-        elif rotations[i] == 'D':
-            if rotations[i + 1] == "'":
-                readSequence.append(stepTime)
-                readSequence.append(Func(cube.rotateDD))
-            else:
-                readSequence.append(stepTime)
-                readSequence.append(Func(cube.rotateD))
-        elif rotations[i] == 'L':
-            if rotations[i + 1] == "'":
-                readSequence.append(stepTime)
-                readSequence.append(Func(cube.rotateLL))
-            else:
-                readSequence.append(stepTime)
-                readSequence.append(Func(cube.rotateL))
-        elif rotations[i] == 'M':
-            if rotations[i + 1] == "'":
-                readSequence.append(stepTime)
-                readSequence.append(Func(cube.rotateMM))
-            else:
-                readSequence.append(stepTime)
-                readSequence.append(Func(cube.rotateM))
-        elif rotations[i] == 'R':
-            if rotations[i + 1] == "'":
-                readSequence.append(stepTime)
-                readSequence.append(Func(cube.rotateRR))
-            else:
-                readSequence.append(stepTime)
-                readSequence.append(Func(cube.rotateR))
-        elif rotations[i] == 'F':
-            if rotations[i + 1] == "'":
-                readSequence.append(stepTime)
-                readSequence.append(Func(cube.rotateFF))
-            else:
-                readSequence.append(stepTime)
-                readSequence.append(Func(cube.rotateF))
-        elif rotations[i] == 'S':
-            if rotations[i + 1] == "'":
-                readSequence.append(stepTime)
-                readSequence.append(Func(cube.rotateSS))
-            else:
-                readSequence.append(stepTime)
-                readSequence.append(Func(cube.rotateS))
-        elif rotations[i] == 'B':
-            if rotations[i + 1] == "'":
-                readSequence.append(stepTime)
-                readSequence.append(Func(cube.rotateBB))
-            else:
-                readSequence.append(stepTime)
-                readSequence.append(Func(cube.rotateB))
+                readSequence.append(Func(resetReading))
+                if not scrambling:
+                    readSequence.append(Func(toggleInput))
+                readSequence.append(Func(cube.reenableArrows))
+                readSequence.append(Func(changeTurnSpeed))
+                readSequence.start()
+                return
+            elif rotations[i] == 'U':
+                if rotations[ i +1] == "'":
+                    readSequence.append(stepTime)
+                    readSequence.append(Func(cube.rotateUU))
+                else:
+                    readSequence.append(stepTime)
+                    readSequence.append(Func(cube.rotateU))
+            elif rotations[i] == 'E':
+                if rotations[i + 1] == "'":
+                    readSequence.append(stepTime)
+                    readSequence.append(Func(cube.rotateEE))
+                else:
+                    readSequence.append(stepTime)
+                    readSequence.append(Func(cube.rotateE))
+            elif rotations[i] == 'D':
+                if rotations[i + 1] == "'":
+                    readSequence.append(stepTime)
+                    readSequence.append(Func(cube.rotateDD))
+                else:
+                    readSequence.append(stepTime)
+                    readSequence.append(Func(cube.rotateD))
+            elif rotations[i] == 'L':
+                if rotations[i + 1] == "'":
+                    readSequence.append(stepTime)
+                    readSequence.append(Func(cube.rotateLL))
+                else:
+                    readSequence.append(stepTime)
+                    readSequence.append(Func(cube.rotateL))
+            elif rotations[i] == 'M':
+                if rotations[i + 1] == "'":
+                    readSequence.append(stepTime)
+                    readSequence.append(Func(cube.rotateMM))
+                else:
+                    readSequence.append(stepTime)
+                    readSequence.append(Func(cube.rotateM))
+            elif rotations[i] == 'R':
+                if rotations[i + 1] == "'":
+                    readSequence.append(stepTime)
+                    readSequence.append(Func(cube.rotateRR))
+                else:
+                    readSequence.append(stepTime)
+                    readSequence.append(Func(cube.rotateR))
+            elif rotations[i] == 'F':
+                if rotations[i + 1] == "'":
+                    readSequence.append(stepTime)
+                    readSequence.append(Func(cube.rotateFF))
+                else:
+                    readSequence.append(stepTime)
+                    readSequence.append(Func(cube.rotateF))
+            elif rotations[i] == 'S':
+                if rotations[i + 1] == "'":
+                    readSequence.append(stepTime)
+                    readSequence.append(Func(cube.rotateSS))
+                else:
+                    readSequence.append(stepTime)
+                    readSequence.append(Func(cube.rotateS))
+            elif rotations[i] == 'B':
+                if rotations[i + 1] == "'":
+                    readSequence.append(stepTime)
+                    readSequence.append(Func(cube.rotateBB))
+                else:
+                    readSequence.append(stepTime)
+                    readSequence.append(Func(cube.rotateB))
 
 
 def resetReading():  # helps make sure no moves are made while reading a list of moves
