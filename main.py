@@ -241,6 +241,7 @@ def resetCube():  # resets cube
     cube = VisCube()
     anim = True
     invoke(endAnim, delay=.65)
+    changeTurnSpeed()
 
 
 def openSettings(): #open settings menu
@@ -256,6 +257,7 @@ def openSettings(): #open settings menu
         scrambleButton.enabled = True
         rotateZRButton.enabled = True
         rotateZLButton.enabled = True
+        speedSlider.enabled = True
         settings = True
     else:
         resetButton.enabled = False
@@ -268,6 +270,7 @@ def openSettings(): #open settings menu
         scrambleButton.enabled = False
         rotateZRButton.enabled = False
         rotateZLButton.enabled = False
+        speedSlider.enabled = False
         settings = False
 
 def openHints(): #open hints menu
@@ -290,7 +293,8 @@ def readString(rotations, scrambling = False):  # goes through string and does e
     global reading
     global readSequence
     cube.disableArrows()
-    stepTime = .65  # time between moves in sequence
+    cube.setTurnSpeed(.1)
+    stepTime = .3  # time between moves in sequence 65
     reading = True
     toggleInput()
     rotations = rotations.upper()
@@ -303,6 +307,7 @@ def readString(rotations, scrambling = False):  # goes through string and does e
             if not scrambling:
                 readSequence.append(Func(toggleInput))
             readSequence.append(Func(cube.reenableArrows))
+            readSequence.append(Func(changeTurnSpeed))
             readSequence.start()
             return
         elif rotations[i] == 'U':
@@ -369,6 +374,7 @@ def readString(rotations, scrambling = False):  # goes through string and does e
                 readSequence.append(stepTime)
                 readSequence.append(Func(cube.rotateB))
 
+
 def resetReading():  # helps make sure no moves are made while reading a list of moves
     global reading
     reading = False
@@ -400,7 +406,10 @@ def hintDetailToggle():
     else:
         hintDetail.enabled = True
 
-
+def changeTurnSpeed():
+    global reading
+    if not reading:
+        cube.setTurnSpeed(speedSlider.value)
 # =============================================================UI buttons======================================================================
 # settings==============
 settingsButton = Button(text='', icon='gear', color=color.gray, scale=.075, position=(-.81, .43, 0),
@@ -426,6 +435,11 @@ inputButton = Button(text='Input', color=color.red, scale=.1, position=(-.69, -.
 inputList = TextField(max_lines=1, position=(-.75 ,-.3 ,0), enabled=False)
 scrambleButton = Button(text='Scramble', color=color.red, scale=.1, position=(-.81, -.06, 0), on_click=Func(scramble),
                      enabled=False)
+speedSlider = Slider(min=1, max=.1, default=.5, text='Turn Speed', height=.1, on_value_changed=Func(changeTurnSpeed), position=(-.742, -.20, 0), scale=.2, enabled=False)
+speedSlider.label.origin = (0,0)
+speedSlider.label.position = (.25,.25)
+speedSlider.label.scale = 4.5
+speedSlider.knob.text_color = color.clear
 # hints============
 hintButton = Button(text='', icon='hintButton', color=color.gray, scale=.075, position=(-.81, -.43, 0), on_click=Func(openHints))
 hintDisplay = Button(text='', icon='hint1', color=color.gray, highlight_color=color.gray, pressed_color=color.gray,

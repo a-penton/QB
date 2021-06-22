@@ -10,6 +10,7 @@ class VisCube(Entity):
     center = Entity(x=0, y=0, z=0) #central entity, used for rotations
     anim = False
     blinkSeq = Sequence()
+    turnSpeed = .5
     e1 = Entity()
     e2 = Entity()
     e3 = Entity()
@@ -241,180 +242,180 @@ class VisCube(Entity):
             e.reparent_to(self)
             if round(e.z) == -1:
                 e.reparent_to(self.center)
-        self.center.animate('rotation_z', self.center.rotation_z + 90, duration=.5)
-        invoke(self.reparentCube, delay=.55)
+        self.center.animate('rotation_z', self.center.rotation_z + 90, duration=self.turnSpeed)
+        invoke(self.reparentCube, delay=(self.turnSpeed+.1))
 
     def rotateFF(self):
         for e in self.cubes:
             e.reparent_to(self)
             if round(e.z) == -1:
                 e.reparent_to(self.center)
-        self.center.animate('rotation_z', self.center.rotation_z - 90, duration=.5)
-        invoke(self.reparentCube, delay=.55)
+        self.center.animate('rotation_z', self.center.rotation_z - 90, duration=self.turnSpeed)
+        invoke(self.reparentCube, delay=(self.turnSpeed+.1))
 
     def rotateUU(self):
         for e in self.cubes:
             e.reparent_to(self)
             if round(e.y) == 1:
                 e.reparent_to(self.center)
-        self.center.animate('rotation_y', self.center.rotation_y - 90, duration=.5)
-        invoke(self.reparentCube, delay=.55)
+        self.center.animate('rotation_y', self.center.rotation_y - 90, duration=self.turnSpeed)
+        invoke(self.reparentCube, delay=(self.turnSpeed+.1))
 
     def rotateU(self):
         for e in self.cubes:
             e.reparent_to(self)
             if round(e.y) == 1:
                 e.reparent_to(self.center)
-        self.center.animate('rotation_y', self.center.rotation_y + 90, duration=.5)
-        invoke(self.reparentCube, delay=.55)
+        self.center.animate('rotation_y', self.center.rotation_y + 90, duration=self.turnSpeed)
+        invoke(self.reparentCube, delay=(self.turnSpeed+.1))
 
     def rotateE(self):
         for e in self.cubes:
             e.reparent_to(self)
             if round(e.y) == 0:
                 e.reparent_to(self.center)
-        self.center.animate('rotation_y', self.center.rotation_y - 90, duration=.5)
-        invoke(self.reparentCube, delay=.55)
+        self.center.animate('rotation_y', self.center.rotation_y - 90, duration=self.turnSpeed)
+        invoke(self.reparentCube, delay=(self.turnSpeed+.1))
 
     def rotateEE(self):
         for e in self.cubes:
             e.reparent_to(self)
             if round(e.y) == 0:
                 e.reparent_to(self.center)
-        self.center.animate('rotation_y', self.center.rotation_y + 90, duration=.5)
-        invoke(self.reparentCube, delay=.55)
+        self.center.animate('rotation_y', self.center.rotation_y + 90, duration=self.turnSpeed)
+        invoke(self.reparentCube, delay=(self.turnSpeed+.1))
 
     def rotateD(self):
         for e in self.cubes:
             e.reparent_to(self)
             if round(e.y) == -1:
                 e.reparent_to(self.center)
-        self.center.animate('rotation_y', self.center.rotation_y - 90, duration=.5)
-        invoke(self.reparentCube, delay=.55)
+        self.center.animate('rotation_y', self.center.rotation_y - 90, duration=self.turnSpeed)
+        invoke(self.reparentCube, delay=(self.turnSpeed+.1))
 
     def rotateDD(self):
         for e in self.cubes:
             e.reparent_to(self)
             if round(e.y) == -1:
                 e.reparent_to(self.center)
-        self.center.animate('rotation_y', self.center.rotation_y + 90, duration=.5)
-        invoke(self.reparentCube, delay=.55)
+        self.center.animate('rotation_y', self.center.rotation_y + 90, duration=self.turnSpeed)
+        invoke(self.reparentCube, delay=(self.turnSpeed+.1))
 
     def rotateS(self):
         for e in self.cubes:
             e.reparent_to(self)
             if round(e.z) == 0:
                 e.reparent_to(self.center)
-        self.center.animate('rotation_z', self.center.rotation_z + 90, duration=.5)
-        invoke(self.reparentCube, delay=.55)
+        self.center.animate('rotation_z', self.center.rotation_z + 90, duration=self.turnSpeed)
+        invoke(self.reparentCube, delay=(self.turnSpeed+.1))
 
     def rotateSS(self):
         for e in self.cubes:
             e.reparent_to(self)
             if round(e.z) == 0:
                 e.reparent_to(self.center)
-        self.center.animate('rotation_z', self.center.rotation_z - 90, duration=.5)
-        invoke(self.reparentCube, delay=.55)
+        self.center.animate('rotation_z', self.center.rotation_z - 90, duration=self.turnSpeed)
+        invoke(self.reparentCube, delay=(self.turnSpeed+.1))
 
     def rotateB(self):
         for e in self.cubes:
             e.reparent_to(self)
             if round(e.z) == 1:
                 e.reparent_to(self.center)
-        self.center.animate('rotation_z', self.center.rotation_z - 90, duration=.5)
-        invoke(self.reparentCube, delay=.55)
+        self.center.animate('rotation_z', self.center.rotation_z - 90, duration=self.turnSpeed)
+        invoke(self.reparentCube, delay=(self.turnSpeed+.1))
 
     def rotateBB(self):
         for e in self.cubes:
             e.reparent_to(self)
             if round(e.z) == 1:
                 e.reparent_to(self.center)
-        self.center.animate('rotation_z', self.center.rotation_z + 90, duration=.5)
-        invoke(self.reparentCube, delay=.55)
+        self.center.animate('rotation_z', self.center.rotation_z + 90, duration=self.turnSpeed)
+        invoke(self.reparentCube, delay=(self.turnSpeed+.1))
 
     def rotateL(self):
         for e in self.cubes:
             e.reparent_to(self)
             if round(e.x) == -1:
                 e.reparent_to(self.center)
-        self.center.animate('rotation_x', self.center.rotation_x - 90, duration=.5)
-        invoke(self.reparentCube, delay=.55)
+        self.center.animate('rotation_x', self.center.rotation_x - 90, duration=self.turnSpeed)
+        invoke(self.reparentCube, delay=(self.turnSpeed+.1))
 
     def rotateLL(self):
         for e in self.cubes:
             e.reparent_to(self)
             if round(e.x) == -1:
                 e.reparent_to(self.center)
-        self.center.animate('rotation_x', self.center.rotation_x + 90, duration=.5)
-        invoke(self.reparentCube, delay=.55)
+        self.center.animate('rotation_x', self.center.rotation_x + 90, duration=self.turnSpeed)
+        invoke(self.reparentCube, delay=(self.turnSpeed+.1))
 
     def rotateR(self):
         for e in self.cubes:
             e.reparent_to(self)
             if round(e.x) == 1:
                 e.reparent_to(self.center)
-        self.center.animate('rotation_x', self.center.rotation_x + 90, duration=.5)
-        invoke(self.reparentCube, delay=.55)
+        self.center.animate('rotation_x', self.center.rotation_x + 90, duration=self.turnSpeed)
+        invoke(self.reparentCube, delay=(self.turnSpeed+.1))
 
     def rotateRR(self):
         for e in self.cubes:
             e.reparent_to(self)
             if round(e.x) == 1:
                 e.reparent_to(self.center)
-        self.center.animate('rotation_x', self.center.rotation_x - 90, duration=.5)
-        invoke(self.reparentCube, delay=.55)
+        self.center.animate('rotation_x', self.center.rotation_x - 90, duration=self.turnSpeed)
+        invoke(self.reparentCube, delay=(self.turnSpeed+.1))
 
     def rotateM(self):
         for e in self.cubes:
             e.reparent_to(self)
             if round(e.x) == 0:
                 e.reparent_to(self.center)
-        self.center.animate('rotation_x', self.center.rotation_x - 90, duration=.5)
-        invoke(self.reparentCube, delay=.55)
+        self.center.animate('rotation_x', self.center.rotation_x - 90, duration=self.turnSpeed)
+        invoke(self.reparentCube, delay=(self.turnSpeed+.1))
 
     def rotateMM(self):
         for e in self.cubes:
             e.reparent_to(self)
             if round(e.x) == 0:
                 e.reparent_to(self.center)
-        self.center.animate('rotation_x', self.center.rotation_x + 90, duration=.5)
-        invoke(self.reparentCube, delay=.55)
+        self.center.animate('rotation_x', self.center.rotation_x + 90, duration=self.turnSpeed)
+        invoke(self.reparentCube, delay=(self.turnSpeed+.1))
 
     def rotateX(self):
         for e in self.cubes:
             e.reparent_to(self.center)
-        self.center.animate('rotation_y', self.center.rotation_y - 90, duration=.5)
-        invoke(self.reparentCube, delay=.55)
+        self.center.animate('rotation_y', self.center.rotation_y - 90, duration=self.turnSpeed)
+        invoke(self.reparentCube, delay=(self.turnSpeed+.1))
 
     def rotateXX(self):
         for e in self.cubes:
             e.reparent_to(self.center)
-        self.center.animate('rotation_y', self.center.rotation_y + 90, duration=.5)
-        invoke(self.reparentCube, delay=.55)
+        self.center.animate('rotation_y', self.center.rotation_y + 90, duration=self.turnSpeed)
+        invoke(self.reparentCube, delay=(self.turnSpeed+.1))
 
     def rotateY(self):
         for e in self.cubes:
             e.reparent_to(self.center)
-        self.center.animate('rotation_x', self.center.rotation_x + 90, duration=.5)
-        invoke(self.reparentCube, delay=.55)
+        self.center.animate('rotation_x', self.center.rotation_x + 90, duration=self.turnSpeed)
+        invoke(self.reparentCube, delay=(self.turnSpeed+.1))
 
     def rotateYY(self):
         for e in self.cubes:
             e.reparent_to(self.center)
-        self.center.animate('rotation_x', self.center.rotation_x - 90, duration=.5)
-        invoke(self.reparentCube, delay=.55)
+        self.center.animate('rotation_x', self.center.rotation_x - 90, duration=self.turnSpeed)
+        invoke(self.reparentCube, delay=(self.turnSpeed+.1))
 
     def rotateZ(self):
         for e in self.cubes:
             e.reparent_to(self.center)
-        self.center.animate('rotation_z', self.center.rotation_z - 90, duration=.5)
-        invoke(self.reparentCube, delay=.55)
+        self.center.animate('rotation_z', self.center.rotation_z - 90, duration=self.turnSpeed)
+        invoke(self.reparentCube, delay=(self.turnSpeed+.1))
 
     def rotateZZ(self):
         for e in self.cubes:
             e.reparent_to(self.center)
-        self.center.animate('rotation_z', self.center.rotation_z + 90, duration=.5)
-        invoke(self.reparentCube, delay=.55)
+        self.center.animate('rotation_z', self.center.rotation_z + 90, duration=self.turnSpeed)
+        invoke(self.reparentCube, delay=(self.turnSpeed+.1))
 
     def blink(self):
         self.blinkSeq.append(Func(self.e1.blink, value=color.black,duration=2))
@@ -431,12 +432,14 @@ class VisCube(Entity):
         self.blinkSeq.kill()
         self.blinkSeq.loop = False
         self.blinkSeq = Sequence()
+        for e in self.cubes:
+            e.color = color.rgb(200, 200, 200, 255)
 
     def arrowFunc(self,func): #activates when an arrow is clicked, does the passed function, disables arrows during animation
         self.anim = True
         for arrow in self.arrows:
             arrow.enabled = False
-        invoke(self.reenableArrows, delay=.6)
+        invoke(self.reenableArrows, delay=self.turnSpeed+.15)
         func()
 
     def reenableArrows(self):
@@ -447,6 +450,9 @@ class VisCube(Entity):
     def disableArrows(self):
         for arrow in self.arrows:
             arrow.enabled = False
+
+    def setTurnSpeed(self, t):
+        self.turnSpeed = t
 
     def delete(self): #deletes all cubes and arrows, the old coordinates were still lingering and messing with stuff temp fix was moving, should look into later
         for e in self.cubes:
