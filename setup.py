@@ -1,7 +1,7 @@
 from setuptools import setup
 
 setup(
-	name="QB",
+	name="QB-solver",
 	version="0.0.1",
 	packages=["",],	# name of modules
 	url="https://github.com/a-penton/QB",
@@ -9,13 +9,13 @@ setup(
 	author="Andrew Penton, Heinrich Perez, Steven Perez, Noah Sharpe, Daniel Shinkarow",
 	# author_email
 	description="Rubik's cube simulation and tutorial",
-	install_requires=[""],
+	install_requires=["ursina"],
 
 	entry_points = 
 	{ "console_scripts":
 		[
-			#"command_name = folder_name:main",
-			#"command_name_2 = folder_name.file_name:func_name"
+			#"command_name = src:main",
+			#"command_name_2 = src.file_name:func_name"
 		]
 	}
 )
