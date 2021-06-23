@@ -24,7 +24,7 @@ window.color = color.dark_gray
 cube = VisCube()  # rubiks cube
 hintCube = VisHints()  # hints
 center = Entity()  # center transform, used for rotation
-virtualCube = Cube("OOOOOOOOOYYYWWWGGGBBBYYYWWWGGGBBBYYYWWWGGGBBBRRRRRRRRR") # Initializes solved virtual cube
+virtualCube = Cube("RRRRRRRRRBBBWWWGGGYYYBBBWWWGGGYYYBBBWWWGGGYYYOOOOOOOOO") # Initializes solved virtual cube RRRRRRRRRBBBWWWGGGYYYBBBWWWGGGYYYBBBWWWGGGYYYOOOOOOOOO
 
 
 def main():
@@ -41,7 +41,6 @@ def main():
 
 
 def input(key):
-    # uedlmrfsb
     global anim
     global reading
     global drag
@@ -51,96 +50,6 @@ def input(key):
             anim = True
             hintCube.rotateF()
             invoke(endAnim, delay=.6)
-
-        if key == 'q':
-            anim = True
-            cube.rotateU()
-            invoke(endAnim, delay=.55)
-
-        if key == 'w':
-            anim = True
-            cube.rotateUU()
-            invoke(endAnim, delay=.55)
-
-        if key == 'a':
-            anim = True
-            cube.rotateE()
-            invoke(endAnim, delay=.55)
-
-        if key == 's':
-            anim = True
-            cube.rotateEE()
-            invoke(endAnim, delay=.55)
-
-        if key == 'z':
-            anim = True
-            cube.rotateD()
-            invoke(endAnim, delay=.55)
-
-        if key == 'x':
-            anim = True
-            cube.rotateDD()
-            invoke(endAnim, delay=.55)
-
-        if key == 'e':
-            anim = True
-            cube.rotateL()
-            invoke(endAnim, delay=.55)
-
-        if key == 'r':
-            anim = True
-            cube.rotateLL()
-            invoke(endAnim, delay=.55)
-
-        if key == 'd':
-            anim = True
-            cube.rotateM()
-            invoke(endAnim, delay=.55)
-
-        if key == 'f':
-            anim = True
-            cube.rotateMM()
-            invoke(endAnim, delay=.55)
-
-        if key == 'c':
-            anim = True
-            cube.rotateR()
-            invoke(endAnim, delay=.55)
-
-        if key == 'v':
-            anim = True
-            cube.rotateRR()
-            invoke(endAnim, delay=.55)
-
-        if key == 't':
-            anim = True
-            cube.rotateF()
-            invoke(endAnim, delay=.55)
-
-        if key == 'y':
-            anim = True
-            cube.rotateFF()
-            invoke(endAnim, delay=.55)
-
-        if key == 'g':
-            anim = True
-            cube.rotateS()
-            invoke(endAnim, delay=.55)
-
-        if key == 'h':
-            anim = True
-            cube.rotateSS()
-            invoke(endAnim, delay=.55)
-
-        if key == 'b':
-            anim = True
-            cube.rotateB()
-            invoke(endAnim, delay=.55)
-
-        if key == 'n':
-            anim = True
-            cube.rotateBB()
-            invoke(endAnim, delay=.55)
     #these are used for camera movement, to be deleted in final version
     # if key == 'left mouse down':
     #    drag = True
@@ -252,7 +161,7 @@ def resetCube():  # resets cube
     changeTurnSpeed()
 
     global virtualCube
-    virtualCube = Cube("OOOOOOOOOYYYWWWGGGBBBYYYWWWGGGBBBYYYWWWGGGBBBRRRRRRRRR") # Resets virtual cube
+    virtualCube = Cube("RRRRRRRRRBBBWWWGGGYYYBBBWWWGGGYYYBBBWWWGGGYYYOOOOOOOOO") # Resets virtual cube
 
 
 def openSettings(): #open settings menu
@@ -306,7 +215,7 @@ def readString(rotations, scrambling = False):  # goes through string and does e
     if not reading:
         cube.disableArrows()
         cube.setTurnSpeed(.1)
-        stepTime = .3  # time between moves in sequence 65
+        stepTime = .3  # time between moves in sequence must be at least .2 higher than turn speed
         reading = True
         toggleInput()
         rotations += '0'
@@ -344,9 +253,11 @@ def readString(rotations, scrambling = False):  # goes through string and does e
                     readSequence.append(Func(cube.rotateD))
             elif rotations[i] == 'L':
                 if rotations[i + 1] == "i":
+                    virtualCube.Li()#<===============
                     readSequence.append(stepTime)
                     readSequence.append(Func(cube.rotateLL))
                 else:
+                    virtualCube.L()#<==============
                     readSequence.append(stepTime)
                     readSequence.append(Func(cube.rotateL))
             elif rotations[i] == 'M':
@@ -402,8 +313,8 @@ def scramble():  # creates a random string of moves
     scrambled_moves = " ".join(random.choices(moves, k=25))
     print("Virtual Cube Before Scramble")
     print(virtualCube)
-    virtualCube.sequence(scrambled_moves)
     readString(scrambled_moves, True)
+    virtualCube.sequence(scrambled_moves)
     print("Virtual Cube After Scramble")
     print(virtualCube)
 
@@ -422,10 +333,25 @@ def hintDetailToggle():
     else:
         hintDetail.enabled = True
 
+    if hintSpecific.enabled:
+        hintMove()
+        hintSpecific.enabled = False
+
+def hintSpecificToggle():
+    hintMove()
+    if hintSpecific.enabled:
+        hintSpecific.enabled = False
+    else:
+        hintSpecific.enabled = True
+
+    if hintDetail.enabled:
+        hintDetail.enabled = False
+
 def changeTurnSpeed():
     global reading
     if not reading:
         cube.setTurnSpeed(speedSlider.value)
+
 # =============================================================UI buttons======================================================================
 # settings==============
 settingsButton = Button(text='', icon='gear', color=color.gray, scale=.075, position=(-.81, .43, 0),
@@ -460,11 +386,12 @@ speedSlider.knob.text_color = color.clear
 hintButton = Button(text='', icon='hintButton', color=color.gray, scale=.075, position=(-.81, -.43, 0), on_click=Func(openHints))
 hintDisplay = Button(text='', icon='hint1', color=color.gray, highlight_color=color.gray, pressed_color=color.gray,
                     position=(.6, .35, 1), scale=(.5, .25), collider='', enabled=False)
-hintMoveButton = Button(text='Show Move', icon='', color=color.dark_gray, scale=(.3,.15), position=(-.3, -.375, -1), parent=hintDisplay, on_click=Func(hintMove))
+hintMoveButton = Button(text='Help', icon='', color=color.dark_gray, scale=(.3,.15), position=(-.3, -.375, -1), parent=hintDisplay, on_click=Func(hintSpecificToggle))
 hintDetailButton = Button(text='Details', icon='', color=color.dark_gray, scale=(.2,.15), position=(-.0, -.375, -1), parent=hintDisplay, on_click=Func(hintDetailToggle))
 hintDetail = Button(text='', icon='HintDetail1', color=color.gray, highlight_color=color.gray, pressed_color=color.gray,
                     position=(-0, -1.85, 1), scale=(1.1, 2.64), collider='', parent = hintDisplay, enabled=False)
-
+hintSpecific = Button(text='', icon='placeholdertext', color=color.gray, highlight_color=color.gray, pressed_color=color.gray,
+                    position=(.6, 0, 1), scale=(.5, .25), collider='', enabled=False)
 
 
 

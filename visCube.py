@@ -429,8 +429,9 @@ class VisCube(Entity):
         self.blinkSeq.start()
 
     def unblink(self):
-        self.blinkSeq.kill()
         self.blinkSeq.loop = False
+        self.blinkSeq.pause()
+        self.blinkSeq.finish()
         self.blinkSeq = Sequence()
         for e in self.cubes:
             e.color = color.rgb(200, 200, 200, 255)
