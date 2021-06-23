@@ -239,7 +239,10 @@ class VisCube(Entity):
     #==============================================rotations===================================================
     #checks cublets by coordinates, reparents cublets to the center entity, rotates the center entity, reparents cublets to cube
     def rotateF(self):
+        print(self.virtualCube)
         self.virtualCube.F()
+        print('-------------------------')
+        print(self.virtualCube)
         for e in self.cubes:
             e.reparent_to(self)
             if round(e.z) == -1:

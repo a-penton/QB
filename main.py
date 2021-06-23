@@ -102,7 +102,7 @@ def rotateL(): #rotates left
     if not anim and not reading:
         cube.emptyArrowFunc()
         anim = True
-        cube.rotateXX()
+        cube.rotateXi()
         invoke(endAnim, delay=speedSlider.value + .15)
 
 
@@ -122,7 +122,7 @@ def rotateD(): #rotates downward
     if not anim and not reading:
         cube.emptyArrowFunc()
         anim = True
-        cube.rotateYY()
+        cube.rotateYi()
         invoke(endAnim, delay=speedSlider.value + .15)
 
 def rotateZL(): #rotates left on z axis
@@ -139,7 +139,7 @@ def rotateZR(): #rotates right on z axis
     global reading
     if not anim and not reading:
         cube.emptyArrowFunc()
-        cube.rotateZZ()
+        cube.rotateZi()
         anim = True
         invoke(endAnim, delay=speedSlider.value + .15)
 
