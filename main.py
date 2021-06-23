@@ -212,6 +212,7 @@ def openHints(): #open hints menu
 def readString(rotations, scrambling = False):  # goes through string and does each move
     global reading
     global readSequence
+    global virtualCube
     if not reading:
         cube.disableArrows()
         cube.setTurnSpeed(.1)
@@ -232,67 +233,83 @@ def readString(rotations, scrambling = False):  # goes through string and does e
                 return
             elif rotations[i] == 'U':
                 if rotations[i +1] == "i":
+                    virtualCube.Ui()
                     readSequence.append(stepTime)
                     readSequence.append(Func(cube.rotateUU))
                 else:
+                    virtualCube.U()
                     readSequence.append(stepTime)
                     readSequence.append(Func(cube.rotateU))
             elif rotations[i] == 'E':
                 if rotations[i + 1] == "i":
+                    virtualCube.Ei()
                     readSequence.append(stepTime)
                     readSequence.append(Func(cube.rotateEE))
                 else:
+                    virtualCube.E()
                     readSequence.append(stepTime)
                     readSequence.append(Func(cube.rotateE))
             elif rotations[i] == 'D':
                 if rotations[i + 1] == "i":
+                    virtualCube.Di()
                     readSequence.append(stepTime)
                     readSequence.append(Func(cube.rotateDD))
                 else:
+                    virtualCube.D()
                     readSequence.append(stepTime)
                     readSequence.append(Func(cube.rotateD))
             elif rotations[i] == 'L':
                 if rotations[i + 1] == "i":
-                    virtualCube.Li()#<===============
+                    virtualCube.Li()
                     readSequence.append(stepTime)
                     readSequence.append(Func(cube.rotateLL))
                 else:
-                    virtualCube.L()#<==============
+                    virtualCube.L() 
                     readSequence.append(stepTime)
                     readSequence.append(Func(cube.rotateL))
             elif rotations[i] == 'M':
                 if rotations[i + 1] == "i":
+                    virtualCube.Mi()
                     readSequence.append(stepTime)
                     readSequence.append(Func(cube.rotateMM))
                 else:
+                    virtualCube.M()
                     readSequence.append(stepTime)
                     readSequence.append(Func(cube.rotateM))
             elif rotations[i] == 'R':
                 if rotations[i + 1] == "i":
+                    virtualCube.Ri()
                     readSequence.append(stepTime)
                     readSequence.append(Func(cube.rotateRR))
                 else:
+                    virtualCube.R()
                     readSequence.append(stepTime)
                     readSequence.append(Func(cube.rotateR))
             elif rotations[i] == 'F':
                 if rotations[i + 1] == "i":
+                    virtualCube.Fi()
                     readSequence.append(stepTime)
                     readSequence.append(Func(cube.rotateFF))
                 else:
+                    virtualCube.F()
                     readSequence.append(stepTime)
                     readSequence.append(Func(cube.rotateF))
             elif rotations[i] == 'S':
                 if rotations[i + 1] == "i":
+                    virtualCube.Si()
                     readSequence.append(stepTime)
                     readSequence.append(Func(cube.rotateSS))
                 else:
+                    virtualCube.S()
                     readSequence.append(stepTime)
                     readSequence.append(Func(cube.rotateS))
             elif rotations[i] == 'B':
                 if rotations[i + 1] == "i":
+                    virtualCube.Bi()
                     readSequence.append(stepTime)
                     readSequence.append(Func(cube.rotateBB))
                 else:
+                    virtualCube.B()
                     readSequence.append(stepTime)
                     readSequence.append(Func(cube.rotateB))
 
