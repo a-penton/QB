@@ -3,6 +3,7 @@ from ursina import *
 from ursina.shaders import unlit_shader
 from ursina.shaders import lit_with_shadows_shader
 from ursina.curve import *
+from rubik.cube import Cube
 
 class VisCube(Entity):
     cubes = [] #list of cublets
@@ -39,8 +40,8 @@ class VisCube(Entity):
     e26 = Entity()
 
     def __init__(self):
-        super().__init__(
-        )
+        super().__init__()
+        self.virtualCube = Cube("RRRRRRRRRBBBWWWGGGYYYBBBWWWGGGYYYBBBWWWGGGYYYOOOOOOOOO")
         self.center.reparent_to(self)
         #can delete these, just visual axis
         #xAxis = Entity(model='cube', scale=(6, .1, .1), color=color.red, parent=self)
@@ -56,20 +57,20 @@ class VisCube(Entity):
         arrowE.on_mouse_exit = Func(setattr, arrowE, 'color', color.rgb(255, 255, 00, 175))
         self.arrows.append(arrowE)
 
-        arrowEE = Entity(model='Arrow', color=color.rgb(255, 255, 00, 175), collider='box', shader=unlit_shader, x=-2.1, z=-1.6, rotation=(0, 90, 0), parent=self, on_click=Func(self.arrowFunc, self.rotateEE), scale=(.5, .5, .5))
-        arrowEE.on_mouse_enter = Func(setattr, arrowEE, 'color', color.rgb(255, 255, 00, 225))
-        arrowEE.on_mouse_exit = Func(setattr, arrowEE, 'color', color.rgb(255, 255, 00, 175))
-        self.arrows.append(arrowEE)
+        arrowEi = Entity(model='Arrow', color=color.rgb(255, 255, 00, 175), collider='box', shader=unlit_shader, x=-2.1, z=-1.6, rotation=(0, 90, 0), parent=self, on_click=Func(self.arrowFunc, self.rotateEi), scale=(.5, .5, .5))
+        arrowEi.on_mouse_enter = Func(setattr, arrowEi, 'color', color.rgb(255, 255, 00, 225))
+        arrowEi.on_mouse_exit = Func(setattr, arrowEi, 'color', color.rgb(255, 255, 00, 175))
+        self.arrows.append(arrowEi)
 
         arrowU = Entity(model='Arrow', color=color.rgb(255, 255, 00, 175), collider='box', shader=unlit_shader, x=-2.1, y=1, z=-1.6, rotation=(0, 90, 0), parent=self, on_click=Func(self.arrowFunc, self.rotateU), scale=(.5, .5, .5))
         arrowU.on_mouse_enter = Func(setattr, arrowU, 'color', color.rgb(255, 255, 00, 225))
         arrowU.on_mouse_exit = Func(setattr, arrowU, 'color', color.rgb(255, 255, 00, 175))
         self.arrows.append(arrowU)
 
-        arrowUU = Entity(model='Arrow', color=color.rgb(255, 255, 00, 175), collider='box', shader=unlit_shader, x=2.1, y=1, z=-1.6, rotation=(0, -90, 0), parent=self, on_click=Func(self.arrowFunc, self.rotateUU), scale=(.5, .5, .5))
-        arrowUU.on_mouse_enter = Func(setattr, arrowUU, 'color', color.rgb(255, 255, 00, 225))
-        arrowUU.on_mouse_exit = Func(setattr, arrowUU, 'color', color.rgb(255, 255, 00, 175))
-        self.arrows.append(arrowUU)
+        arrowUi = Entity(model='Arrow', color=color.rgb(255, 255, 00, 175), collider='box', shader=unlit_shader, x=2.1, y=1, z=-1.6, rotation=(0, -90, 0), parent=self, on_click=Func(self.arrowFunc, self.rotateUi), scale=(.5, .5, .5))
+        arrowUi.on_mouse_enter = Func(setattr, arrowUi, 'color', color.rgb(255, 255, 00, 225))
+        arrowUi.on_mouse_exit = Func(setattr, arrowUi, 'color', color.rgb(255, 255, 00, 175))
+        self.arrows.append(arrowUi)
 
         arrowD = Entity(model='Arrow', color=color.rgb(255, 255, 00, 175), collider='box', shader=unlit_shader, x=2.1,
                         y=-1, z=-1.6, rotation=(0, -90, 0), parent=self, on_click=Func(self.arrowFunc, self.rotateD), scale=(.5, .5, .5))
@@ -77,11 +78,11 @@ class VisCube(Entity):
         arrowD.on_mouse_exit = Func(setattr, arrowD, 'color', color.rgb(255, 255, 00, 175))
         self.arrows.append(arrowD)
 
-        arrowDD = Entity(model='Arrow', color=color.rgb(255, 255, 00, 175), collider='box', shader=unlit_shader, x=-2.1,
-                         y=-1, z=-1.6, rotation=(0, 90, 0), parent=self, on_click=Func(self.arrowFunc, self.rotateDD), scale=(.5, .5, .5))
-        arrowDD.on_mouse_enter = Func(setattr, arrowDD, 'color', color.rgb(255, 255, 00, 225))
-        arrowDD.on_mouse_exit = Func(setattr, arrowDD, 'color', color.rgb(255, 255, 00, 175))
-        self.arrows.append(arrowDD)
+        arrowDi = Entity(model='Arrow', color=color.rgb(255, 255, 00, 175), collider='box', shader=unlit_shader, x=-2.1,
+                         y=-1, z=-1.6, rotation=(0, 90, 0), parent=self, on_click=Func(self.arrowFunc, self.rotateDi), scale=(.5, .5, .5))
+        arrowDi.on_mouse_enter = Func(setattr, arrowDi, 'color', color.rgb(255, 255, 00, 225))
+        arrowDi.on_mouse_exit = Func(setattr, arrowDi, 'color', color.rgb(255, 255, 00, 175))
+        self.arrows.append(arrowDi)
 
         arrowL = Entity(model='Arrow', color=color.rgb(255, 255, 00, 175), collider='box', shader=unlit_shader, x=-1,
                         y=-2.1, z=-1.6, rotation=(-90, -90, 0), parent=self, on_click=Func(self.arrowFunc, self.rotateL),
@@ -90,12 +91,12 @@ class VisCube(Entity):
         arrowL.on_mouse_exit = Func(setattr, arrowL, 'color', color.rgb(255, 255, 00, 175))
         self.arrows.append(arrowL)
 
-        arrowLL = Entity(model='Arrow', color=color.rgb(255, 255, 00, 175), collider='box', shader=unlit_shader, x=-1,
-                        y=2.1, z=-1.6, rotation=(90, -90, 0), parent=self, on_click=Func(self.arrowFunc, self.rotateLL),
+        arrowLi = Entity(model='Arrow', color=color.rgb(255, 255, 00, 175), collider='box', shader=unlit_shader, x=-1,
+                        y=2.1, z=-1.6, rotation=(90, -90, 0), parent=self, on_click=Func(self.arrowFunc, self.rotateLi),
                         scale=(.5, .5, .5))
-        arrowLL.on_mouse_enter = Func(setattr, arrowLL, 'color', color.rgb(255, 255, 00, 225))
-        arrowLL.on_mouse_exit = Func(setattr, arrowLL, 'color', color.rgb(255, 255, 00, 175))
-        self.arrows.append(arrowLL)
+        arrowLi.on_mouse_enter = Func(setattr, arrowLi, 'color', color.rgb(255, 255, 00, 225))
+        arrowLi.on_mouse_exit = Func(setattr, arrowLi, 'color', color.rgb(255, 255, 00, 175))
+        self.arrows.append(arrowLi)
 
         arrowM = Entity(model='Arrow', color=color.rgb(255, 255, 00, 175), collider='box', shader=unlit_shader, x=0,
                          y=-2.1, z=-1.6, rotation=(-90, -90, 0), parent=self, on_click=Func(self.arrowFunc, self.rotateM),
@@ -104,12 +105,12 @@ class VisCube(Entity):
         arrowM.on_mouse_exit = Func(setattr, arrowM, 'color', color.rgb(255, 255, 00, 175))
         self.arrows.append(arrowM)
 
-        arrowMM = Entity(model='Arrow', color=color.rgb(255, 255, 00, 175), collider='box', shader=unlit_shader, x=0,
-                        y=2.1, z=-1.6, rotation=(90, -90, 0), parent=self, on_click=Func(self.arrowFunc, self.rotateMM),
+        arrowMi = Entity(model='Arrow', color=color.rgb(255, 255, 00, 175), collider='box', shader=unlit_shader, x=0,
+                        y=2.1, z=-1.6, rotation=(90, -90, 0), parent=self, on_click=Func(self.arrowFunc, self.rotateMi),
                         scale=(.5, .5, .5))
-        arrowMM.on_mouse_enter = Func(setattr, arrowMM, 'color', color.rgb(255, 255, 00, 225))
-        arrowMM.on_mouse_exit = Func(setattr, arrowMM, 'color', color.rgb(255, 255, 00, 175))
-        self.arrows.append(arrowMM)
+        arrowMi.on_mouse_enter = Func(setattr, arrowMi, 'color', color.rgb(255, 255, 00, 225))
+        arrowMi.on_mouse_exit = Func(setattr, arrowMi, 'color', color.rgb(255, 255, 00, 175))
+        self.arrows.append(arrowMi)
 
         arrowR = Entity(model='Arrow', color=color.rgb(255, 255, 00, 175), collider='box', shader=unlit_shader, x=1,
                          y=2.1, z=-1.6, rotation=(90, -90, 0), parent=self, on_click=Func(self.arrowFunc, self.rotateR),
@@ -118,12 +119,12 @@ class VisCube(Entity):
         arrowR.on_mouse_exit = Func(setattr, arrowR, 'color', color.rgb(255, 255, 00, 175))
         self.arrows.append(arrowR)
 
-        arrowRR = Entity(model='Arrow', color=color.rgb(255, 255, 00, 175), collider='box', shader=unlit_shader, x=1,
-                        y=-2.1, z=-1.6, rotation=(-90, -90, 0), parent=self, on_click=Func(self.arrowFunc, self.rotateRR),
+        arrowRi = Entity(model='Arrow', color=color.rgb(255, 255, 00, 175), collider='box', shader=unlit_shader, x=1,
+                        y=-2.1, z=-1.6, rotation=(-90, -90, 0), parent=self, on_click=Func(self.arrowFunc, self.rotateRi),
                         scale=(.5, .5, .5))
-        arrowRR.on_mouse_enter = Func(setattr, arrowRR, 'color', color.rgb(255, 255, 00, 225))
-        arrowRR.on_mouse_exit = Func(setattr, arrowRR, 'color', color.rgb(255, 255, 00, 175))
-        self.arrows.append(arrowRR)
+        arrowRi.on_mouse_enter = Func(setattr, arrowRi, 'color', color.rgb(255, 255, 00, 225))
+        arrowRi.on_mouse_exit = Func(setattr, arrowRi, 'color', color.rgb(255, 255, 00, 175))
+        self.arrows.append(arrowRi)
 
         arrowF = Entity(model='Arrow', color=color.rgb(255, 255, 00, 175), collider='box', shader=unlit_shader, x=1.6,
                          y=-2.1, z=-1, rotation=(-90, -90, 90), parent=self, on_click=Func(self.arrowFunc, self.rotateF),
@@ -132,13 +133,13 @@ class VisCube(Entity):
         arrowF.on_mouse_exit = Func(setattr, arrowF, 'color', color.rgb(255, 255, 00, 175))
         self.arrows.append(arrowF)
 
-        arrowFF = Entity(model='Arrow', color=color.rgb(255, 255, 00, 175), collider='box', shader=unlit_shader, x=1.6,
+        arrowFi = Entity(model='Arrow', color=color.rgb(255, 255, 00, 175), collider='box', shader=unlit_shader, x=1.6,
                         y=2.1, z=-1, rotation=(90, -90, 90), parent=self,
-                        on_click=Func(self.arrowFunc, self.rotateFF),
+                        on_click=Func(self.arrowFunc, self.rotateFi),
                         scale=(.5, .5, .5))
-        arrowFF.on_mouse_enter = Func(setattr, arrowFF, 'color', color.rgb(255, 255, 00, 225))
-        arrowFF.on_mouse_exit = Func(setattr, arrowFF, 'color', color.rgb(255, 255, 00, 175))
-        self.arrows.append(arrowFF)
+        arrowFi.on_mouse_enter = Func(setattr, arrowFi, 'color', color.rgb(255, 255, 00, 225))
+        arrowFi.on_mouse_exit = Func(setattr, arrowFi, 'color', color.rgb(255, 255, 00, 175))
+        self.arrows.append(arrowFi)
 
         arrowS = Entity(model='Arrow', color=color.rgb(255, 255, 00, 175), collider='box', shader=unlit_shader, x=1.6,
                          y=-2.1, z=0, rotation=(-90, -90, 90), parent=self,
@@ -148,13 +149,13 @@ class VisCube(Entity):
         arrowS.on_mouse_exit = Func(setattr, arrowS, 'color', color.rgb(255, 255, 00, 175))
         self.arrows.append(arrowS)
 
-        arrowSS = Entity(model='Arrow', color=color.rgb(255, 255, 00, 175), collider='box', shader=unlit_shader, x=1.6,
+        arrowSi = Entity(model='Arrow', color=color.rgb(255, 255, 00, 175), collider='box', shader=unlit_shader, x=1.6,
                         y=2.1, z=0, rotation=(90, -90, 90), parent=self,
-                        on_click=Func(self.arrowFunc, self.rotateSS),
+                        on_click=Func(self.arrowFunc, self.rotateSi),
                         scale=(.5, .5, .5))
-        arrowSS.on_mouse_enter = Func(setattr, arrowSS, 'color', color.rgb(255, 255, 00, 225))
-        arrowSS.on_mouse_exit = Func(setattr, arrowSS, 'color', color.rgb(255, 255, 00, 175))
-        self.arrows.append(arrowSS)
+        arrowSi.on_mouse_enter = Func(setattr, arrowSi, 'color', color.rgb(255, 255, 00, 225))
+        arrowSi.on_mouse_exit = Func(setattr, arrowSi, 'color', color.rgb(255, 255, 00, 175))
+        self.arrows.append(arrowSi)
 
         arrowB = Entity(model='Arrow', color=color.rgb(255, 255, 00, 175), collider='box', shader=unlit_shader, x=1.6,
                          y=2.1, z=1, rotation=(90, -90, 90), parent=self,
@@ -164,13 +165,13 @@ class VisCube(Entity):
         arrowB.on_mouse_exit = Func(setattr, arrowB, 'color', color.rgb(255, 255, 00, 175))
         self.arrows.append(arrowB)
 
-        arrowBB = Entity(model='Arrow', color=color.rgb(255, 255, 00, 175), collider='box', shader=unlit_shader, x=1.6,
+        arrowBi = Entity(model='Arrow', color=color.rgb(255, 255, 00, 175), collider='box', shader=unlit_shader, x=1.6,
                         y=-2.1, z=1, rotation=(-90, -90, 90), parent=self,
-                        on_click=Func(self.arrowFunc, self.rotateBB),
+                        on_click=Func(self.arrowFunc, self.rotateBi),
                         scale=(.5, .5, .5))
-        arrowBB.on_mouse_enter = Func(setattr, arrowBB, 'color', color.rgb(255, 255, 00, 225))
-        arrowBB.on_mouse_exit = Func(setattr, arrowBB, 'color', color.rgb(255, 255, 00, 175))
-        self.arrows.append(arrowBB)
+        arrowBi.on_mouse_enter = Func(setattr, arrowBi, 'color', color.rgb(255, 255, 00, 225))
+        arrowBi.on_mouse_exit = Func(setattr, arrowBi, 'color', color.rgb(255, 255, 00, 175))
+        self.arrows.append(arrowBi)
 
 
         #=====================================creation of cublets=====================================
@@ -238,6 +239,7 @@ class VisCube(Entity):
     #==============================================rotations===================================================
     #checks cublets by coordinates, reparents cublets to the center entity, rotates the center entity, reparents cublets to cube
     def rotateF(self):
+        self.virtualCube.F()
         for e in self.cubes:
             e.reparent_to(self)
             if round(e.z) == -1:
@@ -245,7 +247,8 @@ class VisCube(Entity):
         self.center.animate('rotation_z', self.center.rotation_z + 90, duration=self.turnSpeed)
         invoke(self.reparentCube, delay=(self.turnSpeed+.1))
 
-    def rotateFF(self):
+    def rotateFi(self):
+        self.virtualCube.Fi()
         for e in self.cubes:
             e.reparent_to(self)
             if round(e.z) == -1:
@@ -253,15 +256,8 @@ class VisCube(Entity):
         self.center.animate('rotation_z', self.center.rotation_z - 90, duration=self.turnSpeed)
         invoke(self.reparentCube, delay=(self.turnSpeed+.1))
 
-    def rotateUU(self):
-        for e in self.cubes:
-            e.reparent_to(self)
-            if round(e.y) == 1:
-                e.reparent_to(self.center)
-        self.center.animate('rotation_y', self.center.rotation_y - 90, duration=self.turnSpeed)
-        invoke(self.reparentCube, delay=(self.turnSpeed+.1))
-
     def rotateU(self):
+        self.virtualCube.U()
         for e in self.cubes:
             e.reparent_to(self)
             if round(e.y) == 1:
@@ -269,7 +265,17 @@ class VisCube(Entity):
         self.center.animate('rotation_y', self.center.rotation_y + 90, duration=self.turnSpeed)
         invoke(self.reparentCube, delay=(self.turnSpeed+.1))
 
+    def rotateUi(self):
+        self.virtualCube.Ui()
+        for e in self.cubes:
+            e.reparent_to(self)
+            if round(e.y) == 1:
+                e.reparent_to(self.center)
+        self.center.animate('rotation_y', self.center.rotation_y - 90, duration=self.turnSpeed)
+        invoke(self.reparentCube, delay=(self.turnSpeed+.1))
+
     def rotateE(self):
+        self.virtualCube.E()
         for e in self.cubes:
             e.reparent_to(self)
             if round(e.y) == 0:
@@ -277,7 +283,8 @@ class VisCube(Entity):
         self.center.animate('rotation_y', self.center.rotation_y - 90, duration=self.turnSpeed)
         invoke(self.reparentCube, delay=(self.turnSpeed+.1))
 
-    def rotateEE(self):
+    def rotateEi(self):
+        self.virtualCube.Ei()
         for e in self.cubes:
             e.reparent_to(self)
             if round(e.y) == 0:
@@ -286,6 +293,7 @@ class VisCube(Entity):
         invoke(self.reparentCube, delay=(self.turnSpeed+.1))
 
     def rotateD(self):
+        self.virtualCube.D()
         for e in self.cubes:
             e.reparent_to(self)
             if round(e.y) == -1:
@@ -293,7 +301,8 @@ class VisCube(Entity):
         self.center.animate('rotation_y', self.center.rotation_y - 90, duration=self.turnSpeed)
         invoke(self.reparentCube, delay=(self.turnSpeed+.1))
 
-    def rotateDD(self):
+    def rotateDi(self):
+        self.virtualCube.Di()
         for e in self.cubes:
             e.reparent_to(self)
             if round(e.y) == -1:
@@ -302,6 +311,7 @@ class VisCube(Entity):
         invoke(self.reparentCube, delay=(self.turnSpeed+.1))
 
     def rotateS(self):
+        self.virtualCube.S()
         for e in self.cubes:
             e.reparent_to(self)
             if round(e.z) == 0:
@@ -309,7 +319,8 @@ class VisCube(Entity):
         self.center.animate('rotation_z', self.center.rotation_z + 90, duration=self.turnSpeed)
         invoke(self.reparentCube, delay=(self.turnSpeed+.1))
 
-    def rotateSS(self):
+    def rotateSi(self):
+        self.virtualCube.Si()
         for e in self.cubes:
             e.reparent_to(self)
             if round(e.z) == 0:
@@ -318,6 +329,7 @@ class VisCube(Entity):
         invoke(self.reparentCube, delay=(self.turnSpeed+.1))
 
     def rotateB(self):
+        self.virtualCube.B()
         for e in self.cubes:
             e.reparent_to(self)
             if round(e.z) == 1:
@@ -325,7 +337,8 @@ class VisCube(Entity):
         self.center.animate('rotation_z', self.center.rotation_z - 90, duration=self.turnSpeed)
         invoke(self.reparentCube, delay=(self.turnSpeed+.1))
 
-    def rotateBB(self):
+    def rotateBi(self):
+        self.virtualCube.Bi()
         for e in self.cubes:
             e.reparent_to(self)
             if round(e.z) == 1:
@@ -334,6 +347,7 @@ class VisCube(Entity):
         invoke(self.reparentCube, delay=(self.turnSpeed+.1))
 
     def rotateL(self):
+        self.virtualCube.L()
         for e in self.cubes:
             e.reparent_to(self)
             if round(e.x) == -1:
@@ -341,7 +355,8 @@ class VisCube(Entity):
         self.center.animate('rotation_x', self.center.rotation_x - 90, duration=self.turnSpeed)
         invoke(self.reparentCube, delay=(self.turnSpeed+.1))
 
-    def rotateLL(self):
+    def rotateLi(self):
+        self.virtualCube.Li()
         for e in self.cubes:
             e.reparent_to(self)
             if round(e.x) == -1:
@@ -350,6 +365,7 @@ class VisCube(Entity):
         invoke(self.reparentCube, delay=(self.turnSpeed+.1))
 
     def rotateR(self):
+        self.virtualCube.R()
         for e in self.cubes:
             e.reparent_to(self)
             if round(e.x) == 1:
@@ -357,7 +373,8 @@ class VisCube(Entity):
         self.center.animate('rotation_x', self.center.rotation_x + 90, duration=self.turnSpeed)
         invoke(self.reparentCube, delay=(self.turnSpeed+.1))
 
-    def rotateRR(self):
+    def rotateRi(self):
+        self.virtualCube.Ri()
         for e in self.cubes:
             e.reparent_to(self)
             if round(e.x) == 1:
@@ -366,6 +383,7 @@ class VisCube(Entity):
         invoke(self.reparentCube, delay=(self.turnSpeed+.1))
 
     def rotateM(self):
+        self.virtualCube.M()
         for e in self.cubes:
             e.reparent_to(self)
             if round(e.x) == 0:
@@ -373,7 +391,8 @@ class VisCube(Entity):
         self.center.animate('rotation_x', self.center.rotation_x - 90, duration=self.turnSpeed)
         invoke(self.reparentCube, delay=(self.turnSpeed+.1))
 
-    def rotateMM(self):
+    def rotateMi(self):
+        self.virtualCube.Mi()
         for e in self.cubes:
             e.reparent_to(self)
             if round(e.x) == 0:
@@ -382,36 +401,42 @@ class VisCube(Entity):
         invoke(self.reparentCube, delay=(self.turnSpeed+.1))
 
     def rotateX(self):
+        self.virtualCube.X()
         for e in self.cubes:
             e.reparent_to(self.center)
         self.center.animate('rotation_y', self.center.rotation_y - 90, duration=self.turnSpeed)
         invoke(self.reparentCube, delay=(self.turnSpeed+.1))
 
-    def rotateXX(self):
+    def rotateXi(self):
+        self.virtualCube.Xi()
         for e in self.cubes:
             e.reparent_to(self.center)
         self.center.animate('rotation_y', self.center.rotation_y + 90, duration=self.turnSpeed)
         invoke(self.reparentCube, delay=(self.turnSpeed+.1))
 
     def rotateY(self):
+        self.virtualCube.Y()
         for e in self.cubes:
             e.reparent_to(self.center)
         self.center.animate('rotation_x', self.center.rotation_x + 90, duration=self.turnSpeed)
         invoke(self.reparentCube, delay=(self.turnSpeed+.1))
 
-    def rotateYY(self):
+    def rotateYi(self):
+        self.virtualCube.Yi()
         for e in self.cubes:
             e.reparent_to(self.center)
         self.center.animate('rotation_x', self.center.rotation_x - 90, duration=self.turnSpeed)
         invoke(self.reparentCube, delay=(self.turnSpeed+.1))
 
     def rotateZ(self):
+        self.virtualCube.Z()
         for e in self.cubes:
             e.reparent_to(self.center)
         self.center.animate('rotation_z', self.center.rotation_z - 90, duration=self.turnSpeed)
         invoke(self.reparentCube, delay=(self.turnSpeed+.1))
 
-    def rotateZZ(self):
+    def rotateZi(self):
+        self.virtualCube.Zi()
         for e in self.cubes:
             e.reparent_to(self.center)
         self.center.animate('rotation_z', self.center.rotation_z + 90, duration=self.turnSpeed)
