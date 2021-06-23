@@ -49,6 +49,7 @@ def input(key):
             anim = True
             hintCube.rotateF()
             invoke(endAnim, delay=.6)
+            cube.print()
     #these are used for camera movement, to be deleted in final version
     # if key == 'left mouse down':
     #    drag = True
@@ -165,6 +166,7 @@ def resetCube():  # resets cube
 def openSettings(): #open settings menu
     global settings
     if not settings:
+        settingsButton.color = color.light_gray
         resetButton.enabled = True
         rotateRButton.enabled = True
         rotateLButton.enabled = True
@@ -178,6 +180,7 @@ def openSettings(): #open settings menu
         speedSlider.enabled = True
         settings = True
     else:
+        settingsButton.color = color.gray
         resetButton.enabled = False
         rotateRButton.enabled = False
         rotateLButton.enabled = False
@@ -195,16 +198,17 @@ def openHints(): #open hints menu
     global hints
     global blinking
     if not hints:
+        hintButton.color = color.light_gray
         hintDisplay.enabled = True
         hints = True
     else:
+        hintButton.color = color.gray
         hintDisplay.enabled = False
         hints = False
 
     if blinking:
         blinking = False
         cube.unblink()
-
 
 
 def readString(rotations, scrambling = False):  # goes through string and does each move
@@ -229,7 +233,7 @@ def readString(rotations, scrambling = False):  # goes through string and does e
                 readSequence.start()
                 return
             elif rotations[i] == 'U':
-                if rotations[i +1] == "i":
+                if rotations[i + 1] == "i":
                     readSequence.append(stepTime)
                     readSequence.append(Func(cube.rotateUi))
                 else:
@@ -307,7 +311,7 @@ def scramble():  # creates a random string of moves
     moves = ["U" ,"E" ,"D" ,"L" ,"M" ,"R" ,"F" ,"S" ,"B" ,"Ui" ,"Ei" ,"Di" ,"Li" ,"Mi" ,"Ri" ,"Fi" ,"Si" ,"Bi"]
     scrambled_moves = " ".join(random.choices(moves, k=25))
     readString(scrambled_moves, True)
-    print(cube.virtualCube)
+    #print(cube.virtualCube)
 
 def hintMove():
     global blinking

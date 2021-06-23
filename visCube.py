@@ -486,6 +486,10 @@ class VisCube(Entity):
     def setTurnSpeed(self, t):
         self.turnSpeed = t
 
+    def print(self):
+        print('-------------------------')
+        print(self.virtualCube)
+
     def delete(self): #deletes all cubes and arrows, the old coordinates were still lingering and messing with stuff temp fix was moving, should look into later
         for e in self.cubes:
             e.position=(100, 100, 100)
