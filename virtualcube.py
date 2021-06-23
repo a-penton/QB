@@ -13,7 +13,7 @@ Helper methods:
 
 """
 
-c = Cube("OOOOOOOOOYYYWWWGGGBBBYYYWWWGGGBBBYYYWWWGGGBBBRRRRRRRRR")
+c = Cube("RRRRRRRRRBBBWWWGGGYYYBBBWWWGGGYYYBBBWWWGGGYYYOOOOOOOOO")
 
 def perform(cube, move):
 	if move == 'U':
@@ -123,7 +123,7 @@ def find_next_cross_piece(cube):
 	# assume white cross, white face on D
 
 	# first check U layer
-	top_face = cube.find_piece('B')
+	top_face = cube.find_piece('Y')
 	u_edges = get_face_edges(cube, top_face)
 	for e in u_edges:
 		if 'W' in e.colors:
