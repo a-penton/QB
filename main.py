@@ -260,17 +260,11 @@ def readString(rotations, scrambling = False):  # goes through string and does e
                     readSequence.append(Func(cube.rotateD))
             elif rotations[i] == 'L':
                 if rotations[i + 1] == "i":
-<<<<<<< HEAD
                     virtualCube.Li()
                     readSequence.append(stepTime)
                     readSequence.append(Func(cube.rotateLL))
                 else:
                     virtualCube.L() 
-=======
-                    readSequence.append(stepTime)
-                    readSequence.append(Func(cube.rotateLL))
-                else:
->>>>>>> c6943a8e7545b958426fb25aa1647f4ba7a14954
                     readSequence.append(stepTime)
                     readSequence.append(Func(cube.rotateL))
             elif rotations[i] == 'M':
