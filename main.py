@@ -331,7 +331,6 @@ def scramble():  # creates a random string of moves
     print("Virtual Cube Before Scramble")
     print(virtualCube)
     readString(scrambled_moves, True)
-    #virtualCube.sequence(scrambled_moves)
     print("Virtual Cube After Scramble")
     print(virtualCube)
 
