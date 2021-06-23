@@ -328,10 +328,7 @@ def scramble():  # creates a random string of moves
     global virtualCube
     moves = ["U" ,"E" ,"D" ,"L" ,"M" ,"R" ,"F" ,"S" ,"B" ,"Ui" ,"Ei" ,"Di" ,"Li" ,"Mi" ,"Ri" ,"Fi" ,"Si" ,"Bi"]
     scrambled_moves = " ".join(random.choices(moves, k=25))
-    print("Virtual Cube Before Scramble")
-    print(virtualCube)
     readString(scrambled_moves, True)
-    print("Virtual Cube After Scramble")
     print(virtualCube)
 
 def hintMove():
