@@ -2,6 +2,7 @@ from ursina import *
 from visCube import *
 from visHints import *
 import random
+from rubik.cube import Cube
 
 anim = False  # used to lockout inputs during animation
 blinking = False
@@ -23,6 +24,7 @@ window.color = color.dark_gray
 cube = VisCube()  # rubiks cube
 hintCube = VisHints()  # hints
 center = Entity()  # center transform, used for rotation
+virtualCube = Cube("OOOOOOOOOYYYWWWGGGBBBYYYWWWGGGBBBYYYWWWGGGBBBRRRRRRRRR") # Initializes solved virtual cube
 
 
 def main():
@@ -249,6 +251,9 @@ def resetCube():  # resets cube
     invoke(endAnim, delay=.65)
     changeTurnSpeed()
 
+    global virtualCube
+    virtualCube = Cube("OOOOOOOOOYYYWWWGGGBBBYYYWWWGGGBBBYYYWWWGGGBBBRRRRRRRRR") # Resets virtual cube
+
 
 def openSettings(): #open settings menu
     global settings
@@ -304,7 +309,6 @@ def readString(rotations, scrambling = False):  # goes through string and does e
         stepTime = .3  # time between moves in sequence 65
         reading = True
         toggleInput()
-        rotations = rotations.upper()
         rotations += '0'
         readSequence = Sequence()
         for i in range(len(rotations)):
@@ -318,63 +322,63 @@ def readString(rotations, scrambling = False):  # goes through string and does e
                 readSequence.start()
                 return
             elif rotations[i] == 'U':
-                if rotations[ i +1] == "'":
+                if rotations[i +1] == "i":
                     readSequence.append(stepTime)
                     readSequence.append(Func(cube.rotateUU))
                 else:
                     readSequence.append(stepTime)
                     readSequence.append(Func(cube.rotateU))
             elif rotations[i] == 'E':
-                if rotations[i + 1] == "'":
+                if rotations[i + 1] == "i":
                     readSequence.append(stepTime)
                     readSequence.append(Func(cube.rotateEE))
                 else:
                     readSequence.append(stepTime)
                     readSequence.append(Func(cube.rotateE))
             elif rotations[i] == 'D':
-                if rotations[i + 1] == "'":
+                if rotations[i + 1] == "i":
                     readSequence.append(stepTime)
                     readSequence.append(Func(cube.rotateDD))
                 else:
                     readSequence.append(stepTime)
                     readSequence.append(Func(cube.rotateD))
             elif rotations[i] == 'L':
-                if rotations[i + 1] == "'":
+                if rotations[i + 1] == "i":
                     readSequence.append(stepTime)
                     readSequence.append(Func(cube.rotateLL))
                 else:
                     readSequence.append(stepTime)
                     readSequence.append(Func(cube.rotateL))
             elif rotations[i] == 'M':
-                if rotations[i + 1] == "'":
+                if rotations[i + 1] == "i":
                     readSequence.append(stepTime)
                     readSequence.append(Func(cube.rotateMM))
                 else:
                     readSequence.append(stepTime)
                     readSequence.append(Func(cube.rotateM))
             elif rotations[i] == 'R':
-                if rotations[i + 1] == "'":
+                if rotations[i + 1] == "i":
                     readSequence.append(stepTime)
                     readSequence.append(Func(cube.rotateRR))
                 else:
                     readSequence.append(stepTime)
                     readSequence.append(Func(cube.rotateR))
             elif rotations[i] == 'F':
-                if rotations[i + 1] == "'":
+                if rotations[i + 1] == "i":
                     readSequence.append(stepTime)
                     readSequence.append(Func(cube.rotateFF))
                 else:
                     readSequence.append(stepTime)
                     readSequence.append(Func(cube.rotateF))
             elif rotations[i] == 'S':
-                if rotations[i + 1] == "'":
+                if rotations[i + 1] == "i":
                     readSequence.append(stepTime)
                     readSequence.append(Func(cube.rotateSS))
                 else:
                     readSequence.append(stepTime)
                     readSequence.append(Func(cube.rotateS))
             elif rotations[i] == 'B':
-                if rotations[i + 1] == "'":
+                if rotations[i + 1] == "i":
                     readSequence.append(stepTime)
                     readSequence.append(Func(cube.rotateBB))
                 else:
@@ -393,10 +397,15 @@ def toggleInput():  # toggles the text input on or off
         inputList.enabled = True
 
 def scramble():  # creates a random string of moves
-    moves = ["u" ,"e" ,"d" ,"l" ,"m" ,"r" ,"f" ,"s" ,"b" ,"u'" ,"e'" ,"d'" ,"l'" ,"m'" ,"r'" ,"f'" ,"s'" ,"b'" ,"uu"
-             ,"ee" ,"dd" ,"ll" ,"mm" ,"rr" ,"ff" ,"ss" ,"bb"]
-    scrambled_moves = "".join(random.choices(moves, k=25))
+    global virtualCube
+    moves = ["U" ,"E" ,"D" ,"L" ,"M" ,"R" ,"F" ,"S" ,"B" ,"Ui" ,"Ei" ,"Di" ,"Li" ,"Mi" ,"Ri" ,"Fi" ,"Si" ,"Bi"]
+    scrambled_moves = " ".join(random.choices(moves, k=25))
+    print("Virtual Cube Before Scramble")
+    print(virtualCube)
+    virtualCube.sequence(scrambled_moves)
     readString(scrambled_moves, True)
+    print("Virtual Cube After Scramble")
+    print(virtualCube)
 
 def hintMove():
     global blinking
