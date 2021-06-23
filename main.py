@@ -307,6 +307,7 @@ def scramble():  # creates a random string of moves
     moves = ["U" ,"E" ,"D" ,"L" ,"M" ,"R" ,"F" ,"S" ,"B" ,"Ui" ,"Ei" ,"Di" ,"Li" ,"Mi" ,"Ri" ,"Fi" ,"Si" ,"Bi"]
     scrambled_moves = " ".join(random.choices(moves, k=25))
     readString(scrambled_moves, True)
+    print(cube.virtualCube)
 
 def hintMove():
     global blinking
