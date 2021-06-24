@@ -28,7 +28,7 @@ center = Entity()  # center transform, used for rotation
 
 def main():
     # setting camera, lighting, and scene
-    camera.setPos(8, 8, -25)
+    camera.setPos(16, 8, -25)
     camera.lookAt(cube)
     light = DirectionalLight(x=3, y=20, z=-10)
     light.lookAt(cube)  # making sure the cube is always well lit
@@ -385,8 +385,13 @@ hintMoveButton = Button(text='Help', icon='', color=color.dark_gray, scale=(.3,.
 hintDetailButton = Button(text='Details', icon='', color=color.dark_gray, scale=(.2,.15), position=(-.0, -.375, -1), parent=hintDisplay, on_click=Func(hintDetailToggle))
 hintDetail = Button(text='', icon='HintDetail1', color=color.gray, highlight_color=color.gray, pressed_color=color.gray,
                     position=(-0, -1.85, 1), scale=(1.1, 2.64), collider='', parent = hintDisplay, enabled=False)
-hintSpecific = Button(text='', icon='placeholdertext', color=color.gray, highlight_color=color.gray, pressed_color=color.gray,
-                    position=(.6, 0, 1), scale=(.5, .25), collider='', enabled=False)
+hintSpecific = Button(text='We need to flip the %s %s piece\n'       
+                           'Rotate the cube so the piece at the bottom right.\n'
+                           'Then perform R Di F D', icon='flip-1', color=color.gray, highlight_color=color.gray, pressed_color=color.gray,
+                    position=(.55, -.1, 1), scale=(.6, .5), collider='', enabled=False)
+hintSpecific.icon.scale = (.33,.396)
+hintSpecific.icon.position = (0,-.3)
+hintSpecific.text_origin = (-.5, .3)
 
 
 
