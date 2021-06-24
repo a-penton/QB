@@ -19,6 +19,8 @@ window.borderless = False
 window.exit_button.visible = False
 window.color = color.dark_gray
 
+window.fullscreen = True
+
 
 # initializing entities
 cube = VisCube()  # rubiks cube
@@ -26,9 +28,33 @@ hintCube = VisHints()  # hints
 center = Entity()  # center transform, used for rotation
 
 
+def menu():
+    cube_menu_model.enabled = True
+    title.enabled = True
+    help_menu.enabled = True
+    settings_menu.enabled = True
+    start_menu.enabled = True
+    exit.enabled = True
+    hintButton.enabled = False
+    settingsButton.enabled = False
+    cube.enabled = False
+
+def start():
+    cube_menu_model.enabled = False
+    title.enabled = False
+    help_menu.enabled = False
+    settings_menu.enabled = False
+    exit.enabled = False
+    start_menu.enabled = False
+    hintButton.enabled = True
+    settingsButton.enabled = True
+    cube.enabled = True
+
+
 def main():
+    menu()
     # setting camera, lighting, and scene
-    camera.setPos(16, 8, -25)
+    camera.setPos(8, 8, -25)
     camera.lookAt(cube)
     light = DirectionalLight(x=3, y=20, z=-10)
     light.lookAt(cube)  # making sure the cube is always well lit
@@ -71,6 +97,10 @@ def update():  # called every frame
     global center
     global anim
     global reading
+    # makes the main menu cube rotate
+    if cube_menu_model.enabled:
+        cube_menu_model.rotation_y += time.dt * 100 
+
     # camera movements, to be deleted in final build
     # if drag:
     #    cube.reparent_to(center)
@@ -385,13 +415,18 @@ hintMoveButton = Button(text='Help', icon='', color=color.dark_gray, scale=(.3,.
 hintDetailButton = Button(text='Details', icon='', color=color.dark_gray, scale=(.2,.15), position=(-.0, -.375, -1), parent=hintDisplay, on_click=Func(hintDetailToggle))
 hintDetail = Button(text='', icon='HintDetail1', color=color.gray, highlight_color=color.gray, pressed_color=color.gray,
                     position=(-0, -1.85, 1), scale=(1.1, 2.64), collider='', parent = hintDisplay, enabled=False)
-hintSpecific = Button(text='We need to flip the %s %s piece\n'       
-                           'Rotate the cube so the piece at the bottom right.\n'
-                           'Then perform R Di F D', icon='flip-1', color=color.gray, highlight_color=color.gray, pressed_color=color.gray,
-                    position=(.55, -.1, 1), scale=(.6, .5), collider='', enabled=False)
-hintSpecific.icon.scale = (.33,.396)
-hintSpecific.icon.position = (0,-.3)
-hintSpecific.text_origin = (-.5, .3)
+hintSpecific = Button(text='', icon='placeholdertext', color=color.gray, highlight_color=color.gray, pressed_color=color.gray,
+                    position=(.6, 0, 1), scale=(.5, .25), collider='', enabled=False)
+
+# menu buttons ==================
+exit = Button(text='Exit',text_color = color.black, model='quad', color=color.red, scale=(.2,.07), text_origin=(0,0), position=(0,-.4))
+exit.on_click = application.quit # assign a function to the button.
+exittooltip = Tooltip('exit')
+start_menu = Button(text='Start QB',text_color = color.black, model='quad', on_click=Func(start), color= color.rgb(0,128,0), scale=(.2,.07), text_origin=(0,0), position  = (0,-.1))
+settings_menu = Button(text='Settings',text_color = color.black, model='quad', color= color.rgb(255,255,0), highlight_color = color.yellow.tint(.5), scale=(.2,.07), text_origin=(0,0), position  = (0,-.2))
+help_menu = Button(text='Help',text_color = color.black, model='quad', color=color.rgb(255,165,0), scale=(.2,.07), text_origin=(0,0), position  = (0,-.3))
+cube_menu_model = Entity(model='cube', color=color.orange, scale=(2,2,2), position = (0,2))
+title = Text(text='QB', origin=(0,0), size = 20, background=False, position = (0,2))
 
 
 
