@@ -20,7 +20,7 @@ window.exit_button.visible = False
 window.color = color.dark_gray
 
 window.fullscreen = True
-
+window.aspect_ratio = 2
 
 # initializing entities
 cube = VisCube()  # rubiks cube
