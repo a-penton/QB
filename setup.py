@@ -14,7 +14,7 @@ setup(
 	entry_points = 
 	{ "console_scripts":
 		[
-			#"command_name = src:main",
+			"run_simulation = src:main",
 			#"command_name_2 = src.file_name:func_name"
 		]
 	}
