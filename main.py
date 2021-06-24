@@ -39,6 +39,24 @@ def menu():
     settingsButton.enabled = False
     cube.enabled = False
     main_menu_button.enabled = False
+    
+    hintDisplay.enabled = False
+    hintDetail.enabled = False
+    hintSpecific.enabled = False
+    resetButton.enabled = False
+    rotateRButton.enabled = False
+    rotateLButton.enabled = False
+    rotateUButton.enabled = False
+    rotateDButton.enabled = False
+    background.enabled = False
+    inputButton.enabled = False
+    scrambleButton.enabled = False
+    rotateZRButton.enabled = False
+    rotateZLButton.enabled = False
+    speedSlider.enabled = False
+    settings = False
+    settingsButton.color = color.gray
+    hintButton.color = color.gray
 
 def start():
     cube_menu_model.enabled = False
@@ -51,6 +69,7 @@ def start():
     settingsButton.enabled = True
     cube.enabled = True
     main_menu_button.enabled = True
+
 
 
 def main():
