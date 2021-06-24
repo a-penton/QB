@@ -38,6 +38,7 @@ def menu():
     hintButton.enabled = False
     settingsButton.enabled = False
     cube.enabled = False
+    main_menu_button.enabled = False
 
 def start():
     cube_menu_model.enabled = False
@@ -49,6 +50,7 @@ def start():
     hintButton.enabled = True
     settingsButton.enabled = True
     cube.enabled = True
+    main_menu_button.enabled = True
 
 
 def main():
@@ -407,6 +409,9 @@ speedSlider.label.origin = (0,0)
 speedSlider.label.position = (.25,.25)
 speedSlider.label.scale = 4.5
 speedSlider.knob.text_color = color.clear
+
+main_menu_button = Button(text='Menu', text_color = color.black, color=color.gray,text_origin=(0,0),position = (-.7,.43,0), on_click=Func(menu), scale=.075)
+
 # hints============
 hintButton = Button(text='', icon='hintButton', color=color.gray, scale=.075, position=(-.81, -.43, 0), on_click=Func(openHints))
 hintDisplay = Button(text='', icon='hint1', color=color.gray, highlight_color=color.gray, pressed_color=color.gray,
