@@ -404,42 +404,42 @@ class VisCube(Entity):
         self.virtualCube.X()
         for e in self.cubes:
             e.reparent_to(self.center)
-        self.center.animate('rotation_y', self.center.rotation_y - 90, duration=self.turnSpeed)
+        self.center.animate('rotation_x', self.center.rotation_x + 90, duration=self.turnSpeed)
         invoke(self.reparentCube, delay=(self.turnSpeed+.1))
 
     def rotateXi(self):
         self.virtualCube.Xi()
         for e in self.cubes:
             e.reparent_to(self.center)
-        self.center.animate('rotation_y', self.center.rotation_y + 90, duration=self.turnSpeed)
+        self.center.animate('rotation_x', self.center.rotation_x - 90, duration=self.turnSpeed)
         invoke(self.reparentCube, delay=(self.turnSpeed+.1))
 
     def rotateY(self):
         self.virtualCube.Y()
         for e in self.cubes:
             e.reparent_to(self.center)
-        self.center.animate('rotation_x', self.center.rotation_x + 90, duration=self.turnSpeed)
+        self.center.animate('rotation_y', self.center.rotation_y + 90, duration=self.turnSpeed)
         invoke(self.reparentCube, delay=(self.turnSpeed+.1))
 
     def rotateYi(self):
         self.virtualCube.Yi()
         for e in self.cubes:
             e.reparent_to(self.center)
-        self.center.animate('rotation_x', self.center.rotation_x - 90, duration=self.turnSpeed)
+        self.center.animate('rotation_y', self.center.rotation_y - 90, duration=self.turnSpeed)
         invoke(self.reparentCube, delay=(self.turnSpeed+.1))
 
     def rotateZ(self):
         self.virtualCube.Z()
         for e in self.cubes:
             e.reparent_to(self.center)
-        self.center.animate('rotation_z', self.center.rotation_z - 90, duration=self.turnSpeed)
+        self.center.animate('rotation_z', self.center.rotation_z + 90, duration=self.turnSpeed)
         invoke(self.reparentCube, delay=(self.turnSpeed+.1))
 
     def rotateZi(self):
         self.virtualCube.Zi()
         for e in self.cubes:
             e.reparent_to(self.center)
-        self.center.animate('rotation_z', self.center.rotation_z + 90, duration=self.turnSpeed)
+        self.center.animate('rotation_z', self.center.rotation_z - 90, duration=self.turnSpeed)
         invoke(self.reparentCube, delay=(self.turnSpeed+.1))
 
     def blink(self):

@@ -356,16 +356,16 @@ background = Button(text='', color=color.gray, highlight_color=color.gray, press
 resetButton = Button(text='Reset', color=color.red, scale=.1, position=(-.81, -.18, 0), on_click=Func(resetCube),
                      enabled=False)
 rotateRButton = Button(text='', icon='rotateR', color=color.white, highlight_color=color.light_gray, scale=.1, position=(-.69, .18, 0),
-                       on_click=Func(rotateR), enabled=False)
-rotateLButton = Button(text='', icon='rotateL', color=color.white, highlight_color=color.light_gray, scale=.1, position=(-.81, .18, 0),
-                       on_click=Func(rotateL), enabled=False)
-rotateUButton = Button(text='', icon='rotateU', color=color.white, highlight_color=color.light_gray, scale=.1, position=(-.81, .3, 0),
-                       on_click=Func(rotateU), enabled=False)
-rotateDButton = Button(text='', icon='rotateD', color=color.white, highlight_color=color.light_gray, scale=.1, position=(-.69, .3, 0),
                        on_click=Func(rotateD), enabled=False)
-rotateZRButton = Button(text='', icon='rotateZR', color=color.white, highlight_color=color.light_gray, scale=.1, position=(-.69, .06, 0),
+rotateLButton = Button(text='', icon='rotateL', color=color.white, highlight_color=color.light_gray, scale=.1, position=(-.81, .18, 0),
+                       on_click=Func(rotateU), enabled=False)
+rotateUButton = Button(text='', icon='rotateU', color=color.white, highlight_color=color.light_gray, scale=.1, position=(-.81, .3, 0),
+                       on_click=Func(rotateR), enabled=False)
+rotateDButton = Button(text='', icon='rotateD', color=color.white, highlight_color=color.light_gray, scale=.1, position=(-.69, .3, 0),
+                       on_click=Func(rotateL), enabled=False)
+rotateZRButton = Button(text='', icon='rotateZL', color=color.white, highlight_color=color.light_gray, scale=.1, position=(-.69, .06, 0),
                        on_click=Func(rotateZR), enabled=False)
-rotateZLButton = Button(text='', icon='rotateZL', color=color.white, highlight_color=color.light_gray, scale=.1, position=(-.81, .06, 0),
+rotateZLButton = Button(text='', icon='rotateZR', color=color.white, highlight_color=color.light_gray, scale=.1, position=(-.81, .06, 0),
                        on_click=Func(rotateZL), enabled=False)
 inputButton = Button(text='Input', color=color.red, scale=.1, position=(-.69, -.06, 0), on_click=Func(toggleInput),
                      enabled=False)
