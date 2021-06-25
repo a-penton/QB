@@ -254,6 +254,7 @@ def openHints(): #open hints menu
         hintButton.color = color.gray
         hintDisplay.enabled = False
         hints = False
+        hintSpecific.enabled = False
 
     if blinking:
         blinking = False
@@ -398,6 +399,8 @@ def changeTurnSpeed():
         cube.setTurnSpeed(speedSlider.value)
 
 def updateCurrentHint(hintText, hintPicture):
+    if hintPicture == 'top.png':
+        hintSpecific.icon.scale = (.33 * 2, .396 * 2)
     hintSpecific.icon = hintPicture
     hintSpecific.text = hintText
 
@@ -450,7 +453,8 @@ hintSpecific = Button(text='We need to flip the %s %s piece\n'
                            'Rotate the cube so the piece at the bottom right.\n'
                            'Then perform R Di F D', icon='flip-1', color=color.gray, highlight_color=color.gray, pressed_color=color.gray,
                     position=(.55, -.1, 1), scale=(.6, .5), collider='', enabled=False)
-hintSpecific.icon.scale = (.33,.396)
+#hintSpecific.icon.scale = (.33,.396)
+hintSpecific.icon.scale = (.33*3, .396*3)
 hintSpecific.icon.position = (0,-.3)
 hintSpecific.text_origin = (-.5, .3)
 
