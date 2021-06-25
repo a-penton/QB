@@ -10,41 +10,65 @@ TODO:
 
 """
 
-def hint(cube):
-	# returns tuple of string and name of step/image
+def hint(cube, piece):
+	# returns tuple of string and name of step/image by calling other functions
+
+	if cross_solved(cube):
+		return ("The cross is solved!", "placeholdertext")
+	else:
+		return get_cross_hint(cube, piece)
+
+def get_cross_hint(cube, piece):
+	# checks if a new hint is needed or not, then calls a function
+	# that function will return the specific hint for the piece
 
 	if cross_solved(cube):
 		return ("The cross is solved!", "placeholdertext")
 	else:
 		# check that white is on bottom
-		white_face = cube.get_piece('W')
+		white_face = cube.find_piece('W')
 		if white_face.pos != (0,-1,0):
 			return ("Rotate the cube so the white face is on bottom", "placeholdertext")
 
-		# find the next cross edge
-		next_piece, case = find_next_cross_edge(cube)
-		e_colors = list(filter(None, next_piece.colors))
-		non_white = e_colors[0] if e_colors[1] == 'W' else e_colors[1]
+		# determine if the current edge is solved
+		if is_edge_solved(piece):
+			next_piece, case = find_next_cross_edge(cube)
+			e_colors = list(filter(None, next_piece.colors))
+			non_white = e_colors[0] if e_colors[1] == 'W' else e_colors[1]
 
-		# depending on case, provide next hint
-		if case == 1:
-			s = "put the %s %s edge above the %s center, then turn the %s center twice" % (*e_colors, non_white, non_white)
-			img = "top.png"
-		elif case == 2:
-			s = "move the %s %s edge to the top, turn the top, then undo the first move" % (*e_colors,)
-			img = "middle.png"
-		elif case == 3:
-			if is_edge_permuted(cube, next_piece):
-				s = "Flip the %s %s edge" % (*e_colors,)
-				s += "\n1. Rotate the cube so it is at the bottom right"
-				s += "\n2. Perform R Di F D"
-				img = "flip.png"
-			else:
-				s = "Bring the %s %s edge to the top by turning one side twice" % (*e_colors,)
-				img = "placeholdertext"
+			return get_specific_cross_hint(cube, next_piece)
+		else:
+			# provide next hint based on current piece
+			return get_specific_cross_hint(cube, piece)
 
-		return (s, img)
+def get_specific_cross_hint(cube, piece):
+	# returns tuple of hint text and image
+	# assuming white on bottom
 
+	# get some information about the piece
+	piece_colors = list(filter(None, piece.colors))
+	non_white = piece_colors[0] if piece_colors[1] == 'W' else piece_colors[1]
+
+	if piece.pos[1] == 1:
+		# piece in U-layer
+		s = "put the %s %s edge above the %s center, then turn the %s center twice" % (*piece_colors, non_white, non_white)
+		img = "top.png"
+	elif piece.pos[1] == 0:
+		# piece in E-slice (middle layer)
+		s = "move the %s %s edge to the top, turn the top, then undo the first move" % (*piece_colors,)
+		img = "middle.png"
+	elif is_edge_permuted(piece):
+		# flipped in place
+		s = "Flip the %s %s edge" % (*e_colors,)
+		s += "\n1. Rotate the cube so it is at the bottom right"
+		s += "\n2. Perform R Di F D"
+		img = "flip.png"
+	else:
+		# in the cross but misplaced
+		s = "Bring the %s %s edge to the top by turning one side twice" % (*e_colors,)
+		img = "placeholdertext"
+
+	return (s, img)
 
 def is_edge_permuted(cube, piece):
 	# Just the permutation part of the is_edge_solved function
@@ -65,30 +89,26 @@ def is_edge_permuted(cube, piece):
 
 def find_next_cross_edge(cube):
 	# finds next unsolved cross edge, assuming white/yellow on U/D
-	# returns a tuple, second value depends on case
-	# (e, 1) means e is in yellow layer
-	# (e, 2) means e is in middle layer
-	# (e, 3) means e is in white layer
 
 	# first check the yellow side
 	yellow_face = cube.find_piece('Y')
 	possible_edges = get_face_edges(cube, yellow_face)
 	for edge in possible_edges:
 		if 'W' in edge.colors:
-			return (edge, 1)
+			return edge
 
 	# next check the middle layer: this assums white/yellow on U/D
 	for i in range(-1,2,2):
 		for j in range(-1,2,2):
 			if 'W' in cube.get_piece(i,0,j).colors:
-				return (cube.get_piece(i,0,j), 2)
+				return cube.get_piece(i,0,j)
 
 	# finally check white side
 	white_face = cube.find_piece('W')
 	possible_edges = get_face_edges(cube, white_face)
 	for edge in possible_edges:
 		if not is_edge_solved(cube, edge):
-			return (edge, 3)
+			return edge
 
 def cross_solved(cube):
 	# determine if the cross is solved
