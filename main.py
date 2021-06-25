@@ -1,6 +1,7 @@
 from ursina import *
 from visCube import *
 from visHints import *
+from cubesolver import *
 import random
 from rubik.cube import Cube
 
@@ -104,6 +105,9 @@ def input(key):
         if key == 'enter':
             readString(inputList.text)
 
+    if key == 'left mouse down':
+        invoke(checkCurrentHint, delay=cube.turnSpeed)
+
 
 
 
@@ -118,12 +122,20 @@ def update():  # called every frame
         cube_menu_model.rotation_y += time.dt * 100
 
 
+
+
+
+
 def endAnim():  # resets anim to false, needs to be a function to be used with invoke() and delay
     global anim
     anim = False
 
 
 # =====================================================ui buttons=====================================================
+
+def checkCurrentHint():
+    updateCurrentHint(*hint(cube.virtualCube))
+
 def rotateR(): #rotates right
     global anim
     global reading
@@ -267,6 +279,7 @@ def readString(rotations, scrambling = False):  # goes through string and does e
                     readSequence.append(Func(toggleInput))
                 readSequence.append(Func(cube.reenableArrows))
                 readSequence.append(Func(changeTurnSpeed))
+                readSequence.append(Func(checkCurrentHint))
                 readSequence.start()
                 return
             elif rotations[i] == 'U':

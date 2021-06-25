@@ -14,11 +14,11 @@ def hint(cube):
 	# return tuple of string and name of step/image
 
 	if cross_solved(cube):
-		return ("The cross is solved!", None)
+		return ("The cross is solved!", '')
 	else:
 		# find the next cross edge
 		next_piece, case = find_next_cross_edge(cube)
-		e_colors = [c in next_piece.colors if c != None]
+		e_colors = list(filter(None, next_piece.colors))
 		non_white = e_colors[0] if e_colors[1] == 'W' else e_colors[1]
 
 		if case == 1:
@@ -81,7 +81,7 @@ def find_next_cross_edge(cube):
 	white_face = cube.find_piece('W')
 	possible_edges = get_face_edges(cube, white_face)
 	for edge in possible_edges:
-		if not is_edge_solved(edge):
+		if not is_edge_solved(cube, edge):
 			return (edge, 3)
 
 def cross_solved(cube):
@@ -89,10 +89,10 @@ def cross_solved(cube):
 
 	white_center = cube.find_piece('W')
 
-	cross_pieces = get_face_edges(cube, white_face)
+	cross_pieces = get_face_edges(cube, white_center)
 
 	for edge in cross_pieces:
-		if not is_edge_solved(edge):
+		if not is_edge_solved(cube, edge):
 			return False
 
 	return True
