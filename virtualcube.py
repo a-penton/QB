@@ -162,7 +162,14 @@ def solve_cross_piece(cube, piece):
 	colors = [c for c in piece.colors if c != None]
 	# if in the middle, move to the top
 	while piece.pos[1] == 0:
-		print("Move the %s %s piece to the top" % (*colors,))
+		text = "Move the %s %s piece to the top" % (*colors,)
+		text = text.replace(' W ', ' White ')
+		text = text.replace(' R ', ' Red ')
+		text = text.replace(' O ', ' Orange ')
+		text = text.replace(' B ', ' Blue ')
+		text = text.replace(' G ', ' Green ')
+		text = text.replace(' Y ', ' Yellow ')
+		print(text)
 		while piece.pos[1] != 1:
 			print(cube)
 			move = input()
@@ -178,7 +185,14 @@ def solve_cross_piece(cube, piece):
 		move = input()
 		perform(cube, move)
 	# if in the top, move to the bottom
-	print("Move the %s %s piece above its center" % (*colors,))
+	text = "Move the %s %s piece above its center" % (*colors,)
+	text = text.replace(' W ', ' White ')
+	text = text.replace(' R ', ' Red ')
+	text = text.replace(' O ', ' Orange ')
+	text = text.replace(' B ', ' Blue ')
+	text = text.replace(' G ', ' Green ')
+	text = text.replace(' Y ', ' Yellow ')
+	print(text)
 	# https://stackoverflow.com/questions/40676085/why-cant-i-use-a-starred-expression
 	print("Then turn that face twice to put it on the bottom")
 	while piece.pos[1] != -1:
@@ -188,7 +202,14 @@ def solve_cross_piece(cube, piece):
 
 	# if flipped on the bottom, correct it
 	if piece.colors[1] != 'W':
-		print("We need to flip the %s %s piece" % (*colors,))
+		text = "We need to flip the %s %s piece" % (*colors,)
+		text = text.replace(' W ', ' White ')
+		text = text.replace(' R ', ' Red ')
+		text = text.replace(' O ', ' Orange ')
+		text = text.replace(' B ', ' Blue ')
+		text = text.replace(' G ', ' Green ')
+		text = text.replace(' Y ', ' Yellow ')
+		print(text)
 		print("Rotate the cube so the piece at the bottom right.")
 		print("Then perform R Di F D")
 		while not is_cross_edge_solved(cube, piece):

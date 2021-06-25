@@ -74,6 +74,13 @@ def start():
     main_menu_button.enabled = True
     notationButton.enabled = True
 
+def darkLight():
+    if window.color == color.dark_gray:
+        window.color = color.light_gray
+    elif window.color == color.light_gray:
+        window.color = color.dark_gray
+
+
 
 
 def main():
@@ -255,6 +262,7 @@ def openHints(): #open hints menu
         hintButton.color = color.gray
         hintDisplay.enabled = False
         hints = False
+        hintSpecific.enabled = False
 
     if blinking:
         blinking = False
@@ -433,7 +441,7 @@ rotateZLButton = Button(text='', icon='rotateZR', color=color.white, highlight_c
 inputButton = Button(text='Input', color=color.red, scale=.1, position=(-.69, -.06, 0), on_click=Func(toggleInput),
                      enabled=False)
 inputList = TextField(max_lines=1, position=(-.75 ,-.3 ,0), enabled=False)
-scrambleButton = Button(text='Scramble', color=color.red, scale=.1, position=(-.81, -.06, 0), on_click=Func(scramble),
+scrambleButton = Button(text='Scramble', color=color.red, scale=.09, position=(-.81, -.06, 0), on_click=Func(scramble),
                      enabled=False)
 speedSlider = Slider(min=1, max=.1, default=.5, text='Turn Speed', height=.1, on_value_changed=Func(changeTurnSpeed), position=(-.742, -.20, 0), scale=.2, enabled=False)
 speedSlider.label.origin = (0,0)
@@ -456,7 +464,8 @@ hintSpecific = Button(text='We need to flip the %s %s piece\n'
                            'Rotate the cube so the piece at the bottom right.\n'
                            'Then perform R Di F D', icon='flip-1', color=color.gray, highlight_color=color.gray, pressed_color=color.gray,
                     position=(.55, -.1, 1), scale=(.6, .5), collider='', enabled=False)
-hintSpecific.icon.scale = (.33,.396)
+#hintSpecific.icon.scale = (.33,.396)
+hintSpecific.icon.scale = (.33*3, .396*3)
 hintSpecific.icon.position = (0,-.3)
 hintSpecific.text_origin = (-.5, .3)
 
@@ -465,7 +474,7 @@ exit = Button(text='Exit',text_color = color.black, model='quad', color=color.re
 exit.on_click = application.quit # assign a function to the button.
 exittooltip = Tooltip('exit')
 start_menu = Button(text='Start QB',text_color = color.black, model='quad', on_click=Func(start), color= color.rgb(0,128,0), scale=(.2,.07), text_origin=(0,0), position  = (0,-.1))
-settings_menu = Button(text='Settings',text_color = color.black, model='quad', color= color.rgb(255,255,0), highlight_color = color.yellow.tint(.5), scale=(.2,.07), text_origin=(0,0), position  = (0,-.2))
+settings_menu = Button(text='Light/Dark Mode',text_color = color.black, model='quad',on_click=Func(darkLight), color= color.rgb(255,255,0), highlight_color = color.yellow.tint(.5), scale=(.2,.07), text_origin=(0,0), position  = (0,-.2))
 help_menu = Button(text='Help',text_color = color.black, model='quad', color=color.rgb(255,165,0), scale=(.2,.07), text_origin=(0,0), position  = (0,-.3))
 cube_menu_model = Entity(model=load_model(name='cubetest'), color=color.rgb(200, 200, 200, 255), texture="RubiksTex", shader=lit_with_shadows_shader, scale=(2,2,2), position = (0,2))
 title = Text(text='QB', origin=(0,0), size = 20, background=False, position = (0,2))

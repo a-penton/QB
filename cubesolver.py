@@ -45,28 +45,43 @@ def get_specific_cross_hint(cube, piece):
 	piece_colors = list(filter(None, piece.colors))
 	non_white = piece_colors[0] if piece_colors[1] == 'W' else piece_colors[1]
 
+	# depending on the case, provide the hint to solve that piece
 	if piece.pos[1] == 1:
 		# piece in U-layer
-		s = "put the %s %s edge above the %s center, then turn the %s center twice" % (*piece_colors, non_white, non_white)
+		s = "put the %s %s edge above the %s center,\nthen turn the %s center twice" % (*piece_colors, non_white, non_white)
+		fix_color_string(s)
 		img = "top.png"
 	elif piece.pos[1] == 0:
 		# piece in E-slice (middle layer)
 		s = "Move the %s %s edge to the top,\nturn the top,\nthen undo the first move" % (*piece_colors,)
 		s += "\n\nPut the %s %s edge above the %s center, then turn the %s center twice" % (*piece_colors, non_white, non_white)
+		fix_color_string(s)
 		img = "middle.png"
 	elif is_edge_permuted(piece):
 		# flipped in place
-		s = "Flip the %s %s edge" % (*e_colors,)
-		s += "\n1. Rotate the cube so it is at the bottom right"
+		s = "We need to flip the %s %s edge" % (*e_colors,)
+		fix_color_string(s)
+		s += "\n1. Rotate the cube so it is at\n the bottom right"
 		s += "\n2. Perform R Di F D"
 		img = "flip.png"
 	else:
 		# in the cross but misplaced
-		s = "Bring the %s %s edge to the top by turning one side twice" % (*e_colors,)
+		s = "Bring the %s %s edge to the top\nby turning one side twice" % (*e_colors,)
+		fix_color_string(s)
 		img = "placeholdertext"
 
-	print(piece)
 	return (s, img, piece)
+
+def fix_color_string(s):
+	# replace individual letters with their colors
+	s = s.replace(' W ', ' White ')
+	s = s.replace(' R ', ' Red ')
+	s = s.replace(' O ', ' Orange ')
+	s = s.replace(' B ', ' Blue ')
+	s = s.replace(' G ', ' Green ')
+	s = s.replace(' Y ', ' Yellow ')
+
+	return s
 
 def is_edge_permuted(cube, piece):
 	# Just the permutation part of the is_edge_solved function
