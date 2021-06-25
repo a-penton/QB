@@ -11,10 +11,11 @@ TODO:
 """
 
 def hint(cube, piece):
-	# returns tuple of string and name of step/image by calling other functions
+	# returns tuple of string, name of image, and next piece to solve
+	# calls other functions to do so
 
 	if cross_solved(cube):
-		return ("The cross is solved!", "placeholdertext")
+		return ("The cross is solved!", "placeholdertext", None)
 	else:
 		return get_cross_hint(cube, piece)
 
@@ -22,24 +23,19 @@ def get_cross_hint(cube, piece):
 	# checks if a new hint is needed or not, then calls a function
 	# that function will return the specific hint for the piece
 
-	if cross_solved(cube):
-		return ("The cross is solved!", "placeholdertext")
+	# check that white is on bottom
+	white_face = cube.find_piece('W')
+	if white_face.pos != (0,-1,0):
+		return ("Rotate the cube so the white face is on bottom", "placeholdertext", None)
+
+	# determine if the current edge is solved
+	if piece == None or is_edge_solved(cube, piece):
+		next_piece = find_next_cross_edge(cube)
+
+		return get_specific_cross_hint(cube, next_piece)
 	else:
-		# check that white is on bottom
-		white_face = cube.find_piece('W')
-		if white_face.pos != (0,-1,0):
-			return ("Rotate the cube so the white face is on bottom", "placeholdertext")
-
-		# determine if the current edge is solved
-		if is_edge_solved(piece):
-			next_piece, case = find_next_cross_edge(cube)
-			e_colors = list(filter(None, next_piece.colors))
-			non_white = e_colors[0] if e_colors[1] == 'W' else e_colors[1]
-
-			return get_specific_cross_hint(cube, next_piece)
-		else:
-			# provide next hint based on current piece
-			return get_specific_cross_hint(cube, piece)
+		# piece is still unsolved, don't need to update
+		return (None, None, None)
 
 def get_specific_cross_hint(cube, piece):
 	# returns tuple of hint text and image
@@ -55,7 +51,8 @@ def get_specific_cross_hint(cube, piece):
 		img = "top.png"
 	elif piece.pos[1] == 0:
 		# piece in E-slice (middle layer)
-		s = "move the %s %s edge to the top, turn the top, then undo the first move" % (*piece_colors,)
+		s = "Move the %s %s edge to the top,\nturn the top,\nthen undo the first move" % (*piece_colors,)
+		s += "\n\nPut the %s %s edge above the %s center, then turn the %s center twice" % (*piece_colors, non_white, non_white)
 		img = "middle.png"
 	elif is_edge_permuted(piece):
 		# flipped in place
@@ -68,7 +65,8 @@ def get_specific_cross_hint(cube, piece):
 		s = "Bring the %s %s edge to the top by turning one side twice" % (*e_colors,)
 		img = "placeholdertext"
 
-	return (s, img)
+	print(piece)
+	return (s, img, piece)
 
 def is_edge_permuted(cube, piece):
 	# Just the permutation part of the is_edge_solved function
