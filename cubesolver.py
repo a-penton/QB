@@ -14,7 +14,7 @@ def hint(cube):
 	# return tuple of string and name of step/image
 
 	if cross_solved(cube):
-		return ("The cross is solved!", '')
+		return ("The cross is solved!", 'placeholdertext')
 	else:
 		# find the next cross edge
 		next_piece, case = find_next_cross_edge(cube)
@@ -35,7 +35,7 @@ def hint(cube):
 				img = "flip.png"
 			else:
 				s = "Bring the %s %s edge to the top by turning one side twice" % (*e_colors,)
-				img = None
+				img = 'placeholdertext'
 
 		return (s, img)
 
