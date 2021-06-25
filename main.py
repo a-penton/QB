@@ -27,6 +27,7 @@ window.aspect_ratio = 2
 cube = VisCube()  # rubiks cube
 hintCube = VisHints()  # hints
 center = Entity()  # center transform, used for rotation
+current_piece = None
 
 
 def menu():
@@ -141,7 +142,7 @@ def endAnim():  # resets anim to false, needs to be a function to be used with i
 # =====================================================ui buttons=====================================================
 
 def checkCurrentHint():
-    updateCurrentHint(*hint(cube.virtualCube))
+    updateCurrentHint(*hint(cube.virtualCube, current_piece))
 
 def rotateR(): #rotates right
     global anim
@@ -405,11 +406,14 @@ def changeTurnSpeed():
     if not reading:
         cube.setTurnSpeed(speedSlider.value)
 
-def updateCurrentHint(hintText, hintPicture):
-    if hintPicture == 'top.png':
-        hintSpecific.icon.scale = (.33 * 2, .396 * 2)
-    hintSpecific.icon = hintPicture
-    hintSpecific.text = hintText
+def updateCurrentHint(hintText, hintPicture, next_piece):
+    global current_piece
+    if hintText != None:
+        hintSpecific.icon = hintPicture
+    if hintPicture != None:
+        hintSpecific.text = hintText
+    if next_piece != None:
+        current_piece = next_piece
 
 def displayNotation():
     cube.toggleNotation()
