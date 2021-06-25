@@ -54,6 +54,7 @@ def menu():
     rotateZRButton.enabled = False
     rotateZLButton.enabled = False
     speedSlider.enabled = False
+    notationButton.enabled = False
     settings = False
     settingsButton.color = color.gray
     hintButton.color = color.gray
@@ -69,13 +70,14 @@ def start():
     settingsButton.enabled = True
     cube.enabled = True
     main_menu_button.enabled = True
+    notationButton.enabled = True
 
 
 
 def main():
     menu()
     # setting camera, lighting, and scene
-    camera.setPos(8, 8, -25)
+    camera.setPos(16, 8, -25)
     camera.lookAt(cube)
     light = DirectionalLight(x=3, y=20, z=-10)
     light.lookAt(cube)  # making sure the cube is always well lit
@@ -97,14 +99,7 @@ def input(key):
             hintCube.rotateF()
             invoke(endAnim, delay=.6)
             cube.print()
-    #these are used for camera movement, to be deleted in final version
-    # if key == 'left mouse down':
-    #    drag = True
-    #    mousepos = mouse.position
-
-   # if key == 'left mouse up':
-     #   drag = False
-
+            updateCurrentHint('Move the %s %s piece above its center\n test', 'flip-2')
     if inputList.enabled and not cube.anim:#inputs string from ui textbox as a list off moves
         if key == 'enter':
             readString(inputList.text)
@@ -120,16 +115,7 @@ def update():  # called every frame
     global reading
     # makes the main menu cube rotate
     if cube_menu_model.enabled:
-        cube_menu_model.rotation_y += time.dt * 100 
-
-    # camera movements, to be deleted in final build
-    # if drag:
-    #    cube.reparent_to(center)
-    #    center.rotation_y += 100 * (mousepos[0] - mouse.position[0])
-    #    center.rotation_x += 100 * (mouse.position[1] - mousepos[1])
-    #    cube.reparent_to(scene)
-    #    center.rotation = (0, 0, 0)
-    # mousepos = mouse.position
+        cube_menu_model.rotation_y += time.dt * 100
 
 
 def endAnim():  # resets anim to false, needs to be a function to be used with invoke() and delay
@@ -398,6 +384,13 @@ def changeTurnSpeed():
     if not reading:
         cube.setTurnSpeed(speedSlider.value)
 
+def updateCurrentHint(hintText, hintPicture):
+    hintSpecific.icon = hintPicture
+    hintSpecific.text = hintText
+
+def displayNotation():
+    cube.toggleNotation()
+
 # =============================================================UI buttons======================================================================
 # settings==============
 settingsButton = Button(text='', icon='gear', color=color.gray, scale=.075, position=(-.81, .43, 0),
@@ -432,6 +425,7 @@ speedSlider.knob.text_color = color.clear
 main_menu_button = Button(text='Menu', text_color = color.black, color=color.gray,text_origin=(0,0),position = (-.7,.43,0), on_click=Func(menu), scale=.075)
 
 # hints============
+notationButton = Button(text='', text_color = color.black, icon='ShowNotation', color=color.gray, scale=.075, position=(-.69, -.43, 0), on_click=Func(displayNotation))
 hintButton = Button(text='', icon='hintButton', color=color.gray, scale=.075, position=(-.81, -.43, 0), on_click=Func(openHints))
 hintDisplay = Button(text='', icon='hint1', color=color.gray, highlight_color=color.gray, pressed_color=color.gray,
                     position=(.6, .35, 1), scale=(.5, .25), collider='', enabled=False)
@@ -439,8 +433,13 @@ hintMoveButton = Button(text='Help', icon='', color=color.dark_gray, scale=(.3,.
 hintDetailButton = Button(text='Details', icon='', color=color.dark_gray, scale=(.2,.15), position=(-.0, -.375, -1), parent=hintDisplay, on_click=Func(hintDetailToggle))
 hintDetail = Button(text='', icon='HintDetail1', color=color.gray, highlight_color=color.gray, pressed_color=color.gray,
                     position=(-0, -1.85, 1), scale=(1.1, 2.64), collider='', parent = hintDisplay, enabled=False)
-hintSpecific = Button(text='', icon='placeholdertext', color=color.gray, highlight_color=color.gray, pressed_color=color.gray,
-                    position=(.6, 0, 1), scale=(.5, .25), collider='', enabled=False)
+hintSpecific = Button(text='We need to flip the %s %s piece\n'       
+                           'Rotate the cube so the piece at the bottom right.\n'
+                           'Then perform R Di F D', icon='flip-1', color=color.gray, highlight_color=color.gray, pressed_color=color.gray,
+                    position=(.55, -.1, 1), scale=(.6, .5), collider='', enabled=False)
+hintSpecific.icon.scale = (.33,.396)
+hintSpecific.icon.position = (0,-.3)
+hintSpecific.text_origin = (-.5, .3)
 
 # menu buttons ==================
 exit = Button(text='Exit',text_color = color.black, model='quad', color=color.red, scale=(.2,.07), text_origin=(0,0), position=(0,-.4))
@@ -449,7 +448,7 @@ exittooltip = Tooltip('exit')
 start_menu = Button(text='Start QB',text_color = color.black, model='quad', on_click=Func(start), color= color.rgb(0,128,0), scale=(.2,.07), text_origin=(0,0), position  = (0,-.1))
 settings_menu = Button(text='Settings',text_color = color.black, model='quad', color= color.rgb(255,255,0), highlight_color = color.yellow.tint(.5), scale=(.2,.07), text_origin=(0,0), position  = (0,-.2))
 help_menu = Button(text='Help',text_color = color.black, model='quad', color=color.rgb(255,165,0), scale=(.2,.07), text_origin=(0,0), position  = (0,-.3))
-cube_menu_model = Entity(model='cube', color=color.orange, scale=(2,2,2), position = (0,2))
+cube_menu_model = Entity(model=load_model(name='cubetest'), color=color.rgb(200, 200, 200, 255), texture="RubiksTex", shader=lit_with_shadows_shader, scale=(2,2,2), position = (0,2))
 title = Text(text='QB', origin=(0,0), size = 20, background=False, position = (0,2))
 
 
