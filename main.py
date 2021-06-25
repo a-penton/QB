@@ -73,6 +73,13 @@ def start():
     main_menu_button.enabled = True
     notationButton.enabled = True
 
+def darkLight():
+    if window.color == color.dark_gray:
+        window.color = color.light_gray
+    elif window.color == color.light_gray:
+        window.color = color.dark_gray
+
+
 
 
 def main():
@@ -463,7 +470,7 @@ exit = Button(text='Exit',text_color = color.black, model='quad', color=color.re
 exit.on_click = application.quit # assign a function to the button.
 exittooltip = Tooltip('exit')
 start_menu = Button(text='Start QB',text_color = color.black, model='quad', on_click=Func(start), color= color.rgb(0,128,0), scale=(.2,.07), text_origin=(0,0), position  = (0,-.1))
-settings_menu = Button(text='Settings',text_color = color.black, model='quad', color= color.rgb(255,255,0), highlight_color = color.yellow.tint(.5), scale=(.2,.07), text_origin=(0,0), position  = (0,-.2))
+settings_menu = Button(text='Light/Dark Mode',text_color = color.black, model='quad',on_click=Func(darkLight), color= color.rgb(255,255,0), highlight_color = color.yellow.tint(.5), scale=(.2,.07), text_origin=(0,0), position  = (0,-.2))
 help_menu = Button(text='Help',text_color = color.black, model='quad', color=color.rgb(255,165,0), scale=(.2,.07), text_origin=(0,0), position  = (0,-.3))
 cube_menu_model = Entity(model=load_model(name='cubetest'), color=color.rgb(200, 200, 200, 255), texture="RubiksTex", shader=lit_with_shadows_shader, scale=(2,2,2), position = (0,2))
 title = Text(text='QB', origin=(0,0), size = 20, background=False, position = (0,2))
