@@ -28,23 +28,37 @@ def hint(cube):
 
 		# depending on case, provide next hint
 		if case == 1:
-			s = "put the %s %s edge above the %s center, then turn the %s center twice" % (*e_colors, non_white, non_white)
+			s = "put the %s %s edge above the %s center, \nthen turn the %s center twice" % (*e_colors, non_white, non_white)
+			fix_color_string(s)
 			img = "top.png"
 		elif case == 2:
-			s = "move the %s %s edge to the top, turn the top, then undo the first move" % (*e_colors,)
+			s = "move the %s %s edge to the top, \nturn the top, then undo \nthe first move" % (*e_colors,)
+			fix_color_string(s)
 			img = "middle.png"
 		elif case == 3:
 			if is_edge_permuted(cube, next_piece):
 				s = "Flip the %s %s edge" % (*e_colors,)
-				s += "\n1. Rotate the cube so it is at the bottom right"
+				fix_color_string(s)
+				s += "\n1. Rotate the cube so it is at \nthe bottom right"
 				s += "\n2. Perform R Di F D"
 				img = "flip.png"
 			else:
-				s = "Bring the %s %s edge to the top by turning one side twice" % (*e_colors,)
-				img = "placeholdertext"
+				s = "Bring the %s %s edge to the top by \nturning one side twice" % (*e_colors,)
+				fix_color_string(s)
+				img = 'placeholdertext'
 
 		return (s, img)
 
+def fix_color_string(s):
+	# replace individual letters with their colors
+	s = s.replace(' W ', ' White ')
+	s = s.replace(' R ', ' Red ')
+	s = s.replace(' O ', ' Orange ')
+	s = s.replace(' B ', ' Blue ')
+	s = s.replace(' G ', ' Green ')
+	s = s.replace(' Y ', ' Yellow ')
+
+	return s
 
 def is_edge_permuted(cube, piece):
 	# Just the permutation part of the is_edge_solved function
