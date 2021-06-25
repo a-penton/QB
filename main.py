@@ -427,7 +427,7 @@ rotateZLButton = Button(text='', icon='rotateZR', color=color.white, highlight_c
 inputButton = Button(text='Input', color=color.red, scale=.1, position=(-.69, -.06, 0), on_click=Func(toggleInput),
                      enabled=False)
 inputList = TextField(max_lines=1, position=(-.75 ,-.3 ,0), enabled=False)
-scrambleButton = Button(text='Scramble', color=color.red, scale=.1, position=(-.81, -.06, 0), on_click=Func(scramble),
+scrambleButton = Button(text='Scramble', color=color.red, scale=.09, position=(-.81, -.06, 0), on_click=Func(scramble),
                      enabled=False)
 speedSlider = Slider(min=1, max=.1, default=.5, text='Turn Speed', height=.1, on_value_changed=Func(changeTurnSpeed), position=(-.742, -.20, 0), scale=.2, enabled=False)
 speedSlider.label.origin = (0,0)
