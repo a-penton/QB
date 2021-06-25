@@ -11,16 +11,22 @@ TODO:
 """
 
 def hint(cube):
-	# return tuple of string and name of step/image
+	# returns tuple of string and name of step/image
 
 	if cross_solved(cube):
-		return ("The cross is solved!", 'placeholdertext')
+		return ("The cross is solved!", "placeholdertext")
 	else:
+		# check that white is on bottom
+		white_face = cube.get_piece('W')
+		if white_face.pos != (0,-1,0):
+			return ("Rotate the cube so the white face is on bottom", "placeholdertext")
+
 		# find the next cross edge
 		next_piece, case = find_next_cross_edge(cube)
 		e_colors = list(filter(None, next_piece.colors))
 		non_white = e_colors[0] if e_colors[1] == 'W' else e_colors[1]
 
+		# depending on case, provide next hint
 		if case == 1:
 			s = "put the %s %s edge above the %s center, then turn the %s center twice" % (*e_colors, non_white, non_white)
 			img = "top.png"
@@ -35,7 +41,7 @@ def hint(cube):
 				img = "flip.png"
 			else:
 				s = "Bring the %s %s edge to the top by turning one side twice" % (*e_colors,)
-				img = 'placeholdertext'
+				img = "placeholdertext"
 
 		return (s, img)
 
@@ -129,7 +135,7 @@ def is_edge_solved(cube, piece):
 	# there's probably a way to extend this to corners too
 
 	# determine faces
-	piece_colors = [c for c in piece.colors if c != None]
+	piece_colors = list(filter(None, piece.colors))
 	face_one = cube.find_piece(piece_colors[0])
 	face_two = cube.find_piece(piece_colors[1])
 
