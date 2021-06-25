@@ -11,11 +11,13 @@ TODO:
 """
 
 def hint(cube, piece):
+	print(piece)
 	# returns tuple of string, name of image, and next piece to solve
 	# calls other functions to do so
 
 	if cross_solved(cube):
-		return ("The cross is solved!", "placeholdertext", None)
+		# if solved, the piece returned is the white center
+		return ("The cross is solved!", "placeholdertext", cube.find_piece('W'))
 	else:
 		return get_cross_hint(cube, piece)
 
@@ -29,10 +31,13 @@ def get_cross_hint(cube, piece):
 		return ("Rotate the cube so the white face is on bottom", "placeholdertext", None)
 
 	# determine if the current edge is solved
-	if piece == None or is_edge_solved(cube, piece):
+	if piece == None or piece == white_face or is_edge_solved(cube, piece):
 		next_piece = find_next_cross_edge(cube)
-
 		return get_specific_cross_hint(cube, next_piece)
+	elif is_edge_permuted(cube, piece):
+		# if the edge is flipped in place
+
+		return get_specific_cross_hint(cube, piece)
 	else:
 		# piece is still unsolved, don't need to update
 		return (None, None, None)
@@ -53,20 +58,20 @@ def get_specific_cross_hint(cube, piece):
 		img = "top.png"
 	elif piece.pos[1] == 0:
 		# piece in E-slice (middle layer)
-		s = "Move the %s %s edge to the top.\nDo this so that the white sticker faces up.\nNow turn the top,\nthen undo the first move" % (*piece_colors,)
+		s = "Move the %s %s edge to the top layer.\nNow turn the top,\nthen undo the first move" % (*piece_colors,)
 		s += "\n\nPut the %s %s edge above the %s center,\nthen turn the %s center twice" % (*piece_colors, non_white, non_white)
 		s = fix_color_string(s)
 		img = "middle.png"
-	elif is_edge_permuted(piece):
+	elif is_edge_permuted(cube, piece):
 		# flipped in place
-		s = "We need to flip the %s %s edge" % (*e_colors,)
+		s = "We need to flip the %s %s edge" % (*piece_colors,)
 		s = fix_color_string(s)
 		s += "\n1. Rotate the cube so it is at\n the bottom right"
 		s += "\n2. Perform R Di F D"
 		img = "flip.png"
 	else:
 		# in the cross but misplaced
-		s = "Bring the %s %s edge to the top\nby turning one side twice" % (*e_colors,)
+		s = "Bring the %s %s edge to the top\nby turning one side twice" % (*piece_colors,)
 		s = fix_color_string(s)
 		img = "placeholdertext"
 
