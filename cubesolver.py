@@ -49,25 +49,25 @@ def get_specific_cross_hint(cube, piece):
 	if piece.pos[1] == 1:
 		# piece in U-layer
 		s = "put the %s %s edge above the %s center,\nthen turn the %s center twice" % (*piece_colors, non_white, non_white)
-		fix_color_string(s)
+		s = fix_color_string(s)
 		img = "top.png"
 	elif piece.pos[1] == 0:
 		# piece in E-slice (middle layer)
-		s = "Move the %s %s edge to the top,\nturn the top,\nthen undo the first move" % (*piece_colors,)
-		s += "\n\nPut the %s %s edge above the %s center, then turn the %s center twice" % (*piece_colors, non_white, non_white)
-		fix_color_string(s)
+		s = "Move the %s %s edge to the top.\nDo this so that the white sticker faces up.\nNow turn the top,\nthen undo the first move" % (*piece_colors,)
+		s += "\n\nPut the %s %s edge above the %s center,\nthen turn the %s center twice" % (*piece_colors, non_white, non_white)
+		s = fix_color_string(s)
 		img = "middle.png"
 	elif is_edge_permuted(piece):
 		# flipped in place
 		s = "We need to flip the %s %s edge" % (*e_colors,)
-		fix_color_string(s)
+		s = fix_color_string(s)
 		s += "\n1. Rotate the cube so it is at\n the bottom right"
 		s += "\n2. Perform R Di F D"
 		img = "flip.png"
 	else:
 		# in the cross but misplaced
 		s = "Bring the %s %s edge to the top\nby turning one side twice" % (*e_colors,)
-		fix_color_string(s)
+		s = fix_color_string(s)
 		img = "placeholdertext"
 
 	return (s, img, piece)
