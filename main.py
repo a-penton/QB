@@ -420,7 +420,7 @@ def displayNotation():
 
 # =============================================================UI buttons======================================================================
 # settings==============
-settingsButton = Button(text='', icon='gear', color=color.gray, scale=.075, position=(-.81, .43, 0),
+settingsButton = Button(text='Controls', text_color = color.black, color=color.gray, scale=.095, position=(-.81, .43, 0),
                         on_click=Func(openSettings))
 background = Button(text='', color=color.gray, highlight_color=color.gray, pressed_color=color.gray,
                     position=(-.75, 0.06, 1), scale=(.25, .63), collider='', enabled=False)
@@ -449,11 +449,11 @@ speedSlider.label.position = (.25,.25)
 speedSlider.label.scale = 4.5
 speedSlider.knob.text_color = color.clear
 
-main_menu_button = Button(text='Menu', text_color = color.black, color=color.gray,text_origin=(0,0),position = (-.7,.43,0), on_click=Func(menu), scale=.075)
+main_menu_button = Button(text='Menu', text_color = color.black, color=color.gray,text_origin=(0,0),position = (-.69,.43,0), on_click=Func(menu), scale=.095)
 
 # hints============
-notationButton = Button(text='', text_color = color.black, icon='ShowNotation', color=color.gray, scale=.075, position=(-.69, -.43, 0), on_click=Func(displayNotation))
-hintButton = Button(text='', icon='hintButton', color=color.gray, scale=.075, position=(-.81, -.43, 0), on_click=Func(openHints))
+notationButton = Button(text='', text_color = color.black, icon='ShowNotation', color=color.gray, scale=.095, position=(-.69, -.43, 0), on_click=Func(displayNotation))
+hintButton = Button(text='Hints', text_color = color.black, color=color.gray, scale=.095, position=(-.81, -.43, 0), on_click=Func(openHints))
 hintDisplay = Button(text='', icon='hint1', color=color.gray, highlight_color=color.gray, pressed_color=color.gray,
                     position=(.6, .35, 1), scale=(.5, .25), collider='', enabled=False)
 hintMoveButton = Button(text='Help', icon='', color=color.dark_gray, scale=(.3,.15), position=(-.3, -.375, -1), parent=hintDisplay, on_click=Func(hintSpecificToggle))
