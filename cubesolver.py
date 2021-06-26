@@ -61,7 +61,7 @@ def get_specific_cross_hint(cube, piece):
 		s = "Move the %s %s edge to the top layer.\nNow turn the top,\nthen undo the first move" % (*piece_colors,)
 		s += "\n\nPut the %s %s edge above the %s center,\nthen turn the %s center twice" % (*piece_colors, non_white, non_white)
 		s = fix_color_string(s)
-		img = "middle.png"
+		img = "middleV2.png"
 	elif is_edge_permuted(cube, piece):
 		# flipped in place
 		s = "We need to flip the %s %s edge" % (*piece_colors,)

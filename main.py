@@ -16,7 +16,7 @@ mousepos = []  # stores mouse position for rotating camera
 app = Ursina()
 # window settings
 window.borderless = False
-# window.fps_counter.enabled = False
+window.fps_counter.enabled = False
 window.exit_button.visible = False
 window.color = color.dark_gray
 
@@ -104,17 +104,17 @@ def input(key):
     global mousepos
     if not anim and not reading and not inputList.enabled:  # if not already animated, read keys and animate
         if key == 'm':  # this one is for hints, and requires a longer delay
-            anim = True
-            hintCube.rotateF()
-            invoke(endAnim, delay=.6)
+            #anim = True
+            #hintCube.rotateF()
+            #invoke(endAnim, delay=.6)
             cube.print()
-            updateCurrentHint('Move the %s %s piece above its center\n test', 'flip-2', None)
+            #updateCurrentHint('Move the %s %s piece above its center\n test', 'flip-2', None)
     if inputList.enabled and not cube.anim:#inputs string from ui textbox as a list off moves
         if key == 'enter':
             readString(inputList.text)
 
     if key == 'left mouse down':
-        invoke(checkCurrentHint, delay=cube.turnSpeed)
+        invoke(checkCurrentHint, delay=cube.turnSpeed+.25)
 
 
 
@@ -411,6 +411,16 @@ def updateCurrentHint(hintText, hintPicture, next_piece):
     if hintText != None:
         hintSpecific.icon = hintPicture
     if hintPicture != None:
+        if hintPicture == 'top.png':
+            hintSpecific.icon.scale=(.33*2, .396*2)
+        elif hintPicture == 'middleV2.png':
+            hintSpecific.icon.scale=(.33*2, .396*2)
+            hintSpecific.icon.position = (0, -.325)
+            hintSpecific.text_origin = (-.5, .4)
+        else:
+            hintSpecific.icon.scale = (.33 * 3, .396 * 3)
+            hintSpecific.icon.position = (0, -.3)
+            hintSpecific.text_origin = (-.5, .3)
         hintSpecific.text = hintText
     if next_piece != None:
         current_piece = next_piece
@@ -468,6 +478,7 @@ hintSpecific = Button(text='We need to flip the %s %s piece\n'
 hintSpecific.icon.scale = (.33*3, .396*3)
 hintSpecific.icon.position = (0,-.3)
 hintSpecific.text_origin = (-.5, .3)
+
 
 # menu buttons ==================
 exit = Button(text='Exit',text_color = color.black, model='quad', color=color.red, scale=(.2,.07), text_origin=(0,0), position=(0,-.4))
