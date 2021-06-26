@@ -28,7 +28,7 @@ def get_cross_hint(cube, piece):
 	# check that white is on bottom
 	white_face = cube.find_piece('W')
 	if white_face.pos != (0,-1,0):
-		return ("Rotate the cube so the white face is on bottom", "placeholdertext", None)
+		return ("Rotate the cube so the white face is on bottom", "placeholdertext", white_face)
 
 	# determine if the current edge is solved
 	if piece == None or piece == white_face or is_edge_solved(cube, piece):
