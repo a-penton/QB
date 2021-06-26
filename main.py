@@ -107,7 +107,7 @@ def input(key):
             #anim = True
             #hintCube.rotateF()
             #invoke(endAnim, delay=.6)
-            cube.print()
+            # cube.print()
             #updateCurrentHint('Move the %s %s piece above its center\n test', 'flip-2', None)
     if inputList.enabled and not cube.anim:#inputs string from ui textbox as a list off moves
         if key == 'enter':

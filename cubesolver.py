@@ -11,7 +11,6 @@ TODO:
 """
 
 def hint(cube, piece):
-	print(piece)
 	# returns tuple of string, name of image, and next piece to solve
 	# calls other functions to do so
 
