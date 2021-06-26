@@ -291,64 +291,64 @@ def readString(rotations, scrambling = False):  # goes through string and does e
                 readSequence.append(Func(checkCurrentHint))
                 readSequence.start()
                 return
-            elif rotations[i] == 'U':
-                if rotations[i + 1] == "i":
+            elif rotations[i].upper() == 'U':
+                if rotations[i + 1].lower() == "i":
                     readSequence.append(stepTime)
                     readSequence.append(Func(cube.rotateUi))
                 else:
                     readSequence.append(stepTime)
                     readSequence.append(Func(cube.rotateU))
-            elif rotations[i] == 'E':
-                if rotations[i + 1] == "i":
+            elif rotations[i].upper() == 'E':
+                if rotations[i + 1].lower() == "i":
                     readSequence.append(stepTime)
                     readSequence.append(Func(cube.rotateEi))
                 else:
                     readSequence.append(stepTime)
                     readSequence.append(Func(cube.rotateE))
-            elif rotations[i] == 'D':
-                if rotations[i + 1] == "i":
+            elif rotations[i].upper() == 'D':
+                if rotations[i + 1].lower() == "i":
                     readSequence.append(stepTime)
                     readSequence.append(Func(cube.rotateDi))
                 else:
                     readSequence.append(stepTime)
                     readSequence.append(Func(cube.rotateD))
-            elif rotations[i] == 'L':
-                if rotations[i + 1] == "i":
+            elif rotations[i].upper() == 'L':
+                if rotations[i + 1].lower() == "i":
                     readSequence.append(stepTime)
                     readSequence.append(Func(cube.rotateLi))
                 else:
                     readSequence.append(stepTime)
                     readSequence.append(Func(cube.rotateL))
-            elif rotations[i] == 'M':
-                if rotations[i + 1] == "i":
+            elif rotations[i].upper() == 'M':
+                if rotations[i + 1].lower() == "i":
                     readSequence.append(stepTime)
                     readSequence.append(Func(cube.rotateMi))
                 else:
                     readSequence.append(stepTime)
                     readSequence.append(Func(cube.rotateM))
-            elif rotations[i] == 'R':
-                if rotations[i + 1] == "i":
+            elif rotations[i].upper() == 'R':
+                if rotations[i + 1].lower() == "i":
                     readSequence.append(stepTime)
                     readSequence.append(Func(cube.rotateRi))
                 else:
                     readSequence.append(stepTime)
                     readSequence.append(Func(cube.rotateR))
-            elif rotations[i] == 'F':
-                if rotations[i + 1] == "i":
+            elif rotations[i].upper() == 'F':
+                if rotations[i + 1].lower() == "i":
                     readSequence.append(stepTime)
                     readSequence.append(Func(cube.rotateFi))
                 else:
                     readSequence.append(stepTime)
                     readSequence.append(Func(cube.rotateF))
-            elif rotations[i] == 'S':
-                if rotations[i + 1] == "i":
+            elif rotations[i].upper() == 'S':
+                if rotations[i + 1].lower() == "i":
                     readSequence.append(stepTime)
                     readSequence.append(Func(cube.rotateSi))
                 else:
                     readSequence.append(stepTime)
                     readSequence.append(Func(cube.rotateS))
-            elif rotations[i] == 'B':
-                if rotations[i + 1] == "i":
+            elif rotations[i].upper() == 'B':
+                if rotations[i + 1].lower() == "i":
                     readSequence.append(stepTime)
                     readSequence.append(Func(cube.rotateBi))
                 else:
