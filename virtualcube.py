@@ -217,6 +217,13 @@ def solve_cross_piece(cube, piece):
 			move = input()
 			perform(cube, move)
 
+# Takes a white edge and returns the other color
+def get_white_edge_color(piece):
+	for i in range(3):
+		if piece.colors[i] != None and piece.colors[i] != "W":
+			return piece.colors[i]
+	return ""
+
 def main():	
 	white_face = c.find_piece('W')
 	
