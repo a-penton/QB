@@ -102,8 +102,8 @@ def input(key):
     global reading
     global drag
     global mousepos
-    if not anim and not reading and not inputList.enabled:  # if not already animated, read keys and animate
-        if key == 'm':  # this one is for hints, and requires a longer delay
+    #if not anim and not reading and not inputList.enabled:  # if not already animated, read keys and animate
+        #if key == 'm':  # this one is for hints, and requires a longer delay
             #anim = True
             #hintCube.rotateF()
             #invoke(endAnim, delay=.6)
