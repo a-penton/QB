@@ -102,12 +102,12 @@ def input(key):
     global reading
     global drag
     global mousepos
-    #if not anim and not reading and not inputList.enabled:  # if not already animated, read keys and animate
-        #if key == 'm':  # this one is for hints, and requires a longer delay
+    if not anim and not reading and not inputList.enabled:  # if not already animated, read keys and animate
+        if key == 'm':  # this one is for hints, and requires a longer delay
             #anim = True
             #hintCube.rotateF()
             #invoke(endAnim, delay=.6)
-            # cube.print()
+            cube.print()
             #updateCurrentHint('Move the %s %s piece above its center\n test', 'flip-2', None)
     if inputList.enabled and not cube.anim:#inputs string from ui textbox as a list off moves
         if key == 'enter':
@@ -280,6 +280,7 @@ def readString(rotations, scrambling = False):  # goes through string and does e
         toggleInput()
         rotations += '0'
         readSequence = Sequence()
+        readSequence.time_step = time.dt
         for i in range(len(rotations)):
             if rotations[i] == '0':
                 readSequence.append(stepTime)
@@ -368,7 +369,7 @@ def toggleInput():  # toggles the text input on or off
 
 def scramble():  # creates a random string of moves
     moves = ["U" ,"E" ,"D" ,"L" ,"M" ,"R" ,"F" ,"S" ,"B" ,"Ui" ,"Ei" ,"Di" ,"Li" ,"Mi" ,"Ri" ,"Fi" ,"Si" ,"Bi"]
-    scrambled_moves = " ".join(random.choices(moves, k=25))
+    scrambled_moves = " ".join(random.choices(moves, k=10))
     readString(scrambled_moves, True)
     #print(cube.virtualCube)
 
@@ -451,7 +452,7 @@ rotateZLButton = Button(text='', icon='rotateZR', color=color.white, highlight_c
 inputButton = Button(text='Input', color=color.red, scale=.1, position=(-.69, -.06, 0), on_click=Func(toggleInput),
                      enabled=False)
 inputList = TextField(max_lines=1, position=(-.75 ,-.3 ,0), enabled=False)
-scrambleButton = Button(text='Scramble', color=color.red, scale=.09, position=(-.81, -.06, 0), on_click=Func(scramble),
+scrambleButton = Button(text='Scramble', color=color.red, scale=.1, position=(-.81, -.06, 0), on_click=Func(scramble),
                      enabled=False)
 speedSlider = Slider(min=1, max=.1, default=.5, text='Turn Speed', height=.1, on_value_changed=Func(changeTurnSpeed), position=(-.742, -.20, 0), scale=.2, enabled=False)
 speedSlider.label.origin = (0,0)
