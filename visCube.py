@@ -492,6 +492,7 @@ class VisCube(Entity):
     def unblink(self):
         self.blinkSeq.loop = False
         self.blinkSeq.pause()
+        self.blinkSeq.kill()
         self.blinkSeq.finish()
         self.blinkSeq = Sequence()
         for e in self.cubes:
