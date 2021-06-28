@@ -2,7 +2,7 @@ from setuptools import setup
 
 setup(
 	name="QB-solver",
-	version="0.1.4.1",
+	version="0.1.4.4",
 	packages=["src", "src.hints", "src.Models",],	# name of modules
 	url="https://github.com/a-penton/QB",
 	# license

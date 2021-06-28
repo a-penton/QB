@@ -29,6 +29,7 @@ hintCube = VisHints()  # hints
 center = Entity()  # center transform, used for rotation
 current_piece = None
 
+application.asset_folder='src/'
 
 def menu():
     cube_menu_model.enabled = True
