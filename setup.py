@@ -2,14 +2,14 @@ from setuptools import setup
 
 setup(
 	name="QB-solver",
-	version="0.1.2",
-	packages=["src",],	# name of modules
+	version="0.1.4.1",
+	packages=["src", "src.hints", "src.Models",],	# name of modules
 	url="https://github.com/a-penton/QB",
 	# license
 	author="Andrew Penton, Heinrich Perez, Steven Perez, Noah Sharpe, Daniel Shinkarow",
 	# author_email
 	description="Rubik's cube simulation and tutorial",
-	install_requires=["ursina", "rubik-cube"],
+	install_requires=["ursina", "rubik-cube", "psd-tools3"],
 
 	entry_points = 
 	{ "console_scripts":

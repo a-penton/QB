@@ -1,0 +1,4 @@
+include src/hints/*.png
+include src/Models/*.png
+include src/Models/*.obj
+include src/Models/Notation/*.png
