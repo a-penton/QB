@@ -56,28 +56,28 @@ class VisCube(Entity):
         arrowE = Entity(model='Arrow', color=color.rgb(255, 255, 00, 175), collider='box', shader=unlit_shader, x=2.1, z=-1.6, rotation=(0,-90,0), parent=self, on_click=Func(self.arrowFunc, self.rotateE), scale=(.5,.5,.5))
         arrowE.on_mouse_enter = Func(setattr, arrowE, 'color', color.rgb(255, 255, 00, 225))
         arrowE.on_mouse_exit = Func(setattr, arrowE, 'color', color.rgb(255, 255, 00, 175))
-        textE = Button(color=color.clear, text='E', rotation=(0,90,0), parent=arrowE, collider=None, enabled = False)
+        textE = Button(color=color.rgba(255,255,255,150), scale=.9, icon='E', rotation=(0,90,0), parent=arrowE, collider=None, enabled = False)
         self.notationText.append(textE)
         self.arrows.append(arrowE)
 
         arrowEi = Entity(model='Arrow', color=color.rgb(255, 255, 00, 175), collider='box', shader=unlit_shader, x=-2.1, z=-1.6, rotation=(0, 90, 0), parent=self, on_click=Func(self.arrowFunc, self.rotateEi), scale=(.5, .5, .5))
         arrowEi.on_mouse_enter = Func(setattr, arrowEi, 'color', color.rgb(255, 255, 00, 225))
         arrowEi.on_mouse_exit = Func(setattr, arrowEi, 'color', color.rgb(255, 255, 00, 175))
-        textEi = Button(color=color.clear, text='Ei', rotation=(0,-90,0), parent=arrowEi, collider=None, enabled = False)
+        textEi = Button(color=color.rgba(255,255,255,150), scale=.9, icon='Ei', rotation=(0,-90,0), parent=arrowEi, collider=None, enabled = False)
         self.notationText.append(textEi)
         self.arrows.append(arrowEi)
 
         arrowU = Entity(model='Arrow', color=color.rgb(255, 255, 00, 175), collider='box', shader=unlit_shader, x=-2.1, y=1, z=-1.6, rotation=(0, 90, 0), parent=self, on_click=Func(self.arrowFunc, self.rotateU), scale=(.5, .5, .5))
         arrowU.on_mouse_enter = Func(setattr, arrowU, 'color', color.rgb(255, 255, 00, 225))
         arrowU.on_mouse_exit = Func(setattr, arrowU, 'color', color.rgb(255, 255, 00, 175))
-        textU = Button(color=color.clear, text='U', rotation=(0, -90, 0), parent=arrowU, collider=None, enabled = False)
+        textU = Button(color=color.rgba(255,255,255,150), scale=.9, icon='U', rotation=(0, -90, 0), parent=arrowU, collider=None, enabled = False)
         self.notationText.append(textU)
         self.arrows.append(arrowU)
 
         arrowUi = Entity(model='Arrow', color=color.rgb(255, 255, 00, 175), collider='box', shader=unlit_shader, x=2.1, y=1, z=-1.6, rotation=(0, -90, 0), parent=self, on_click=Func(self.arrowFunc, self.rotateUi), scale=(.5, .5, .5))
         arrowUi.on_mouse_enter = Func(setattr, arrowUi, 'color', color.rgb(255, 255, 00, 225))
         arrowUi.on_mouse_exit = Func(setattr, arrowUi, 'color', color.rgb(255, 255, 00, 175))
-        textUi = Button(color=color.clear, text='Ui', rotation=(0, 90, 0), parent=arrowUi, collider=None, enabled = False)
+        textUi = Button(color=color.rgba(255,255,255,150), scale=.9, icon='Ui', rotation=(0, 90, 0), parent=arrowUi, collider=None, enabled = False)
         self.notationText.append(textUi)
         self.arrows.append(arrowUi)
 
@@ -85,7 +85,7 @@ class VisCube(Entity):
                         y=-1, z=-1.6, rotation=(0, -90, 0), parent=self, on_click=Func(self.arrowFunc, self.rotateD), scale=(.5, .5, .5))
         arrowD.on_mouse_enter = Func(setattr, arrowD, 'color', color.rgb(255, 255, 00, 225))
         arrowD.on_mouse_exit = Func(setattr, arrowD, 'color', color.rgb(255, 255, 00, 175))
-        textD = Button(color=color.clear, text='D', rotation=(0, 90, 0), parent=arrowD, collider=None, enabled = False)
+        textD = Button(color=color.rgba(255,255,255,150), scale=.9, icon='D', rotation=(0, 90, 0), parent=arrowD, collider=None, enabled = False)
         self.notationText.append(textD)
         self.arrows.append(arrowD)
 
@@ -93,7 +93,7 @@ class VisCube(Entity):
                          y=-1, z=-1.6, rotation=(0, 90, 0), parent=self, on_click=Func(self.arrowFunc, self.rotateDi), scale=(.5, .5, .5))
         arrowDi.on_mouse_enter = Func(setattr, arrowDi, 'color', color.rgb(255, 255, 00, 225))
         arrowDi.on_mouse_exit = Func(setattr, arrowDi, 'color', color.rgb(255, 255, 00, 175))
-        textDi = Button(color=color.clear, text='Di', rotation=(0, -90, 0), parent=arrowDi, collider=None, enabled = False)
+        textDi = Button(color=color.rgba(255,255,255,150), scale=.9, icon='Di', rotation=(0, -90, 0), parent=arrowDi, collider=None, enabled = False)
         self.notationText.append(textDi)
         self.arrows.append(arrowDi)
 
@@ -102,7 +102,7 @@ class VisCube(Entity):
                         scale=(.5, .5, .5))
         arrowL.on_mouse_enter = Func(setattr, arrowL, 'color', color.rgb(255, 255, 00, 225))
         arrowL.on_mouse_exit = Func(setattr, arrowL, 'color', color.rgb(255, 255, 00, 175))
-        textL = Button(color=color.clear, text='L', rotation=(0, 90, -90), parent=arrowL, collider=None, enabled = False)
+        textL = Button(color=color.rgba(255,255,255,150), scale=.9, icon='L', rotation=(0, 90, -90), parent=arrowL, collider=None, enabled = False)
         self.notationText.append(textL)
         self.arrows.append(arrowL)
 
@@ -111,7 +111,7 @@ class VisCube(Entity):
                         scale=(.5, .5, .5))
         arrowLi.on_mouse_enter = Func(setattr, arrowLi, 'color', color.rgb(255, 255, 00, 225))
         arrowLi.on_mouse_exit = Func(setattr, arrowLi, 'color', color.rgb(255, 255, 00, 175))
-        textLi = Button(color=color.clear, text='Li', rotation=(0, 90, 90), parent=arrowLi, collider=None, enabled = False)
+        textLi = Button(color=color.rgba(255,255,255,150), scale=.9, icon='Li', rotation=(0, 90, 90), parent=arrowLi, collider=None, enabled = False)
         self.notationText.append(textLi)
         self.arrows.append(arrowLi)
 
@@ -120,7 +120,7 @@ class VisCube(Entity):
                          scale=(.5, .5, .5))
         arrowM.on_mouse_enter = Func(setattr, arrowM, 'color', color.rgb(255, 255, 00, 225))
         arrowM.on_mouse_exit = Func(setattr, arrowM, 'color', color.rgb(255, 255, 00, 175))
-        textM = Button(color=color.clear, text='M', rotation=(0, 90, -90), parent=arrowM, collider=None, enabled = False)
+        textM = Button(color=color.rgba(255,255,255,150), scale=.9, icon='M', rotation=(0, 90, -90), parent=arrowM, collider=None, enabled = False)
         self.notationText.append(textM)
         self.arrows.append(arrowM)
 
@@ -129,7 +129,7 @@ class VisCube(Entity):
                         scale=(.5, .5, .5))
         arrowMi.on_mouse_enter = Func(setattr, arrowMi, 'color', color.rgb(255, 255, 00, 225))
         arrowMi.on_mouse_exit = Func(setattr, arrowMi, 'color', color.rgb(255, 255, 00, 175))
-        textMi = Button(color=color.clear, text='Mi', rotation=(0, 90, 90), parent=arrowMi, collider=None, enabled = False)
+        textMi = Button(color=color.rgba(255,255,255,150), scale=.9, icon='Mi', rotation=(0, 90, 90), parent=arrowMi, collider=None, enabled = False)
         self.notationText.append(textMi)
         self.arrows.append(arrowMi)
 
@@ -138,7 +138,7 @@ class VisCube(Entity):
                          scale=(.5, .5, .5))
         arrowR.on_mouse_enter = Func(setattr, arrowR, 'color', color.rgb(255, 255, 00, 225))
         arrowR.on_mouse_exit = Func(setattr, arrowR, 'color', color.rgb(255, 255, 00, 175))
-        textR = Button(color=color.clear, text='R', rotation=(0, 90, 90), parent=arrowR, collider=None, enabled = False)
+        textR = Button(color=color.rgba(255,255,255,150), scale=.9, icon='R', rotation=(0, 90, 90), parent=arrowR, collider=None, enabled = False)
         self.notationText.append(textR)
         self.arrows.append(arrowR)
 
@@ -147,7 +147,7 @@ class VisCube(Entity):
                         scale=(.5, .5, .5))
         arrowRi.on_mouse_enter = Func(setattr, arrowRi, 'color', color.rgb(255, 255, 00, 225))
         arrowRi.on_mouse_exit = Func(setattr, arrowRi, 'color', color.rgb(255, 255, 00, 175))
-        textRi = Button(color=color.clear, text='Ri', rotation=(0, 90, -90), parent=arrowRi, collider=None, enabled = False)
+        textRi = Button(color=color.rgba(255,255,255,150), scale=.9, icon='Ri', rotation=(0, 90, -90), parent=arrowRi, collider=None, enabled = False)
         self.notationText.append(textRi)
         self.arrows.append(arrowRi)
 
@@ -156,7 +156,7 @@ class VisCube(Entity):
                          scale=(.5, .5, .5))
         arrowF.on_mouse_enter = Func(setattr, arrowF, 'color', color.rgb(255, 255, 00, 225))
         arrowF.on_mouse_exit = Func(setattr, arrowF, 'color', color.rgb(255, 255, 00, 175))
-        textF = Button(color=color.clear, text='F', rotation=(-90, -90, 90), parent=arrowF, collider=None, enabled = False)
+        textF = Button(color=color.rgba(255,255,255,150), scale=.9, icon='F', rotation=(180, -90, 90), parent=arrowF, collider=None, enabled = False)
         self.notationText.append(textF)
         self.arrows.append(arrowF)
 
@@ -166,7 +166,7 @@ class VisCube(Entity):
                         scale=(.5, .5, .5))
         arrowFi.on_mouse_enter = Func(setattr, arrowFi, 'color', color.rgb(255, 255, 00, 225))
         arrowFi.on_mouse_exit = Func(setattr, arrowFi, 'color', color.rgb(255, 255, 00, 175))
-        textFi = Button(color=color.clear, text='Fi', rotation=(-90, 90, 90), parent=arrowFi, collider=None, enabled = False)
+        textFi = Button(color=color.rgba(255,255,255,150), scale=.9, icon='Fi', rotation=(180, 90, 90), parent=arrowFi, collider=None, enabled = False)
         self.notationText.append(textFi)
         self.arrows.append(arrowFi)
 
@@ -176,7 +176,7 @@ class VisCube(Entity):
                          scale=(.5, .5, .5))
         arrowS.on_mouse_enter = Func(setattr, arrowS, 'color', color.rgb(255, 255, 00, 225))
         arrowS.on_mouse_exit = Func(setattr, arrowS, 'color', color.rgb(255, 255, 00, 175))
-        textS = Button(color=color.clear, text='S', rotation=(-90, -90, 90), parent=arrowS, collider=None, enabled = False)
+        textS = Button(color=color.rgba(255,255,255,150), scale=.9, icon='S', rotation=(180, -90, 90), parent=arrowS, collider=None, enabled = False)
         self.notationText.append(textS)
         self.arrows.append(arrowS)
 
@@ -186,7 +186,7 @@ class VisCube(Entity):
                         scale=(.5, .5, .5))
         arrowSi.on_mouse_enter = Func(setattr, arrowSi, 'color', color.rgb(255, 255, 00, 225))
         arrowSi.on_mouse_exit = Func(setattr, arrowSi, 'color', color.rgb(255, 255, 00, 175))
-        textSi = Button(color=color.clear, text='Si', rotation=(-90, 90, 90), parent=arrowSi, collider=None, enabled = False)
+        textSi = Button(color=color.rgba(255,255,255,150), scale=.9, icon='Si', rotation=(180, 90, 90), parent=arrowSi, collider=None, enabled = False)
         self.notationText.append(textSi)
         self.arrows.append(arrowSi)
 
@@ -196,7 +196,7 @@ class VisCube(Entity):
                          scale=(.5, .5, .5))
         arrowB.on_mouse_enter = Func(setattr, arrowB, 'color', color.rgb(255, 255, 00, 225))
         arrowB.on_mouse_exit = Func(setattr, arrowB, 'color', color.rgb(255, 255, 00, 175))
-        textB = Button(color=color.clear, text='B', rotation=(-90, 90, 90), parent=arrowB, collider=None, enabled = False)
+        textB = Button(color=color.rgba(255,255,255,150), scale=.9, icon='B', rotation=(180, 90, 90), parent=arrowB, collider=None, enabled = False)
         self.notationText.append(textB)
         self.arrows.append(arrowB)
 
@@ -206,7 +206,7 @@ class VisCube(Entity):
                         scale=(.5, .5, .5))
         arrowBi.on_mouse_enter = Func(setattr, arrowBi, 'color', color.rgb(255, 255, 00, 225))
         arrowBi.on_mouse_exit = Func(setattr, arrowBi, 'color', color.rgb(255, 255, 00, 175))
-        textBi = Button(color=color.clear, text='Bi', rotation=(-90, -90, 90), parent=arrowBi, collider=None, enabled = False)
+        textBi = Button(color=color.rgba(255,255,255,150), scale=.9, icon='Bi', rotation=(180, -90, 90), parent=arrowBi, collider=None, enabled = False)
         self.notationText.append(textBi)
         self.arrows.append(arrowBi)
 

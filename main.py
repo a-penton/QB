@@ -412,7 +412,9 @@ def updateCurrentHint(hintText, hintPicture, next_piece):
     if hintText != None:
         hintSpecific.icon = hintPicture
     if hintPicture != None:
-        if hintPicture == 'top.png':
+        if hintPicture == 'rotate.png' or hintPicture == 'cross-solved.png':
+            hintSpecific.icon.scale = (.33, .396)
+        elif hintPicture == 'top.png':
             hintSpecific.icon.scale=(.33*2, .396*2)
         elif hintPicture == 'middleV2.png':
             hintSpecific.icon.scale=(.33*2, .396*2)
