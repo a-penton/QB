@@ -52,13 +52,13 @@ def get_specific_cross_hint(cube, piece):
 	# depending on the case, provide the hint to solve that piece
 	if piece.pos[1] == 1:
 		# piece in U-layer
-		s = "put the %s %s edge above the %s center,\nthen turn the %s center twice" % (*piece_colors, non_white, non_white)
+		s = "1. Put the %s %s edge above\n the %s center\n2. Turn the %s center twice" % (*piece_colors, non_white, non_white)
 		s = fix_color_string(s)
 		img = "top.png"
 	elif piece.pos[1] == 0:
 		# piece in E-slice (middle layer)
-		s = "Move the %s %s edge to the top layer.\nNow turn the top,\nthen undo the first move" % (*piece_colors,)
-		s += "\n\nPut the %s %s edge above the %s center,\nthen turn the %s center twice" % (*piece_colors, non_white, non_white)
+		s = "1. Move the %s %s edge to the top layer.\n2. Turn the top\n3. Undo the move from step 1" % (*piece_colors,)
+		s += "\n\n4. Put the %s %s edge above\n the %s center\n5. Turn the %s center twice" % (*piece_colors, non_white, non_white)
 		s = fix_color_string(s)
 		img = "middleV2.png"
 	elif is_edge_permuted(cube, piece):
@@ -70,8 +70,8 @@ def get_specific_cross_hint(cube, piece):
 		img = "flip.png"
 	else:
 		# in the cross but misplaced
-		s = "Bring the %s %s edge to the top\nby turning one side twice" % (*piece_colors,)
-		s += "\n\nPut the %s %s edge above the %s center,\nthen turn the %s center twice" % (*piece_colors, non_white, non_white)
+		s = "1. Bring the %s %s edge to the top\n by turning one side twice" % (*piece_colors,)
+		s += "\n\n2. Put the %s %s edge above\n the %s center\n3. Turn the %s center twice" % (*piece_colors, non_white, non_white)
 		s = fix_color_string(s)
 		img = "bottom.png"
 
