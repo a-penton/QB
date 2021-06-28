@@ -16,7 +16,7 @@ def hint(cube, piece):
 
 	if cross_solved(cube):
 		# if solved, the piece returned is the white center
-		return ("The cross is solved!", "placeholdertext", cube.find_piece('W'))
+		return ("The cross is solved!", "cross-solved.png", cube.find_piece('W'))
 	else:
 		return get_cross_hint(cube, piece)
 
