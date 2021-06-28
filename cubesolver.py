@@ -27,7 +27,7 @@ def get_cross_hint(cube, piece):
 	# check that white is on bottom
 	white_face = cube.find_piece('W')
 	if white_face.pos != (0,-1,0):
-		return ("Rotate the cube so the white face is on bottom", "placeholdertext", white_face)
+		return ("Rotate the cube so the white face is on bottom", "rotate.png", white_face)
 
 	# determine if the current edge is solved
 	if piece == None or piece == white_face or is_edge_solved(cube, piece):
@@ -71,8 +71,9 @@ def get_specific_cross_hint(cube, piece):
 	else:
 		# in the cross but misplaced
 		s = "Bring the %s %s edge to the top\nby turning one side twice" % (*piece_colors,)
+		s += "\n\nPut the %s %s edge above the %s center,\nthen turn the %s center twice" % (*piece_colors, non_white, non_white)
 		s = fix_color_string(s)
-		img = "placeholdertext"
+		img = "bottom.png"
 
 	return (s, img, piece)
 
