@@ -8,6 +8,6 @@ Includes:
 
 Pip package name: QB-Solver (https://pypi.org/project/QB-solver/)
 
-Run command: python3 main.py
+Run command: "python3 main.py", or "run_simulation" for the pip package
 
 GitHub Repo: https://github.com/a-penton/QB
