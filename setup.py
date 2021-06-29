@@ -3,7 +3,7 @@ from setuptools import setup
 setup(
 	name="QB-solver",
 	version="0.1.4.6",
-	packages=["src", "src.hints", "src.Models",],	# name of modules
+	packages=["cubesim",],	# name of modules
 	url="https://github.com/a-penton/QB",
 	# license
 	author="Andrew Penton, Heinrich Perez, Steven Perez, Noah Sharpe, Daniel Shinkarow",
