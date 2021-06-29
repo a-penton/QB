@@ -2,8 +2,8 @@ from setuptools import setup
 
 setup(
 	name="QB-solver",
-	version="0.1.4.6",
-	packages=["qb-solver",],	# name of modules
+	version="0.1.4.6.5",
+	packages=["qb_solver",],	# name of modules
 	url="https://github.com/a-penton/QB",
 	# license
 	author="Andrew Penton, Heinrich Perez, Steven Perez, Noah Sharpe, Daniel Shinkarow",
@@ -14,7 +14,7 @@ setup(
 	entry_points = 
 	{ "console_scripts":
 		[
-			"run_simulation = src.main:main",
+			"run_simulation=qb_solver.main:main",
 			#"command_name_2 = src.file_name:func_name"
 		]
 	}

@@ -1,7 +1,7 @@
 from ursina import *
-from visCube import *
-from visHints import *
-from cubesolver import *
+from qb_solver.visCube import *
+from qb_solver.visHints import *
+from qb_solver.cubesolver import *
 import random
 from rubik.cube import Cube
 
