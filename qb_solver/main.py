@@ -1,9 +1,12 @@
 from ursina import *
-from qb_solver.visCube import *
+from visCube import *
 from qb_solver.visHints import *
 from qb_solver.cubesolver import *
 import random
 from rubik.cube import Cube
+import qb_solver
+
+application.asset_folder=Path(qb_solver.__path__[0])
 
 anim = False  # used to lockout inputs during animation
 blinking = False
@@ -413,11 +416,11 @@ def updateCurrentHint(hintText, hintPicture, next_piece):
     if hintText != None:
         hintSpecific.icon = hintPicture
     if hintPicture != None:
-        if hintPicture == 'rotate.png' or hintPicture == 'cross-solved.png':
+        if hintPicture == 'hints/rotate.png' or hintPicture == 'cross-solved.png':
             hintSpecific.icon.scale = (.33, .396)
-        elif hintPicture == 'top.png':
+        elif hintPicture == 'hints/top.png':
             hintSpecific.icon.scale=(.33*2, .396*2)
-        elif hintPicture == 'middleV2.png':
+        elif hintPicture == 'hints/middleV2.png':
             hintSpecific.icon.scale=(.33*2, .396*2)
             hintSpecific.icon.position = (0, -.325)
             hintSpecific.text_origin = (-.5, .4)
@@ -440,17 +443,17 @@ background = Button(text='', color=color.gray, highlight_color=color.gray, press
                     position=(-.75, 0.06, 1), scale=(.25, .63), collider='', enabled=False)
 resetButton = Button(text='Reset', color=color.red, scale=.1, position=(-.81, -.18, 0), on_click=Func(resetCube),
                      enabled=False)
-rotateRButton = Button(text='', icon='rotateR', color=color.white, highlight_color=color.light_gray, scale=.1, position=(-.69, .18, 0),
+rotateRButton = Button(text='', icon='Models/rotateR', color=color.white, highlight_color=color.light_gray, scale=.1, position=(-.69, .18, 0),
                        on_click=Func(rotateD), enabled=False)
-rotateLButton = Button(text='', icon='rotateL', color=color.white, highlight_color=color.light_gray, scale=.1, position=(-.81, .18, 0),
+rotateLButton = Button(text='', icon='Models/rotateL', color=color.white, highlight_color=color.light_gray, scale=.1, position=(-.81, .18, 0),
                        on_click=Func(rotateU), enabled=False)
-rotateUButton = Button(text='', icon='rotateU', color=color.white, highlight_color=color.light_gray, scale=.1, position=(-.81, .3, 0),
+rotateUButton = Button(text='', icon='Models/rotateU', color=color.white, highlight_color=color.light_gray, scale=.1, position=(-.81, .3, 0),
                        on_click=Func(rotateR), enabled=False)
-rotateDButton = Button(text='', icon='rotateD', color=color.white, highlight_color=color.light_gray, scale=.1, position=(-.69, .3, 0),
+rotateDButton = Button(text='', icon='Models/rotateD', color=color.white, highlight_color=color.light_gray, scale=.1, position=(-.69, .3, 0),
                        on_click=Func(rotateL), enabled=False)
-rotateZRButton = Button(text='', icon='rotateZL', color=color.white, highlight_color=color.light_gray, scale=.1, position=(-.69, .06, 0),
+rotateZRButton = Button(text='', icon='Models/rotateZL', color=color.white, highlight_color=color.light_gray, scale=.1, position=(-.69, .06, 0),
                        on_click=Func(rotateZR), enabled=False)
-rotateZLButton = Button(text='', icon='rotateZR', color=color.white, highlight_color=color.light_gray, scale=.1, position=(-.81, .06, 0),
+rotateZLButton = Button(text='', icon='Models/rotateZR', color=color.white, highlight_color=color.light_gray, scale=.1, position=(-.81, .06, 0),
                        on_click=Func(rotateZL), enabled=False)
 inputButton = Button(text='Input', color=color.red, scale=.1, position=(-.69, -.06, 0), on_click=Func(toggleInput),
                      enabled=False)
@@ -466,17 +469,17 @@ speedSlider.knob.text_color = color.clear
 main_menu_button = Button(text='Menu', text_color = color.black, color=color.gray,text_origin=(0,0),position = (-.69,.43,0), on_click=Func(menu), scale=.095)
 
 # hints============
-notationButton = Button(text='', text_color = color.black, icon='ShowNotation', color=color.gray, scale=.095, position=(-.69, -.43, 0), on_click=Func(displayNotation))
+notationButton = Button(text='', text_color = color.black, icon='Models/ShowNotation', color=color.gray, scale=.095, position=(-.69, -.43, 0), on_click=Func(displayNotation))
 hintButton = Button(text='Hints', text_color = color.black, color=color.gray, scale=.095, position=(-.81, -.43, 0), on_click=Func(openHints))
-hintDisplay = Button(text='', icon='hint1', color=color.gray, highlight_color=color.gray, pressed_color=color.gray,
+hintDisplay = Button(text='', icon='Models/hint1', color=color.gray, highlight_color=color.gray, pressed_color=color.gray,
                     position=(.6, .35, 1), scale=(.5, .25), collider='', enabled=False)
 hintMoveButton = Button(text='Help', icon='', color=color.dark_gray, scale=(.3,.15), position=(-.3, -.375, -1), parent=hintDisplay, on_click=Func(hintSpecificToggle))
 hintDetailButton = Button(text='Details', icon='', color=color.dark_gray, scale=(.2,.15), position=(-.0, -.375, -1), parent=hintDisplay, on_click=Func(hintDetailToggle))
-hintDetail = Button(text='', icon='HintDetail1', color=color.gray, highlight_color=color.gray, pressed_color=color.gray,
+hintDetail = Button(text='', icon='Models/HintDetail1', color=color.gray, highlight_color=color.gray, pressed_color=color.gray,
                     position=(-0, -1.85, 1), scale=(1.1, 2.64), collider='', parent = hintDisplay, enabled=False)
 hintSpecific = Button(text='We need to flip the %s %s piece\n'       
                            'Rotate the cube so the piece at the bottom right.\n'
-                           'Then perform R Di F D', icon='flip-1', color=color.gray, highlight_color=color.gray, pressed_color=color.gray,
+                           'Then perform R Di F D', icon='hints/flip-1', color=color.gray, highlight_color=color.gray, pressed_color=color.gray,
                     position=(.55, -.1, 1), scale=(.6, .5), collider='', enabled=False)
 #hintSpecific.icon.scale = (.33,.396)
 hintSpecific.icon.scale = (.33*3, .396*3)
@@ -491,7 +494,7 @@ exittooltip = Tooltip('exit')
 start_menu = Button(text='Start QB',text_color = color.black, model='quad', on_click=Func(start), color= color.rgb(0,128,0), scale=(.2,.07), text_origin=(0,0), position  = (0,-.1))
 settings_menu = Button(text='Light/Dark Mode',text_color = color.black, model='quad',on_click=Func(darkLight), color= color.rgb(255,255,0), highlight_color = color.yellow.tint(.5), scale=(.2,.07), text_origin=(0,0), position  = (0,-.2))
 help_menu = Button(text='Help',text_color = color.black, model='quad', color=color.rgb(255,165,0), scale=(.2,.07), text_origin=(0,0), position  = (0,-.3))
-cube_menu_model = Entity(model=load_model(name='cubetest'), color=color.rgb(200, 200, 200, 255), texture="RubiksTex", shader=lit_with_shadows_shader, scale=(2,2,2), position = (0,2))
+cube_menu_model = Entity(model=load_model(name='cubetest'), color=color.rgb(200, 200, 200, 255), texture="RubiksTex.png", shader=lit_with_shadows_shader, scale=(2,2,2), position = (0,2))
 title = Text(text='QB', origin=(0,0), size = 20, background=False, position = (0,2))
 
 

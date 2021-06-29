@@ -1,4 +1,4 @@
-include src/hints/*.png
-include src/Models/*.png
-include src/Models/*.obj
-include src/Models/Notation/*.png
+include qb_solver/hints/*.png
+include qb_solver/Models/*.png
+include qb_solver/Models/*.obj
+include qb_solver/Models/Notation/*.png
