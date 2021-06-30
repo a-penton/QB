@@ -4,6 +4,9 @@ from qb_solver.visHints import *
 from qb_solver.cubesolver import *
 import random
 from rubik.cube import Cube
+import os
+
+application.asset_folder=Path(os.path.join(application.package_folder.parent), 'qb_solver/')
 
 anim = False  # used to lockout inputs during animation
 blinking = False
@@ -28,8 +31,6 @@ cube = VisCube()  # rubiks cube
 hintCube = VisHints()  # hints
 center = Entity()  # center transform, used for rotation
 current_piece = None
-
-application.asset_folder='src/'
 
 def menu():
     cube_menu_model.enabled = True
