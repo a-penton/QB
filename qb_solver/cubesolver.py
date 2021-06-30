@@ -192,4 +192,3 @@ def is_edge_solved(cube, piece):
 			return False
 
 	return True
-
