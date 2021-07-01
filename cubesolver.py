@@ -193,3 +193,46 @@ def is_edge_solved(cube, piece):
 
 	return True
 
+
+def white_solved(cube):
+	# If the cross isn't solved, neither will the white side
+	if not cross_solved(cube):
+		return False
+	white_center = cube.find_piece("W")
+
+	# Get corner pieces in the white face
+	corner_pieces = get_corner_pieces(cube, white_center)
+	for corner in corner_pieces:
+		if not is_corner_solved(cube, corner):
+			return False
+	return True
+
+
+def is_corner_solved(cube, piece):
+	return False
+
+
+def get_corner_pieces(cube, face):
+	x = face.pos[0]
+	y = face.pos[1]
+	z = face.pos[2]
+
+	corners = []
+
+	if x != 0:
+		corners.append(cube.get_piece(x, 1, 1))
+		corners.append(cube.get_piece(x, 1, -1))
+		corners.append(cube.get_piece(x, -1, 1))
+		corners.append(cube.get_piece(x, -1, -1))
+	elif y != 0:
+		corners.append(cube.get_piece(1, y, 1))
+		corners.append(cube.get_piece(1, y, -1))
+		corners.append(cube.get_piece(-1, y, 1))
+		corners.append(cube.get_piece(-1, y, -1))
+	else:
+		corners.append(cube.get_piece(1, 1, z))
+		corners.append(cube.get_piece(1, -1, z))
+		corners.append(cube.get_piece(-1, 1, z))
+		corners.append(cube.get_piece(-1, -1, z))
+
+	return corners
