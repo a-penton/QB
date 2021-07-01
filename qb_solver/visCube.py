@@ -4,9 +4,9 @@ from ursina.shaders import unlit_shader
 from ursina.shaders import lit_with_shadows_shader
 from ursina.curve import *
 from rubik.cube import Cube
-import qb_solver
+import os
 
-application.asset_folder=Path(qb_solver.__path__[0])
+application.asset_folder=Path(os.path.join(application.package_folder.parent), 'qb_solver/')
 
 class VisCube(Entity):
     cubes = [] #list of cublets
