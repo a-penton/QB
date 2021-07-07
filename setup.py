@@ -2,7 +2,7 @@ from setuptools import setup
 
 setup(
 	name="QB-solver",
-	version="0.1.4.8.2",
+	version="0.1.4.8.5",
 	packages=["qb_solver",],	# name of modules
 	package_data={
 		"qb_solver": [
@@ -23,8 +23,8 @@ setup(
 	entry_points = 
 	{ "console_scripts":
 		[
-			"run_simulation=qb_solver.main:main",
-			#"command_name_2 = src.file_name:func_name"
+			"run_simulation=qb_solver.__main__:main",
+			#"command_name_2 = qb_solver.file_name:func_name"
 		]
 	}
 )
