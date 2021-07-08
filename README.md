@@ -21,7 +21,7 @@ Deploying the package requires: setuptools, wheel, twine
    5. Run `twine upload dist/*` and enter PyPi credentials
  - NOTE: all of these commands are run in the QB/ directory
 
-Run command: "python3 -m qb_solver", or "run_simulation"
- - NOTE: "run_simulation" is not currently functional
+Run command: `python3 -m qb_solver`, or `run_simulation`
+ - NOTE: `run_simulation` is not currently functional
 
 GitHub Repo: https://github.com/a-penton/QB
