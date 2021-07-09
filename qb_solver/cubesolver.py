@@ -219,19 +219,16 @@ def get_corner_pieces(cube, face):
 	corners = []
 
 	if x != 0:
-		corners.append(cube.get_piece(x, 1, 1))
-		corners.append(cube.get_piece(x, 1, -1))
-		corners.append(cube.get_piece(x, -1, 1))
-		corners.append(cube.get_piece(x, -1, -1))
+		for i in range(-1,1,2):
+			for j in range(-1,1,2):
+				corners.append(cube.get_piece(x,i,j))
 	elif y != 0:
-		corners.append(cube.get_piece(1, y, 1))
-		corners.append(cube.get_piece(1, y, -1))
-		corners.append(cube.get_piece(-1, y, 1))
-		corners.append(cube.get_piece(-1, y, -1))
+		for i in range(-1,1,2):
+			for j in range(-1,1,2):
+				corners.append(cube.get_piece(i,y,j))
 	else:
-		corners.append(cube.get_piece(1, 1, z))
-		corners.append(cube.get_piece(1, -1, z))
-		corners.append(cube.get_piece(-1, 1, z))
-		corners.append(cube.get_piece(-1, -1, z))
+		for i in range(-1,1,2):
+			for j in range(-1,1,2):
+				corners.append(cube.get_piece(i,j,z))
 
 	return corners
