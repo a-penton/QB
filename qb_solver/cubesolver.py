@@ -30,7 +30,7 @@ def get_cross_hint(cube, piece):
 		return ("Rotate the cube so the white face is on bottom", "rotate.png", white_face)
 
 	# determine if the current edge is solved
-	if piece == None or piece == white_face or is_edge_solved(cube, piece):
+	if piece == None or piece == white_face or is_piece_solved(cube, piece):
 		next_piece = find_next_cross_edge(cube)
 		return get_specific_cross_hint(cube, next_piece)
 	elif is_edge_permuted(cube, piece):
@@ -89,10 +89,10 @@ def fix_color_string(s):
 	return s
 
 def is_edge_permuted(cube, piece):
-	# Just the permutation part of the is_edge_solved function
+	# Just the permutation part of the is_piece_solved function
 
 	# determine faces
-	piece_colors = [c for c in piece.colors if c != None]
+	piece_colors = list(filter(None, piece.colors))
 	face_one = cube.find_piece(piece_colors[0])
 	face_two = cube.find_piece(piece_colors[1])
 
@@ -125,7 +125,7 @@ def find_next_cross_edge(cube):
 	white_face = cube.find_piece('W')
 	possible_edges = get_face_edges(cube, white_face)
 	for edge in possible_edges:
-		if not is_edge_solved(cube, edge):
+		if not is_piece_solved(cube, edge):
 			return edge
 
 def cross_solved(cube):
@@ -168,28 +168,25 @@ def get_face_edges(cube, face):
 
 	return arr
 
-def is_edge_solved(cube, piece):
-	# for edge pieces only
-	# there's probably a way to extend this to corners too
+def is_piece_solved(cube, piece):
+	# determine if a piece is solved
+	# works for corners or edges
 
-	# determine faces
-	piece_colors = list(filter(None, piece.colors))
-	face_one = cube.find_piece(piece_colors[0])
-	face_two = cube.find_piece(piece_colors[1])
+	# get colors of piece & corresponding centers
+	colors = filter(None, piece.colors)
+	centers = list(map(cube.find_piece, colors))
 
-	# check position
-	pos_tuples = zip(face_one.pos, face_two.pos)
-	correct_pos = [t[0] + t[1] for t in pos_tuples]
-	for i in range(0, 3):
-		if correct_pos[i] != piece.pos[i]:
-			return False
+	# check permutation (placement)
+	tuples = zip(*[c.pos for c in centers])
+	correct_pos = list(map(sum, tuples))
+	if correct_pos != piece.pos:
+		return False
 
-	# check orientation (colors)
-	color_tuples = zip(face_one.colors, face_two.colors)
-	correct_colors = [t[0] or t[1] for t in color_tuples]
-	for i in range(0, 3):
-		if correct_colors[i] != piece.colors[i]:
-			return False
+	# check orientation (twist)
+	tuples = zip(*[c.colors for c in centers])
+	correct_colors = list(map(bigor, tuples))
+	if correct_colors != piece.colors:
+		return False
 
 	return True
 
@@ -203,14 +200,16 @@ def white_solved(cube):
 	# Get corner pieces in the white face
 	corner_pieces = get_corner_pieces(cube, white_center)
 	for corner in corner_pieces:
-		if not is_corner_solved(cube, corner):
+		if not is_piece_solved(cube, corner):
 			return False
 	return True
 
-
-def is_corner_solved(cube, piece):
-	return False
-
+def bigor(tup):
+	# returns the 'OR' of all elements in a tuple
+	res = None
+	for el in tup:
+		res = res or el
+	return res
 
 def get_corner_pieces(cube, face):
 	x = face.pos[0]
