@@ -2,7 +2,7 @@ from setuptools import setup
 
 setup(
 	name="QB-solver",
-	version="0.1.4.8.8",
+	version="0.1.4.8.9",
 	packages=["qb_solver",],	# name of modules
 	package_data={
 		"qb_solver": [
@@ -19,11 +19,5 @@ setup(
 	author_email = "andrew.penton@gmail.com",
 	description="Rubik's cube simulation and tutorial",
 	install_requires=["ursina", "rubik-cube", "psd-tools3"],
-
-	entry_points = 
-	{ "console_scripts":
-		[
-			"run_simulation = qb_solver.__main__:main"
-		]
-	}
+	scripts=['bin/run_simulation']
 )
