@@ -31,6 +31,7 @@ cube = VisCube()  # rubiks cube
 hintCube = VisHints()  # hints
 center = Entity()  # center transform, used for rotation
 current_piece = None
+current_stage = -1
 
 
 def menu():
@@ -145,7 +146,7 @@ def endAnim():  # resets anim to false, needs to be a function to be used with i
 # =====================================================ui buttons=====================================================
 
 def checkCurrentHint():
-    updateCurrentHint(*hint(cube.virtualCube, current_piece))
+    updateCurrentHint(*hint(cube.virtualCube, current_piece, current_stage))
 
 def rotateR(): #rotates right
     global anim
@@ -410,10 +411,11 @@ def changeTurnSpeed():
     if not reading:
         cube.setTurnSpeed(speedSlider.value)
 
-def updateCurrentHint(hintText, hintPicture, next_piece):
+def updateCurrentHint(hintText, hintPicture, next_piece, next_stage):
     global current_piece
+    global current_stage
     if hintText != None:
-        hintSpecific.icon = hintPicture
+        hintSpecific.text = hintText
     if hintPicture != None:
         if hintPicture == 'rotate.png' or hintPicture == 'cross-solved.png':
             hintSpecific.icon.scale = (.33, .396)
@@ -427,9 +429,11 @@ def updateCurrentHint(hintText, hintPicture, next_piece):
             hintSpecific.icon.scale = (.33 * 3, .396 * 3)
             hintSpecific.icon.position = (0, -.3)
             hintSpecific.text_origin = (-.5, .3)
-        hintSpecific.text = hintText
+        hintSpecific.icon = hintPicture
     if next_piece != None:
         current_piece = next_piece
+    if next_stage != None:
+        current_stage = next_stage
 
 def displayNotation():
     cube.toggleNotation()
