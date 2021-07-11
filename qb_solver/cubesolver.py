@@ -20,6 +20,9 @@ def hint(cube, piece, stage):
 		elif not is_white_solved(cube):
 			stage = 1
 
+	if stage == 1 and not is_cross_solved(cube):
+		stage = 0
+
 	if stage == 0 and is_cross_solved(cube):
 		stage = 1
 	if stage == 1 and is_white_solved(cube):
@@ -66,35 +69,42 @@ def get_specific_white_layer_hint(cube, piece):
 			# piece is above the wrong slot (just turn the top)
 			hint = "Move the %s %s %s corner\n" % (*sorted(piece.colors),)
 			hint += " above the %s and %s centers" % (*filter(lambda x: x != 'W', sorted(piece.colors)),)
+			hint = fix_color_string(hint)
 		# otherwise, the piece is inside the wrong slot: need to take it out
 		elif piece.pos[2] == -1:
 			# at the back of the cube
 			hint = "Rotate the cube so that the\n"
 			hint += " %s %s %s corner is at the front" % (*sorted(piece.colors),)
+			hint = fix_color_string(hint)
 		elif piece.pos[0] == 1:
 			# in the front-right slot
 			hint = "Use the right-hand sequence\n"
 			hint += " to take out the %s %s %s corner\n" % (*sorted(piece.colors),)
+			hint = fix_color_string(hint)
 			hint += "The sequence is R U Ri Ui"
 		elif piece.pos[0] == -1:
 			# in the front-left slot
 			hint = "Use the left-hand sequence\n"
 			hint += " to take out the %s %s %s corner\n" % (*sorted(piece.colors),)
+			hint = fix_color_string(hint)
 			hint += "The sequence is Li Ui L U"
 
 	elif piece.pos[2] != 1:
 		# piece/slot is at the back of the cube
 		hint = "Rotate the cube so that the\n"
 		hint += " %s %s %s corner is at the front" % (*sorted(piece.colors),)
+		hint = fix_color_string(hint)
 	else:
 		# piece is at front, at the correct slot, but unsolved
 		if piece.pos[0] == 1:
 			hint = "Repeat the right-hand sequence\n"
 			hint += " to solve the %s %s %s corner\n" % (*sorted(piece.colors),)
+			hint = fix_color_string(hint)
 			hint += "The sequence is R U Ri Ui"
 		elif piece.pos[0] == -1:
 			hint = "Repeat the left-hand sequence\n"
 			hint += " to solve the %s %s %s corner\n" % (*sorted(piece.colors),)
+			hint = fix_color_string(hint)
 			hint += "The sequence is Li Ui L U"
 
 	return hint, None, piece, 1
