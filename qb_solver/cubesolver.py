@@ -14,9 +14,20 @@ def hint(cube, piece, stage):
 	# returns tuple of string, name of image, and next piece to solve
 	# calls other functions to do so
 
-	if not is_cross_solved(cube):
+	if stage == -1:
+		if not is_cross_solved(cube):
+			stage = 0
+		elif not is_white_solved(cube):
+			stage = 1
+
+	if stage == 0 and is_cross_solved(cube):
+		stage = 1
+	if stage == 1 and is_white_solved(cube):
+		stage = -1
+
+	if stage == 0:
 		return get_cross_hint(cube, piece)
-	elif not is_white_solved(cube):
+	elif stage == 1:
 		return get_white_layer_hint(cube, piece)
 	else:
 		# if solved, the piece returned is the white center
@@ -45,25 +56,46 @@ def get_specific_white_layer_hint(cube, piece):
 	# returns tuple of hint text, image, and piece
 	# assuming white on bottom
 
-	if piece.pos[1] == 1:
-		# piece is in the top layer
-		hint = "Move the %s %s %s corner\n" % (*sorted(piece.colors),)
-		hint += " above the %s and %s centers\n" % (*filter(lambda x: x != 'W', sorted(piece.colors)),)
-		hint = fix_color_string(hint)
-		hint += "Then repeat the four move sequence\n"
-		hint += " on the appropriate side"
-	elif is_piece_permuted(cube, piece):
-		# piece is in place but not twisted right
-		hint = "Solve the %s %s %s corner\n" % (*sorted(piece.colors),)
-		hint = fix_color_string(hint)
-		hint += " by repeating the four move sequence\n"
-		hint += " on the appropriate side"
+	# first get information on where it belongs
+	centers = list(map(cube.find_piece, piece.colors))
+	tuples = zip(*[c.pos for c in centers])
+	correct_pos = list(map(sum, tuples))
+
+	if piece.pos[0] != correct_pos[0] or piece.pos[2] != correct_pos[2]:
+		if piece.pos[1] == 1:
+			# piece is above the wrong slot (just turn the top)
+			hint = "Move the %s %s %s corner\n" % (*sorted(piece.colors),)
+			hint += " above the %s and %s centers" % (*filter(lambda x: x != 'W', sorted(piece.colors)),)
+		# otherwise, the piece is inside the wrong slot: need to take it out
+		elif piece.pos[2] == -1:
+			# at the back of the cube
+			hint = "Rotate the cube so that the\n"
+			hint += " %s %s %s corner is at the front" % (*sorted(piece.colors),)
+		elif piece.pos[0] == 1:
+			# in the front-right slot
+			hint = "Use the right-hand sequence\n"
+			hint += " to take out the %s %s %s corner\n" % (*sorted(piece.colors),)
+			hint += "The sequence is R U Ri Ui"
+		elif piece.pos[0] == -1:
+			# in the front-left slot
+			hint = "Use the left-hand sequence\n"
+			hint += " to take out the %s %s %s corner\n" % (*sorted(piece.colors),)
+			hint += "The sequence is Li Ui L U"
+
+	elif piece.pos[2] != 1:
+		# piece/slot is at the back of the cube
+		hint = "Rotate the cube so that the\n"
+		hint += " %s %s %s corner is at the front" % (*sorted(piece.colors),)
 	else:
-		# piece is in the bottom layer but wrong place
-		hint = "Take out the %s %s %s corner\n" % (*sorted(piece.colors),)
-		hint = fix_color_string(hint)
-		hint += " by doing the four move sequence\n"
-		hint += " on the appropriate side"
+		# piece is at front, at the correct slot, but unsolved
+		if piece.pos[0] == 1:
+			hint = "Repeat the right-hand sequence\n"
+			hint += " to solve the %s %s %s corner\n" % (*sorted(piece.colors),)
+			hint += "The sequence is R U Ri Ui"
+		elif piece.pos[0] == -1:
+			hint = "Repeat the left-hand sequence\n"
+			hint += " to solve the %s %s %s corner\n" % (*sorted(piece.colors),)
+			hint += "The sequence is Li Ui L U"
 
 	return hint, None, piece, 1
 
