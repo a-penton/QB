@@ -10,15 +10,81 @@ TODO:
 
 """
 
-def hint(cube, piece):
+def hint(cube, piece, stage):
 	# returns tuple of string, name of image, and next piece to solve
 	# calls other functions to do so
 
-	if cross_solved(cube):
-		# if solved, the piece returned is the white center
-		return ("The cross is solved!", "cross-solved.png", cube.find_piece('W'))
-	else:
+	if not is_cross_solved(cube):
 		return get_cross_hint(cube, piece)
+	elif not is_white_solved(cube):
+		return get_white_layer_hint(cube, piece)
+	else:
+		# if solved, the piece returned is the white center
+		return ("The white face is solved!", "cross-solved.png", cube.find_piece('W'), -1)
+
+def get_white_layer_hint(cube, piece):
+	# checks if a new hint is needed or not, then returns the appropriate hint
+
+	# check that white is on bottom
+	white_face = cube.find_piece('W')
+	if white_face.pos != (0,-1,0):
+		return ("Rotate the cube so the white face is on bottom", "rotate.png", white_face, 1)
+
+	# determine if current piece is solved or a new piece is needed
+	if piece == None or piece == white_face or is_piece_solved(cube, piece):
+		next_piece = find_next_white_corner(cube)
+		return get_specific_white_layer_hint(cube, next_piece)
+	elif is_cross_solved(cube):
+		# update hint for the current piece
+		return get_specific_white_layer_hint(cube, piece)
+	else:
+		# piece is still unsolved, don't need to update
+		return (None, None, None, 1)
+
+def get_specific_white_layer_hint(cube, piece):
+	# returns tuple of hint text, image, and piece
+	# assuming white on bottom
+
+	if piece.pos[1] == 1:
+		# piece is in the top layer
+		hint = "Move the %s %s %s corner\n" % (*sorted(piece.colors),)
+		hint += " above the %s and %s centers\n" % (*filter(lambda x: x != 'W', sorted(piece.colors)),)
+		hint = fix_color_string(hint)
+		hint += "Then repeat the four move sequence\n"
+		hint += " on the appropriate side"
+	elif is_piece_permuted(cube, piece):
+		# piece is in place but not twisted right
+		hint = "Solve the %s %s %s corner\n" % (*sorted(piece.colors),)
+		hint = fix_color_string(hint)
+		hint += " by repeating the four move sequence\n"
+		hint += " on the appropriate side"
+	else:
+		# piece is in the bottom layer but wrong place
+		hint = "Take out the %s %s %s corner\n" % (*sorted(piece.colors),)
+		hint = fix_color_string(hint)
+		hint += " by doing the four move sequence\n"
+		hint += " on the appropriate side"
+
+	return hint, None, piece, 1
+
+
+def find_next_white_corner(cube):
+	# find the next white corner to be solved
+	# assuming white on bottom
+
+	# first check the top layer for white
+	for i in range(-1,2,2):
+		for j in range(-1,2,2):
+			piece = cube.get_piece(i,1,j)
+			if 'W' in piece.colors:
+				return piece
+
+	# then check the bottom layer for unsolved white corners
+	for i in range(-1,2,2):
+		for j in range(-1,2,2):
+			piece = cube.get_piece(i,-1,j)
+			if 'W' in piece.colors and not is_piece_solved(cube, piece):
+				return piece
 
 def get_cross_hint(cube, piece):
 	# checks if a new hint is needed or not, then calls a function
@@ -27,22 +93,22 @@ def get_cross_hint(cube, piece):
 	# check that white is on bottom
 	white_face = cube.find_piece('W')
 	if white_face.pos != (0,-1,0):
-		return ("Rotate the cube so the white face is on bottom", "rotate.png", white_face)
+		return ("Rotate the cube so the white face is on bottom", "rotate.png", white_face, 0)
 
 	# determine if the current edge is solved
 	if piece == None or piece == white_face or is_piece_solved(cube, piece):
 		next_piece = find_next_cross_edge(cube)
 		return get_specific_cross_hint(cube, next_piece)
-	elif is_edge_permuted(cube, piece):
+	elif is_piece_permuted(cube, piece):
 		# if the edge is flipped in place
 
 		return get_specific_cross_hint(cube, piece)
 	else:
 		# piece is still unsolved, don't need to update
-		return (None, None, None)
+		return (None, None, None, 0)
 
 def get_specific_cross_hint(cube, piece):
-	# returns tuple of hint text and image
+	# returns tuple of hint text, image, and piece
 	# assuming white on bottom
 
 	# get some information about the piece
@@ -52,18 +118,18 @@ def get_specific_cross_hint(cube, piece):
 	# depending on the case, provide the hint to solve that piece
 	if piece.pos[1] == 1:
 		# piece in U-layer
-		s = "1. Put the %s %s edge above\n the %s center\n2. Turn the %s center twice" % (*piece_colors, non_white, non_white)
+		s = "1. Put the %s %s edge above\n the %s center\n2. Turn the %s center twice" % (*sorted(piece_colors), non_white, non_white)
 		s = fix_color_string(s)
 		img = "top.png"
 	elif piece.pos[1] == 0:
 		# piece in E-slice (middle layer)
-		s = "1. Move the %s %s edge to the top layer.\n2. Turn the top\n3. Undo the move from step 1" % (*piece_colors,)
-		s += "\n\n4. Put the %s %s edge above\n the %s center\n5. Turn the %s center twice" % (*piece_colors, non_white, non_white)
+		s = "1. Move the %s %s edge to the top layer.\n2. Turn the top\n3. Undo the move from step 1" % (*sorted(piece_colors),)
+		s += "\n\n4. Put the %s %s edge above\n the %s center\n5. Turn the %s center twice" % (*sorted(piece_colors), non_white, non_white)
 		s = fix_color_string(s)
 		img = "middleV2.png"
-	elif is_edge_permuted(cube, piece):
+	elif is_piece_permuted(cube, piece):
 		# flipped in place
-		s = "We need to flip the %s %s edge" % (*piece_colors,)
+		s = "We need to flip the %s %s edge" % (*sorted(piece_colors),)
 		s = fix_color_string(s)
 		s += "\n1. Rotate the cube so it is at\n the bottom right"
 		s += "\n2. Perform R Di F D"
@@ -71,37 +137,35 @@ def get_specific_cross_hint(cube, piece):
 	else:
 		# in the cross but misplaced
 		s = "1. Bring the %s %s edge to the top\n by turning one side twice" % (*piece_colors,)
-		s += "\n\n2. Put the %s %s edge above\n the %s center\n3. Turn the %s center twice" % (*piece_colors, non_white, non_white)
+		s += "\n\n2. Put the %s %s edge above\n the %s center\n3. Turn the %s center twice" % (*sorted(piece_colors), non_white, non_white)
 		s = fix_color_string(s)
 		img = "bottom.png"
 
-	return (s, img, piece)
+	return (s, img, piece, 0)
 
 def fix_color_string(s):
 	# replace individual letters with their colors
-	s = s.replace(' W ', ' White ')
-	s = s.replace(' R ', ' Red ')
-	s = s.replace(' O ', ' Orange ')
-	s = s.replace(' B ', ' Blue ')
-	s = s.replace(' G ', ' Green ')
-	s = s.replace(' Y ', ' Yellow ')
+	s = s.replace(' W ', ' white ')
+	s = s.replace(' R ', ' red ')
+	s = s.replace(' O ', ' orange ')
+	s = s.replace(' B ', ' blue ')
+	s = s.replace(' G ', ' green ')
+	s = s.replace(' Y ', ' yellow ')
 
 	return s
 
-def is_edge_permuted(cube, piece):
+def is_piece_permuted(cube, piece):
 	# Just the permutation part of the is_piece_solved function
 
-	# determine faces
-	piece_colors = list(filter(None, piece.colors))
-	face_one = cube.find_piece(piece_colors[0])
-	face_two = cube.find_piece(piece_colors[1])
+	# get colors of piece & corresponding centers
+	colors = filter(None, piece.colors)
+	centers = list(map(cube.find_piece, colors))
 
-	# check position
-	pos_tuples = zip(face_one.pos, face_two.pos)
-	correct_pos = [t[0] + t[1] for t in pos_tuples]
-	for i in range(0, 3):
-		if correct_pos[i] != piece.pos[i]:
-			return False
+	# check permutation (placement)
+	tuples = zip(*[c.pos for c in centers])
+	correct_pos = list(map(sum, tuples))
+	if correct_pos != piece.pos:
+		return False
 
 	return True
 
@@ -128,7 +192,7 @@ def find_next_cross_edge(cube):
 		if not is_piece_solved(cube, edge):
 			return edge
 
-def cross_solved(cube):
+def is_cross_solved(cube):
 	# determine if the cross is solved
 
 	white_center = cube.find_piece('W')
@@ -136,7 +200,7 @@ def cross_solved(cube):
 	cross_pieces = get_face_edges(cube, white_center)
 
 	for edge in cross_pieces:
-		if not is_edge_solved(cube, edge):
+		if not is_piece_solved(cube, edge):
 			return False
 
 	return True
@@ -191,9 +255,9 @@ def is_piece_solved(cube, piece):
 	return True
 
 
-def white_solved(cube):
+def is_white_solved(cube):
 	# If the cross isn't solved, neither will the white side
-	if not cross_solved(cube):
+	if not is_cross_solved(cube):
 		return False
 	white_center = cube.find_piece("W")
 
@@ -202,6 +266,7 @@ def white_solved(cube):
 	for corner in corner_pieces:
 		if not is_piece_solved(cube, corner):
 			return False
+
 	return True
 
 def bigor(tup):
@@ -219,16 +284,16 @@ def get_corner_pieces(cube, face):
 	corners = []
 
 	if x != 0:
-		for i in range(-1,1,2):
-			for j in range(-1,1,2):
+		for i in range(-1,2,2):
+			for j in range(-1,2,2):
 				corners.append(cube.get_piece(x,i,j))
 	elif y != 0:
-		for i in range(-1,1,2):
-			for j in range(-1,1,2):
+		for i in range(-1,2,2):
+			for j in range(-1,2,2):
 				corners.append(cube.get_piece(i,y,j))
 	else:
-		for i in range(-1,1,2):
-			for j in range(-1,1,2):
+		for i in range(-1,2,2):
+			for j in range(-1,2,2):
 				corners.append(cube.get_piece(i,j,z))
 
 	return corners
