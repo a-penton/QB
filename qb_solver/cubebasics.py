@@ -108,20 +108,20 @@ def get_middle_layer_pieces(cube):
 	middle = []
 
 	if x != 0:
-		middle.append(cube.getpiece(0, 1, 1))
-		middle.append(cube.getpiece(0, 1, -1))
-		middle.append(cube.getpiece(0, -1, 1))
-		middle.append(cube.getpiece(0, -1, -1))
+		middle.append(cube.get_piece(0, 1, 1))
+		middle.append(cube.get_piece(0, 1, -1))
+		middle.append(cube.get_piece(0, -1, 1))
+		middle.append(cube.get_piece(0, -1, -1))
 	elif y != 0:
-		middle.append(cube.getpiece(1, 0, 1))
-		middle.append(cube.getpiece(1, 0, -1))
-		middle.append(cube.getpiece(-1, 0, 1))
-		middle.append(cube.getpiece(-1, 0, -1))
+		middle.append(cube.get_piece(1, 0, 1))
+		middle.append(cube.get_piece(1, 0, -1))
+		middle.append(cube.get_piece(-1, 0, 1))
+		middle.append(cube.get_piece(-1, 0, -1))
 	elif z != 0:
-		middle.append(cube.getpiece(1, 1, 0))
-		middle.append(cube.getpiece(1, -1, 0))
-		middle.append(cube.getpiece(-1, 1, 0))
-		middle.append(cube.getpiece(-1, -1, 0))
+		middle.append(cube.get_piece(1, 1, 0))
+		middle.append(cube.get_piece(1, -1, 0))
+		middle.append(cube.get_piece(-1, 1, 0))
+		middle.append(cube.get_piece(-1, -1, 0))
 
 	return middle
 
