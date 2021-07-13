@@ -516,10 +516,10 @@ class VisCube(Entity):
         if "O" in current_piece.colors: #does bottom layer
             if "W" in current_piece.colors:
                 if "B" in current_piece.colors:
-                    self.startBlink(self.e7)
+                    self.startBlink(self.e9)
                     return
                 if "G" in current_piece.colors:
-                    self.startBlink(self.e9)
+                    self.startBlink(self.e7)
                     return
                 self.startBlink(self.e5)
                 return
