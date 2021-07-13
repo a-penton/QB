@@ -11,31 +11,49 @@ TODO:
 
 """
 
+"""
+Guide for the 'stage' variable:
+0. Solve cross
+1. Solve white layer (corners)
+2. Solve middle layer
+3. EO (orient/twist yellow edges)
+4. EP (place yellow edges)
+5. CP (place yellow corners)
+6. CO (orient/twist yellow corners)
+
+-1 means the cube is solved
+"""
+
 def hint(cube, piece, stage):
 	# returns tuple of string, name of image, and next piece to solve
 	# calls other functions to do so
 
+	# if the cube is scrambled, switch to the appropriate step
 	if stage == -1:
 		if not is_cross_solved(cube):
 			stage = 0
 		elif not is_white_solved(cube):
 			stage = 1
+		elif not is_middle_layer_solved(cube):
+			stage = 2
 
-	if stage == 1 and not is_cross_solved(cube):
-		stage = 0
-
+	# if the current stage is solved, proceed to the next one
 	if stage == 0 and is_cross_solved(cube):
 		stage = 1
 	if stage == 1 and is_white_solved(cube):
+		stage = 2
+	if stage == 2 and is_middle_layer_solved(cube):
 		stage = -1
 
 	if stage == 0:
 		return get_cross_hint(cube, piece)
 	elif stage == 1:
 		return get_white_layer_hint(cube, piece)
+	elif stage == 2:
+		return get_middle_layer_hint(cube, piece)
 	else:
 		# if solved, the piece returned is the white center
-		return ("The white face is solved!", "cross-solved.png", cube.find_piece('W'), -1)
+		return ("The first two layers are solved!", "cross-solved.png", cube.find_piece('W'), -1)
 
 def fix_color_string(s):
 	# replace individual letters with their colors
@@ -70,28 +88,28 @@ def get_cross_hint(cube, piece):
 		return (None, None, None, 0)
 
 def get_specific_cross_hint(cube, piece):
-	# returns tuple of hint text, image, and piece
+	# returns tuple of hint text, image, piece, and stage number (0)
 	# assuming white on bottom
 
 	# get some information about the piece
-	piece_colors = list(filter(None, piece.colors))
+	piece_colors = sorted(list(filter(None, piece.colors)))
 	non_white = piece_colors[0] if piece_colors[1] == 'W' else piece_colors[1]
 
 	# depending on the case, provide the hint to solve that piece
 	if piece.pos[1] == 1:
 		# piece in U-layer
-		s = "1. Put the %s %s edge above\n the %s center\n2. Turn the %s center twice" % (*sorted(piece_colors), non_white, non_white)
+		s = "1. Put the %s %s edge above\n the %s center\n2. Turn the %s center twice" % (*piece_colors, non_white, non_white)
 		s = fix_color_string(s)
 		img = "top.png"
 	elif piece.pos[1] == 0:
 		# piece in E-slice (middle layer)
-		s = "1. Move the %s %s edge to the top layer.\n2. Turn the top\n3. Undo the move from step 1" % (*sorted(piece_colors),)
-		s += "\n\n4. Put the %s %s edge above\n the %s center\n5. Turn the %s center twice" % (*sorted(piece_colors), non_white, non_white)
+		s = "1. Move the %s %s edge to the top layer.\n2. Turn the top\n3. Undo the move from step 1" % (*piece_colors,)
+		s += "\n\n4. Put the %s %s edge above\n the %s center\n5. Turn the %s center twice" % (*piece_colors, non_white, non_white)
 		s = fix_color_string(s)
 		img = "middleV2.png"
 	elif is_piece_permuted(cube, piece):
 		# flipped in place
-		s = "We need to flip the %s %s edge" % (*sorted(piece_colors),)
+		s = "We need to flip the %s %s edge" % (*piece_colors,)
 		s = fix_color_string(s)
 		s += "\n1. Rotate the cube so it is at\n the bottom right"
 		s += "\n2. Perform R Di F D"
@@ -99,7 +117,7 @@ def get_specific_cross_hint(cube, piece):
 	else:
 		# in the cross but misplaced
 		s = "1. Bring the %s %s edge to the top\n by turning one side twice" % (*piece_colors,)
-		s += "\n\n2. Put the %s %s edge above\n the %s center\n3. Turn the %s center twice" % (*sorted(piece_colors), non_white, non_white)
+		s += "\n\n2. Put the %s %s edge above\n the %s center\n3. Turn the %s center twice" % (*piece_colors, non_white, non_white)
 		s = fix_color_string(s)
 		img = "bottom.png"
 
@@ -125,7 +143,7 @@ def get_white_layer_hint(cube, piece):
 		return (None, None, None, 1)
 
 def get_specific_white_layer_hint(cube, piece):
-	# returns tuple of hint text, image, and piece
+	# returns tuple of hint text, image, piece, and stage number (1)
 	# assuming white on bottom
 
 	# first get information on where it belongs
@@ -133,50 +151,139 @@ def get_specific_white_layer_hint(cube, piece):
 	tuples = zip(*[c.pos for c in centers])
 	correct_pos = list(map(sum, tuples))
 
+	piece_colors = sorted(piece.colors)
+
 	if piece.pos[0] != correct_pos[0] or piece.pos[2] != correct_pos[2]:
 		if piece.pos[1] == 1:
 			# piece is above the wrong slot (just turn the top)
-			hint = "Move the %s %s %s corner\n" % (*sorted(piece.colors),)
-			hint += " above the %s and %s centers" % (*filter(lambda x: x != 'W', sorted(piece.colors)),)
+			hint = "Move the %s %s %s corner\n" % (*piece_colors,)
+			hint += " above the %s and %s centers" % (*filter(lambda x: x != 'W', piece_colors),)
 			hint = fix_color_string(hint)
 		# otherwise, the piece is inside the wrong slot: need to take it out
 		elif piece.pos[2] == -1:
 			# at the back of the cube
 			hint = "Rotate the cube so that the\n"
-			hint += " %s %s %s corner is at the front" % (*sorted(piece.colors),)
+			hint += " %s %s %s corner is at the front" % (*piece_colors,)
 			hint = fix_color_string(hint)
 		elif piece.pos[0] == 1:
 			# in the front-right slot
 			hint = "Use the right-hand sequence\n"
-			hint += " to take out the %s %s %s corner\n" % (*sorted(piece.colors),)
+			hint += " to take out the %s %s %s corner\n" % (*piece_colors,)
 			hint = fix_color_string(hint)
 			hint += "The sequence is R U Ri Ui"
 		elif piece.pos[0] == -1:
 			# in the front-left slot
 			hint = "Use the left-hand sequence\n"
-			hint += " to take out the %s %s %s corner\n" % (*sorted(piece.colors),)
+			hint += " to take out the %s %s %s corner\n" % (*piece_colors,)
 			hint = fix_color_string(hint)
 			hint += "The sequence is Li Ui L U"
 
 	elif piece.pos[2] != 1:
 		# piece/slot is at the back of the cube
 		hint = "Rotate the cube so that the\n"
-		hint += " %s %s %s corner is at the front" % (*sorted(piece.colors),)
+		hint += " %s %s %s corner is at the front" % (*piece_colors,)
 		hint = fix_color_string(hint)
 	else:
 		# piece is at front, at the correct slot, but unsolved
 		if piece.pos[0] == 1:
 			hint = "Repeat the right-hand sequence\n"
-			hint += " to solve the %s %s %s corner\n" % (*sorted(piece.colors),)
+			hint += " to solve the %s %s %s corner\n" % (*piece_colors,)
 			hint = fix_color_string(hint)
 			hint += "The sequence is R U Ri Ui"
 		elif piece.pos[0] == -1:
 			hint = "Repeat the left-hand sequence\n"
-			hint += " to solve the %s %s %s corner\n" % (*sorted(piece.colors),)
+			hint += " to solve the %s %s %s corner\n" % (*piece_colors,)
 			hint = fix_color_string(hint)
 			hint += "The sequence is Li Ui L U"
 
 	return hint, None, piece, 1
+
+def get_middle_layer_hint(cube, piece):
+	# determine the type of hint to return for the middle layer
+
+	# check that white is on bottom
+	white_face = cube.find_piece('W')
+	if white_face.pos != (0,-1,0):
+		return ("Rotate the cube so the white face is on bottom", "rotate.png", white_face, 2)
+
+	if piece == None or piece == white_face or is_piece_solved(cube, piece):
+		# piece needs to be updated
+		next_piece = find_next_middle_layer_edge(cube)
+		return get_specific_middle_layer_hint(cube, next_piece)
+	elif is_white_solved(cube):
+		# may need to update the hint
+		return get_specific_middle_layer_hint(cube, piece)
+	else:
+		# piece is being solved,  don't update the hint
+		return (None, None, None, 2)
+
+def get_specific_middle_layer_hint(cube, piece):
+	# return the specific hint for solving a middle layer edge
+	# returns tuple of hint text, image, piece, and stage number (2)
+
+	# get piece information
+	piece_colors = sorted(list(filter(None, piece.colors)))
+
+	# if in the top layer, make sure it's above the appropriate center
+	#	get the side-facing color (either on the X or Z axis)
+	#	this is whichever one is not None
+	color = piece.colors[2] if piece.colors[0] == None else piece.colors[0]
+	center = cube.find_piece(color)
+
+	# first deal with pieces in the middle layer
+	if piece.pos[1] == 0:
+		if piece.pos[2] == -1:
+			hint = "Rotate the cube so the %s %s piece\n" % (*piece_colors,)
+			hint += " is at the front"
+			hint = fix_color_string(hint)
+		else:
+			hint = "We need to take out the %s %s piece\n" % (*piece_colors,)
+			hint += "Do this by inserting a random piece in its place\n"
+			hint = fix_color_string(hint)
+			if piece.pos[0] == 1:
+				# insert on the right side
+				hint += "1. Perform the right-hand move (R U Ri Ui)\n"
+				hint += "2. Rotate the cube to the right (Y)\n"
+				hint += "3. Perform the left-hand move (Li Ui L U)"
+			else:
+				# insert on the left side
+				hint += "1. Perform the left-hand move (Li Ui L U)\n"
+				hint += "2. Rotate the cube to the left (Yi)\n"
+				hint += "3. Perform the right-hand move (R U Ri Ui)"
+
+	# all other cases concern pieces in the top layer
+	elif piece.pos[0] != center.pos[0] or piece.pos[2] != center.pos[2]:
+		# x and z coordinates don't match: the piece is not above its center
+		hint = "Turn the top layer so the %s %s piece\n" % (*piece_colors,)
+		hint += " is above the %s center" % color
+		hint = fix_color_string(hint)
+	elif piece.pos != (0,1,1):
+		# the piece needs to be at the front of the cube for the algorithm to work
+		hint = "Rotate the cube so the %s %s piece\n" % (*piece_colors,)
+		hint += " is at the front"
+		hint = fix_color_string(hint)
+	else:
+		# insert the piece to the right/left depending on where it must go
+		other_color = piece.colors[1]
+		other_center = cube.find_piece(other_color)
+		hint = "We need to insert the %s %s piece " % (*piece_colors,)
+		hint = fix_color_string(hint)
+		if other_center.pos[0] == 1:
+			# insert to the right
+			hint += "to the right\n"
+			hint += "1. Turn the piece away (U)\n"
+			hint += "2. Perform the right-hand move (R U Ri Ui)\n"
+			hint += "3. Rotate the cube to the right (Y)\n"
+			hint += "4. Perform the left-hand move (Li Ui L U)"
+		else:
+			# insert to the left
+			hint += "to the left\n"
+			hint += "1. Turn the piece away (Ui)\n"
+			hint += "2. Perform the left-hand move (Li Ui L U)\n"
+			hint += "3. Rotate the cube to the left (Yi)\n"
+			hint += "4. Perform the right-hand move (R U Ri Ui)"
+
+	return hint, None, piece, 2
 
 def is_cross_solved(cube):
 	# determine if the cross is solved
@@ -217,21 +324,21 @@ def is_middle_layer_solved(cube):
 		# check the edges in the M slice
 		for i in range(-1,2,2):
 			for j in range(-1,2,2):
-				if not is_piece_solved(cube.get_piece(0,i,j)):
+				if not is_piece_solved(cube, cube.get_piece(0,i,j)):
 					return False
 	elif white_center.pos[1] != 0:
 		# white center on U/D
 		# check the edges in the E slice
 		for i in range(-1,2,2):
 			for j in range(-1,2,2):
-				if not is_piece_solved(cube.get_piece(i,0,j)):
+				if not is_piece_solved(cube, cube.get_piece(i,0,j)):
 					return False
 	else:
 		# white center is on F/B
 		# check the edges in the S slice
 		for i in range(-1,2,2):
 			for j in range(-1,2,2):
-				if not is_piece_solved(cube.get_piece(i,j,0)):
+				if not is_piece_solved(cube, cube.get_piece(i,j,0)):
 					return False
 
 	return True

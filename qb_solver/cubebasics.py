@@ -148,7 +148,7 @@ def find_next_white_corner(cube):
 			if not is_piece_solved(cube, piece):
 				return piece
 
-def find_next_middle_edge(cube):
+def find_next_middle_layer_edge(cube):
 	# find the next unsolved edge of the middle layer
 	# assuming white layer is solved on the D face
 
