@@ -318,6 +318,42 @@ def bigor(tup):
 		res = res or el
 	return res
 
+def is_middle_layer_solved(cube):
+	# If the white isn't solved, this layer doesn't matter
+	if not is_white_solved(cube):
+		return False
+	middle_edges = get_middle_layer_pieces(cube)
+	for piece in middle_edges:
+		if not is_piece_solved(cube, piece):
+			return False
+	return True
+
+def get_middle_layer_pieces(cube):
+	white_center = cube.find_piece("W")
+	x = white_center.pos[0]
+	y = white_center.pos[1]
+	z = white_center.pos[2]
+
+	middle = []
+
+	if x != 0:
+		middle.append(cube.getpiece(0, 1, 1))
+		middle.append(cube.getpiece(0, 1, -1))
+		middle.append(cube.getpiece(0, -1, 1))
+		middle.append(cube.getpiece(0, -1, -1))
+	if y != 0:
+		middle.append(cube.getpiece(1, 0, 1))
+		middle.append(cube.getpiece(1, 0, -1))
+		middle.append(cube.getpiece(-1, 0, 1))
+		middle.append(cube.getpiece(-1, 0, -1))
+	if z != 0:
+		middle.append(cube.getpiece(1, 1, 0))
+		middle.append(cube.getpiece(1, -1, 0))
+		middle.append(cube.getpiece(-1, 1, 0))
+		middle.append(cube.getpiece(-1, -1, 0))
+
+	return middle
+
 def get_corner_pieces(cube, face):
 	x = face.pos[0]
 	y = face.pos[1]
