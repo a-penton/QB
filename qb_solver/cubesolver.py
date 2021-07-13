@@ -204,3 +204,34 @@ def is_white_solved(cube):
 			return False
 
 	return True
+
+def is_middle_layer_solved(cube):
+	# first check previous steps
+	if not is_white_solved(cube):
+		return False
+	white_center = cube.find_piece('W')
+
+	# depending on orientation of the cube, check different edges
+	if white_center.pos[0] != 0:
+		# white center is on L/R
+		# check the edges in the M slice
+		for i in range(-1,2,2):
+			for j in range(-1,2,2):
+				if not is_piece_solved(cube.get_piece(0,i,j)):
+					return False
+	elif white_center.pos[1] != 0:
+		# white center on U/D
+		# check the edges in the E slice
+		for i in range(-1,2,2):
+			for j in range(-1,2,2):
+				if not is_piece_solved(cube.get_piece(i,0,j)):
+					return False
+	else:
+		# white center is on F/B
+		# check the edges in the S slice
+		for i in range(-1,2,2):
+			for j in range(-1,2,2):
+				if not is_piece_solved(cube.get_piece(i,j,0)):
+					return False
+
+	return True
