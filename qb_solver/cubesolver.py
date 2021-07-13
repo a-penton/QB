@@ -341,18 +341,42 @@ def get_middle_layer_pieces(cube):
 		middle.append(cube.getpiece(0, 1, -1))
 		middle.append(cube.getpiece(0, -1, 1))
 		middle.append(cube.getpiece(0, -1, -1))
-	if y != 0:
+	elif y != 0:
 		middle.append(cube.getpiece(1, 0, 1))
 		middle.append(cube.getpiece(1, 0, -1))
 		middle.append(cube.getpiece(-1, 0, 1))
 		middle.append(cube.getpiece(-1, 0, -1))
-	if z != 0:
+	elif z != 0:
 		middle.append(cube.getpiece(1, 1, 0))
 		middle.append(cube.getpiece(1, -1, 0))
 		middle.append(cube.getpiece(-1, 1, 0))
 		middle.append(cube.getpiece(-1, -1, 0))
 
 	return middle
+
+def is_yellow_cross_solved(cube):
+	# Check everything before it
+	is_middle_layer_solved(cube)
+
+	yellow_center = cube.find_piece("Y")
+	x = yellow_center.pos[0]
+	y = yellow_center.pos[1]
+	z = yellow_center.pos[2]
+
+	face_edges = get_face_edges(cube, yellow_center)
+	if x != 0:
+		for edge in face_edges:
+			if edge.colors[0] != x:
+				return False
+	elif y != 0:
+		for edge in face_edges:
+			if edge.colors[1] != y:
+				return False
+	elif z != 0:
+		for edge in face_edges:
+			if edge.colors[2] != z:
+				return False
+	return True
 
 def get_corner_pieces(cube, face):
 	x = face.pos[0]
