@@ -118,8 +118,9 @@ def find_next_cross_edge(cube):
 	# next check the middle layer: this assums white/yellow on U/D
 	for i in range(-1,2,2):
 		for j in range(-1,2,2):
-			if 'W' in cube.get_piece(i,0,j).colors:
-				return cube.get_piece(i,0,j)
+			edge = cube.get_piece(i,0,j)
+			if 'W' in edge.colors:
+				return edge
 
 	# finally check white side
 	white_face = cube.find_piece('W')
@@ -132,18 +133,19 @@ def find_next_white_corner(cube):
 	# find the next white corner to be solved
 	# assuming white on bottom
 
-	# first check the top layer for white
+	# first check the top layer for white corners
 	for i in range(-1,2,2):
 		for j in range(-1,2,2):
 			piece = cube.get_piece(i,1,j)
 			if 'W' in piece.colors:
 				return piece
 
-	# then check the bottom layer for unsolved white corners
+	# then check the bottom layer for unsolved corners
+	# (all of the corners in the bottom layer are guaranteed to have white)
 	for i in range(-1,2,2):
 		for j in range(-1,2,2):
 			piece = cube.get_piece(i,-1,j)
-			if 'W' in piece.colors and not is_piece_solved(cube, piece):
+			if not is_piece_solved(cube, piece):
 				return piece
 
 def find_next_middle_edge(cube):
