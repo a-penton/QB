@@ -145,3 +145,21 @@ def find_next_white_corner(cube):
 			piece = cube.get_piece(i,-1,j)
 			if 'W' in piece.colors and not is_piece_solved(cube, piece):
 				return piece
+
+def find_next_middle_edge(cube):
+	# find the next unsolved edge of the middle layer
+	# assuming white layer is solved on the D face
+
+	# first check the yellow side
+	yellow_face = cube.find_piece('Y')
+	possible_edges = get_face_edges(cube, yellow_face)
+	for edge in possible_edges:
+		if not 'Y' in edge.colors:
+			return edge
+
+	# then check the middle layer
+	for i in range(-1,2,2):
+		for j in range(-1,2,2):
+			edge = cube.get_piece(i,0,j)
+			if not is_piece_solved(edge):
+				return edge
