@@ -163,5 +163,5 @@ def find_next_middle_layer_edge(cube):
 	for i in range(-1,2,2):
 		for j in range(-1,2,2):
 			edge = cube.get_piece(i,0,j)
-			if not is_piece_solved(edge):
+			if not is_piece_solved(cube, edge):
 				return edge
