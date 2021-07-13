@@ -59,9 +59,7 @@ def bigor(tup):
 def get_face_edges(cube, face):
 	# returns array of edges around a face
 
-	x = face.pos[0]
-	y = face.pos[1]
-	z = face.pos[2]
+	x,y,z = face.pos
 
 	arr = []
 
@@ -84,9 +82,7 @@ def get_face_edges(cube, face):
 	return arr
 
 def get_corner_pieces(cube, face):
-	x = face.pos[0]
-	y = face.pos[1]
-	z = face.pos[2]
+	x,y,z = face.pos
 
 	corners = []
 
@@ -107,9 +103,7 @@ def get_corner_pieces(cube, face):
 
 def get_middle_layer_pieces(cube):
 	white_center = cube.find_piece("W")
-	x = white_center.pos[0]
-	y = white_center.pos[1]
-	z = white_center.pos[2]
+	x,y,z = white_center.pos
 
 	middle = []
 
@@ -186,8 +180,7 @@ def find_next_middle_layer_edge(cube):
 			return edge
 
 	# then check the middle layer
-	for i in range(-1,2,2):
-		for j in range(-1,2,2):
-			edge = cube.get_piece(i,0,j)
-			if not is_piece_solved(cube, edge):
-				return edge
+	edges = get_middle_layer_pieces(cube)
+	for edge in edges:
+		if not is_piece_solved(cube, edge):
+			return edge
