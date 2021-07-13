@@ -224,12 +224,6 @@ def get_specific_middle_layer_hint(cube, piece):
 	# get piece information
 	piece_colors = sorted(list(filter(None, piece.colors)))
 
-	# if in the top layer, make sure it's above the appropriate center
-	#	get the side-facing color (either on the X or Z axis)
-	#	this is whichever one is not None
-	color = piece.colors[2] if piece.colors[0] == None else piece.colors[0]
-	center = cube.find_piece(color)
-
 	# first deal with pieces in the middle layer
 	if piece.pos[1] == 0:
 		if piece.pos[2] == -1:
@@ -243,45 +237,48 @@ def get_specific_middle_layer_hint(cube, piece):
 			if piece.pos[0] == 1:
 				# insert on the right side
 				hint += "1. Perform the right-hand move (R U Ri Ui)\n"
-				hint += "2. Rotate the cube to the right (Y)\n"
+				hint += "2. Rotate the cube to face the right (Y)\n"
 				hint += "3. Perform the left-hand move (Li Ui L U)"
 			else:
 				# insert on the left side
 				hint += "1. Perform the left-hand move (Li Ui L U)\n"
-				hint += "2. Rotate the cube to the left (Yi)\n"
+				hint += "2. Rotate the cube to face the left (Yi)\n"
 				hint += "3. Perform the right-hand move (R U Ri Ui)"
 
 	# all other cases concern pieces in the top layer
-	elif piece.pos[0] != center.pos[0] or piece.pos[2] != center.pos[2]:
-		# x and z coordinates don't match: the piece is not above its center
-		hint = "Turn the top layer so the %s %s piece\n" % (*piece_colors,)
-		hint += " is above the %s center" % color
-		hint = fix_color_string(hint)
-	elif piece.pos != (0,1,1):
-		# the piece needs to be at the front of the cube for the algorithm to work
-		hint = "Rotate the cube so the %s %s piece\n" % (*piece_colors,)
-		hint += " is at the front"
-		hint = fix_color_string(hint)
 	else:
-		# insert the piece to the right/left depending on where it must go
-		other_color = piece.colors[1]
-		other_center = cube.find_piece(other_color)
-		hint = "We need to insert the %s %s piece " % (*piece_colors,)
-		hint = fix_color_string(hint)
-		if other_center.pos[0] == 1:
-			# insert to the right
-			hint += "to the right\n"
-			hint += "1. Turn the piece away (U)\n"
-			hint += "2. Perform the right-hand move (R U Ri Ui)\n"
-			hint += "3. Rotate the cube to the right (Y)\n"
-			hint += "4. Perform the left-hand move (Li Ui L U)"
+		# get the side-facing color of the edge (either on the X or Z axis)
+		# this is whichever one is not None
+		side_color = piece.colors[2] if piece.colors[0] == None else piece.colors[0]
+		side_center = cube.find_piece(side_color)
+		# top_center is the center that matches the piece's top color
+		top_center = cube.find_piece(piece.colors[1])
+
+		hint = "-- Solve the %s %s edge --\n" % (*piece_colors,)
+
+		if side_center.pos != (0,0,1):
+			hint += "Rotate the cube so the %s center is at the front" % side_color
+			hint = fix_color_string(hint)
+		elif piece.pos[0] != -1*top_center.pos[0]:
+			if top_center.pos[0] == 1:
+				hint += "Turn the top so the %s %s edge is on the left" % (*piece_colors,)
+			else:
+				hint += "Turn the top so the %s %s edge is on the right" % (*piece_colors,)
+			hint = fix_color_string(hint)
 		else:
-			# insert to the left
-			hint += "to the left\n"
-			hint += "1. Turn the piece away (Ui)\n"
-			hint += "2. Perform the left-hand move (Li Ui L U)\n"
-			hint += "3. Rotate the cube to the left (Yi)\n"
-			hint += "4. Perform the right-hand move (R U Ri Ui)"
+			# the piece is in position to perform the algorithm
+			if top_center.pos[0] == 1:
+				hint += "Insert the %s %s edge to the right:\n" % (*piece_colors,)
+				hint = fix_color_string(hint)
+				hint += "1. Perform the right-hand move (R U Ri Ui)\n"
+				hint += "2. Rotate the cube to face the right (Y)\n"
+				hint += "3. Perform the left-hand move (Li Ui L U)"
+			else:
+				hint += "Insert the %s %s edge to the left:\n" % (*piece_colors,)
+				hint = fix_color_string(hint)
+				hint += "1. Perform the left-hand move (Li Ui L U)\n"
+				hint += "2. Rotate the cube to face the left (Yi)\n"
+				hint += "3. Perform the right-hand move (R U Ri Ui)"
 
 	return hint, None, piece, 2
 
