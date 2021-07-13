@@ -6,7 +6,7 @@ import random
 from rubik.cube import Cube
 import os
 
-application.asset_folder=Path(os.path.join(application.package_folder.parent), 'qb_solver/')
+#application.asset_folder=application.package_folder.parent
 
 anim = False  # used to lockout inputs during animation
 blinking = False
@@ -379,12 +379,13 @@ def scramble():  # creates a random string of moves
 
 def hintMove():
     global blinking
+    global current_piece
     if blinking:
         blinking = False
         cube.unblink()
     else:
         blinking = True
-        cube.blink()
+        cube.blink(current_piece)
 
 def hintDetailToggle():
     if hintDetail.enabled:
@@ -414,6 +415,7 @@ def changeTurnSpeed():
 def updateCurrentHint(hintText, hintPicture, next_piece, next_stage):
     global current_piece
     global current_stage
+    global blinking
     if hintText != None:
         hintSpecific.text = hintText
     if hintPicture != None:
@@ -434,6 +436,9 @@ def updateCurrentHint(hintText, hintPicture, next_piece, next_stage):
         current_piece = next_piece
     if next_stage != None:
         current_stage = next_stage
+    if blinking:
+        cube.unblink()
+        cube.blink(current_piece)
 
 def displayNotation():
     cube.toggleNotation()

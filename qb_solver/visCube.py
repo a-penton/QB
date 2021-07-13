@@ -6,7 +6,7 @@ from ursina.curve import *
 from rubik.cube import Cube
 import os
 
-application.asset_folder=Path(os.path.join(application.package_folder.parent), 'qb_solver/')
+#application.asset_folder=Path(os.path.join(application.package_folder.parent), 'qb_solver/')
 
 class VisCube(Entity):
     cubes = [] #list of cublets
@@ -242,7 +242,7 @@ class VisCube(Entity):
         self.e23 = Entity(model='cubetest', color=color.rgb(200, 200, 200, 255), texture="RubiksTex", shader=lit_with_shadows_shader, x=-1, y=-1, z=1, world_scale=(1, 1, 1), parent=self)
         self.e24 = Entity(model='cubetest', color=color.rgb(200, 200, 200, 255), texture="RubiksTex", shader=lit_with_shadows_shader, x=0, y=-1, z=0, world_scale=(1, 1, 1), parent=self)
         self.e25 = Entity(model='cubetest', color=color.rgb(200, 200, 200, 255), texture="RubiksTex", shader=lit_with_shadows_shader, x=0, y=-1, z=1, world_scale=(1, 1, 1), parent=self)
-        self.e26 = Entity(model='cubetest', color=color.rgb(200, 200, 200, 255), texture="RubiksTex", shader=lit_with_shadows_shader, x=0, y=-0, z=1, world_scale=(1, 1, 1), parent=self)
+        self.e26 = Entity(model='cubetest', color=color.rgb(200, 200, 200, 255), texture="RubiksTex", shader=lit_with_shadows_shader, x=0, y=0, z=1, world_scale=(1, 1, 1), parent=self)
 
         self.cubes.append(self.e1)
         self.cubes.append(self.e2)
@@ -481,22 +481,105 @@ class VisCube(Entity):
             e.reparent_to(self.center)
         self.center.animate('rotation_z', self.center.rotation_z - 90, duration=self.turnSpeed, time_step=time.dt)
 
-    def blink(self):
-        self.blinkSeq.append(Func(self.e1.blink, value=color.black,duration=2))
-        self.blinkSeq.append(Func(self.e2.blink, value=color.black, duration=2))
-        self.blinkSeq.append(Func(self.e3.blink, value=color.black, duration=2))
-        self.blinkSeq.append(Func(self.e4.blink, value=color.black, duration=2))
-        self.blinkSeq.append(Func(self.e5.blink, value=color.black, duration=2))
+    def blink(self, current_piece):
 
+        if current_piece == None:
+            return
+        #print(current_piece.colors) #for testing
+        if "R" in current_piece.colors: # does top layer
+            if "W" in current_piece.colors:
+                if "B" in current_piece.colors:
+                    self.startBlink(self.e8)
+                    return
+                if "G" in current_piece.colors:
+                    self.startBlink(self.e6)
+                    return
+                self.startBlink(self.e4)
+                return
+            if "G" in current_piece.colors:
+                if "Y" in current_piece.colors:
+                    self.startBlink(self.e14)
+                    return
+                self.startBlink(self.e11)
+                return
+            if "B" in current_piece.colors:
+                if "Y" in current_piece.colors:
+                    self.startBlink(self.e15)
+                    return
+                self.startBlink(self.e12)
+                return
+            if "Y" in current_piece.colors:
+                self.startBlink(self.e13)
+                return
+            self.startBlink(self.e10)
+            return
+        if "O" in current_piece.colors: #does bottom layer
+            if "W" in current_piece.colors:
+                if "B" in current_piece.colors:
+                    self.startBlink(self.e7)
+                    return
+                if "G" in current_piece.colors:
+                    self.startBlink(self.e9)
+                    return
+                self.startBlink(self.e5)
+                return
+            if "G" in current_piece.colors:
+                if "Y" in current_piece.colors:
+                    self.startBlink(self.e19)
+                    return
+                self.startBlink(self.e17)
+                return
+            if "B" in current_piece.colors:
+                if "Y" in current_piece.colors:
+                    self.startBlink(self.e23)
+                    return
+                self.startBlink(self.e21)
+                return
+            if "Y" in current_piece.colors:
+                self.startBlink(self.e25)
+                return
+            self.startBlink(self.e24)
+            return
+        #middle front layer====
+        if "W" in current_piece.colors:
+            if "B" in current_piece.colors:
+                self.startBlink(self.e3)
+                return
+            if "G" in current_piece.colors:
+                self.startBlink(self.e2)
+                return
+            self.startBlink(self.e1)
+            return
+        #middle back layer====
+        if "Y" in current_piece.colors:
+            if "B" in current_piece.colors:
+                self.startBlink(self.e22)
+                return
+            if "G" in current_piece.colors:
+                self.startBlink(self.e18)
+                return
+            self.startBlink(self.e26)
+            return
+        #remaining two centers====
+        if "B" in current_piece.colors:
+            self.startBlink(self.e20)
+            return
+        if "G" in current_piece.colors:
+            self.startBlink(self.e16)
+            return
+
+
+    def startBlink(self, piece):
+        self.blinkSeq.append(Func(piece.blink, value=color.black, duration=2))
         self.blinkSeq.loop = True
         self.blinkSeq.append(2.1)
         self.blinkSeq.start()
 
     def unblink(self):
         self.blinkSeq.loop = False
+        self.blinkSeq.finish()
         self.blinkSeq.pause()
         self.blinkSeq.kill()
-        self.blinkSeq.finish()
         self.blinkSeq = Sequence()
         for e in self.cubes:
             e.color = color.rgb(200, 200, 200, 255)
