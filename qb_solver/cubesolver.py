@@ -310,32 +310,35 @@ def is_white_solved(cube):
 	return True
 
 def is_middle_layer_solved(cube):
-	# first check previous steps
+	# If the white isn't solved, this layer doesn't matter
 	if not is_white_solved(cube):
 		return False
-	white_center = cube.find_piece('W')
+	middle_edges = get_middle_layer_pieces(cube)
+	for piece in middle_edges:
+		if not is_piece_solved(cube, piece):
+			return False
+	return True
 
-	# depending on orientation of the cube, check different edges
-	if white_center.pos[0] != 0:
-		# white center is on L/R
-		# check the edges in the M slice
-		for i in range(-1,2,2):
-			for j in range(-1,2,2):
-				if not is_piece_solved(cube, cube.get_piece(0,i,j)):
-					return False
-	elif white_center.pos[1] != 0:
-		# white center on U/D
-		# check the edges in the E slice
-		for i in range(-1,2,2):
-			for j in range(-1,2,2):
-				if not is_piece_solved(cube, cube.get_piece(i,0,j)):
-					return False
-	else:
-		# white center is on F/B
-		# check the edges in the S slice
-		for i in range(-1,2,2):
-			for j in range(-1,2,2):
-				if not is_piece_solved(cube, cube.get_piece(i,j,0)):
-					return False
+def is_yellow_cross_solved(cube):
+	# Check everything before it
+	is_middle_layer_solved(cube)
 
+	yellow_center = cube.find_piece("Y")
+	x = yellow_center.pos[0]
+	y = yellow_center.pos[1]
+	z = yellow_center.pos[2]
+
+	face_edges = get_face_edges(cube, yellow_center)
+	if x != 0:
+		for edge in face_edges:
+			if edge.colors[0] != x:
+				return False
+	elif y != 0:
+		for edge in face_edges:
+			if edge.colors[1] != y:
+				return False
+	elif z != 0:
+		for edge in face_edges:
+			if edge.colors[2] != z:
+				return False
 	return True

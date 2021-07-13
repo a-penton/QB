@@ -105,6 +105,32 @@ def get_corner_pieces(cube, face):
 
 	return corners
 
+def get_middle_layer_pieces(cube):
+	white_center = cube.find_piece("W")
+	x = white_center.pos[0]
+	y = white_center.pos[1]
+	z = white_center.pos[2]
+
+	middle = []
+
+	if x != 0:
+		middle.append(cube.getpiece(0, 1, 1))
+		middle.append(cube.getpiece(0, 1, -1))
+		middle.append(cube.getpiece(0, -1, 1))
+		middle.append(cube.getpiece(0, -1, -1))
+	elif y != 0:
+		middle.append(cube.getpiece(1, 0, 1))
+		middle.append(cube.getpiece(1, 0, -1))
+		middle.append(cube.getpiece(-1, 0, 1))
+		middle.append(cube.getpiece(-1, 0, -1))
+	elif z != 0:
+		middle.append(cube.getpiece(1, 1, 0))
+		middle.append(cube.getpiece(1, -1, 0))
+		middle.append(cube.getpiece(-1, 1, 0))
+		middle.append(cube.getpiece(-1, -1, 0))
+
+	return middle
+
 def find_next_cross_edge(cube):
 	# finds next unsolved cross edge, assuming white/yellow on U/D
 
