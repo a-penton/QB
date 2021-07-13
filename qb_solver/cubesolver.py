@@ -262,9 +262,9 @@ def get_face_edges(cube, face):
 		arr.append(cube.get_piece(x,0,1))
 		arr.append(cube.get_piece(x,0,-1))
 	elif y != 0:
+		arr.append(cube.get_piece(0,y,1))
 		arr.append(cube.get_piece(1,y,0))
 		arr.append(cube.get_piece(-1,y,0))
-		arr.append(cube.get_piece(0,y,1))
 		arr.append(cube.get_piece(0,y,-1))
 	else:
 		arr.append(cube.get_piece(1,0,z))
