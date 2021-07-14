@@ -38,7 +38,8 @@ def menu():
     cube_menu_model.enabled = True
     title.enabled = True
     help_menu.enabled = True
-    settings_menu.enabled = True
+    tutorial_menu.enabled = True
+    setting_menu.enabled = True
     start_menu.enabled = True
     exit.enabled = True
     hintButton.enabled = False
@@ -69,7 +70,8 @@ def start():
     cube_menu_model.enabled = False
     title.enabled = False
     help_menu.enabled = False
-    settings_menu.enabled = False
+    tutorial_menu.enabled = False
+    setting_menu.enabled = False
     exit.enabled = False
     start_menu.enabled = False
     hintButton.enabled = True
@@ -496,11 +498,12 @@ hintSpecific.text_origin = (-.5, .3)
 
 
 # menu buttons ==================
-exit = Button(text='Exit',text_color = color.black, model='quad', color=color.red, scale=(.2,.07), text_origin=(0,0), position=(0,-.4))
-exit.on_click = application.quit # assign a function to the button.
+exit = Button(text='',icon='quit_button', text_color = color.black, color=color.clear, highlight_color = color.dark_gray, scale=(.36,.12), position=(-.7,-.35)) # button
+exit.on_click = application.quit
 exittooltip = Tooltip('exit')
-start_menu = Button(text='Start QB',text_color = color.black, model='quad', on_click=Func(start), color= color.rgb(0,128,0), scale=(.2,.07), text_origin=(0,0), position  = (0,-.1))
-settings_menu = Button(text='Light/Dark Mode',text_color = color.black, model='quad',on_click=Func(darkLight), color= color.rgb(255,255,0), highlight_color = color.yellow.tint(.5), scale=(.2,.07), text_origin=(0,0), position  = (0,-.2))
-help_menu = Button(text='Help',text_color = color.black, model='quad', color=color.rgb(255,165,0), scale=(.2,.07), text_origin=(0,0), position  = (0,-.3))
-cube_menu_model = Entity(model='cubetest', color=color.rgb(200, 200, 200, 255), texture="RubiksTex", shader=lit_with_shadows_shader, scale=(2,2,2), position = (0,2))
-title = Text(text='QB', origin=(0,0), size = 20, background=False, position = (0,2))
+start_menu = Button(text='', icon='start_button', text_color = color.black, on_click=Func(start), color= color.clear, scale=(.36,.12), position  = (-.7,.1))# button
+tutorial_menu = Button(text='',icon='tutorial_button',text_color = color.black, color= color.clear,scale=(.36,.12),position  = (-.7,-.05)) #button
+help_menu = Button(text='',icon='aboutus_button',text_color = color.black, color=color.clear, scale=(.36,.12), position=(-.7,-.2)) #button
+setting_menu = Button(text='',icon='gear', color=color.clear,highlight_color = color.gray, scale=(.1,.1),on_click=Func(darkLight), position=(.85,.4))
+cube_menu_model = Entity(model='cubetest', color=color.rgb(200, 200, 200, 255), texture="RubiksTex", shader=lit_with_shadows_shader, scale=(3.5,3.5,3.5), position = (2,0))
+title = Button(text='',icon='title_text', color=color.clear, scale = (.45,.19),position = (-.7,.3))
