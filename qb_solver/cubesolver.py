@@ -36,6 +36,8 @@ def hint(cube, piece, stage):
 			stage = 1
 		elif not is_middle_layer_solved(cube):
 			stage = 2
+		elif not is_eo_solved(cube):
+			stage = 3
 
 	# if the current stage is solved, proceed to the next one
 	if stage == 0 and is_cross_solved(cube):
@@ -43,6 +45,8 @@ def hint(cube, piece, stage):
 	if stage == 1 and is_white_solved(cube):
 		stage = 2
 	if stage == 2 and is_middle_layer_solved(cube):
+		stage = 3
+	if stage == 3 and is_eo_solved(cube):
 		stage = -1
 
 	if stage == 0:
@@ -51,6 +55,8 @@ def hint(cube, piece, stage):
 		return get_white_layer_hint(cube, piece)
 	elif stage == 2:
 		return get_middle_layer_hint(cube, piece)
+	elif stage == 3:
+		return get_eo_hint(cube)
 	else:
 		# if solved, the piece returned is the white center
 		return ("The first two layers are solved!", "cross-solved.png", cube.find_piece('W'), -1)
@@ -85,7 +91,7 @@ def get_cross_hint(cube, piece):
 		return get_specific_cross_hint(cube, piece)
 	else:
 		# piece is still unsolved, don't need to update
-		return (None, None, None, 0)
+		return (None, None, piece, 0)
 
 def get_specific_cross_hint(cube, piece):
 	# returns tuple of hint text, image, piece, and stage number (0)
@@ -140,7 +146,7 @@ def get_white_layer_hint(cube, piece):
 		return get_specific_white_layer_hint(cube, piece)
 	else:
 		# piece is still unsolved, don't need to update
-		return (None, None, None, 1)
+		return (None, None, piece, 1)
 
 def get_specific_white_layer_hint(cube, piece):
 	# returns tuple of hint text, image, piece, and stage number (1)
@@ -196,7 +202,7 @@ def get_specific_white_layer_hint(cube, piece):
 			hint = fix_color_string(hint)
 			hint += "The sequence is Li Ui L U"
 
-	return hint, None, piece, 1
+	return (hint, None, piece, 1)
 
 def get_middle_layer_hint(cube, piece):
 	# determine the type of hint to return for the middle layer
@@ -215,7 +221,7 @@ def get_middle_layer_hint(cube, piece):
 		return get_specific_middle_layer_hint(cube, piece)
 	else:
 		# piece is being solved,  don't update the hint
-		return (None, None, None, 2)
+		return (None, None, piece, 2)
 
 def get_specific_middle_layer_hint(cube, piece):
 	# return the specific hint for solving a middle layer edge
@@ -282,6 +288,69 @@ def get_specific_middle_layer_hint(cube, piece):
 
 	return hint, None, piece, 2
 
+def get_eo_hint(cube):
+	# This step is very straightforward, only three cases to handle
+	# solving all yellow edges, so no particular piece to solve
+
+	# check that white is on bottom
+	white_face = cube.find_piece('W')
+	if white_face.pos != (0,-1,0):
+		return ("Rotate the cube so the white face is on bottom", "rotate.png", white_face, 3)
+
+	# may need to update the hint
+	if is_middle_layer_solved(cube):
+		return get_specific_eo_hint(cube)
+	else:
+		return None, None, None, 3
+
+def get_specific_eo_hint(cube):
+	# assumes white on D (yellow on U)
+
+	# count oriented edges
+	num_oriented_edges = 0
+	if cube.get_piece(0,1,1).colors[1] == 'Y':
+		num_oriented_edges += 1
+	if cube.get_piece(0,1,-1).colors[1] == 'Y':
+		num_oriented_edges += 1
+	if cube.get_piece(1,1,0).colors[1] == 'Y':
+		num_oriented_edges += 1
+	if cube.get_piece(-1,1,0).colors[1] == 'Y':
+		num_oriented_edges += 1
+
+	if num_oriented_edges == 0:
+		hint = "No edges have yellow facing up\n"
+		hint += "1. Turn the front face clockwise (F)\n"
+		hint += "2. Perform the right-hand move (R U Ri Ui)\n"
+		hint += "3. Undo the move from step 1 (Fi)"
+	if num_oriented_edges == 2:
+		# two possible cases: line or L-shape
+		uf_edge_oriented = cube.get_piece(0,1,1).colors[1] == 'Y'
+		ub_edge_oriented = cube.get_piece(0,1,-1).colors[1] == 'Y'
+		# line cases:
+		if uf_edge_oriented and ub_edge_oriented:
+			hint = "Two edges have yellow facing up (line case)\n"
+			hint += "Turn the top so they are on the left and right (U)"
+		elif not (uf_edge_oriented or ub_edge_oriented):
+			hint = "Two edges have yellow facing up (line case)\n"
+			hint += "1. Turn the front face clockwise (F)\n"
+			hint += "2. Perform the right-hand move (R U Ri Ui)\n"
+			hint += "3. Undo the move from step 1 (Fi)"
+		# L-shape cases:
+		else:
+			hint = "Two edges have yellow facing up (L case)\n"
+			ul_edge_oriented = cube.get_piece(-1,1,0).colors[1] == 'Y'
+			if ul_edge_oriented and ub_edge_oriented:
+				hint += "1. Turn the front face clockwise (F)\n"
+				hint += "2. Perform the right-hand move (R U Ri Ui)\n"
+				hint += "3. Undo the move from step 1 (Fi)"
+			else:
+				hint += "Turn the top so that these two edges\n"
+				hint += " are at the back and left of the top face"
+
+	print("NUM_ORIENTED_EDGES")
+	print(num_oriented_edges)
+	return hint, None, None, 3
+
 def is_cross_solved(cube):
 	# determine if the cross is solved
 
@@ -319,26 +388,25 @@ def is_middle_layer_solved(cube):
 			return False
 	return True
 
-def is_yellow_cross_solved(cube):
+def is_eo_solved(cube):
 	# Check everything before it
-	is_middle_layer_solved(cube)
+	if not is_middle_layer_solved(cube):
+		return False
 
 	yellow_center = cube.find_piece("Y")
-	x = yellow_center.pos[0]
-	y = yellow_center.pos[1]
-	z = yellow_center.pos[2]
+	x,y,z = yellow_center.pos
 
 	face_edges = get_face_edges(cube, yellow_center)
 	if x != 0:
 		for edge in face_edges:
-			if edge.colors[0] != x:
+			if edge.colors[0] != 'Y':
 				return False
 	elif y != 0:
 		for edge in face_edges:
-			if edge.colors[1] != y:
+			if edge.colors[1] != 'Y':
 				return False
 	elif z != 0:
 		for edge in face_edges:
-			if edge.colors[2] != z:
+			if edge.colors[2] != 'Y':
 				return False
 	return True

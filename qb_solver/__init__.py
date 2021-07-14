@@ -380,10 +380,9 @@ def updateCurrentHint(hintText, hintPicture, next_piece, next_stage):
             hintSpecific.icon.position = (0, -.3)
             hintSpecific.text_origin = (-.5, .3)
         hintSpecific.icon = hintPicture
-    if next_piece != None:
-        current_piece = next_piece
-    if next_stage != None:
-        current_stage = next_stage
+    
+    current_piece = next_piece
+    current_stage = next_stage
     if blinking:
         cube.unblink()
         cube.blink(current_piece)
