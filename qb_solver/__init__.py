@@ -34,60 +34,6 @@ current_piece = None
 current_stage = -1
 
 
-def menu():
-    cube_menu_model.enabled = True
-    title.enabled = True
-    help_menu.enabled = True
-    tutorial_menu.enabled = True
-    setting_menu.enabled = True
-    start_menu.enabled = True
-    exit.enabled = True
-    hintButton.enabled = False
-    settingsButton.enabled = False
-    cube.enabled = False
-    main_menu_button.enabled = False
-    
-    hintDisplay.enabled = False
-    hintDetail.enabled = False
-    hintSpecific.enabled = False
-    resetButton.enabled = False
-    rotateRButton.enabled = False
-    rotateLButton.enabled = False
-    rotateUButton.enabled = False
-    rotateDButton.enabled = False
-    background.enabled = False
-    inputButton.enabled = False
-    scrambleButton.enabled = False
-    rotateZRButton.enabled = False
-    rotateZLButton.enabled = False
-    speedSlider.enabled = False
-    notationButton.enabled = False
-    settings = False
-    settingsButton.color = color.gray
-    hintButton.color = color.gray
-
-def start():
-    cube_menu_model.enabled = False
-    title.enabled = False
-    help_menu.enabled = False
-    tutorial_menu.enabled = False
-    setting_menu.enabled = False
-    exit.enabled = False
-    start_menu.enabled = False
-    hintButton.enabled = True
-    settingsButton.enabled = True
-    cube.enabled = True
-    main_menu_button.enabled = True
-    notationButton.enabled = True
-
-def darkLight():
-    if window.color == color.dark_gray:
-        window.color = color.light_gray
-    elif window.color == color.light_gray:
-        window.color = color.dark_gray
-
-
-
 
 def main():
     menu()
@@ -444,6 +390,61 @@ def updateCurrentHint(hintText, hintPicture, next_piece, next_stage):
 
 def displayNotation():
     cube.toggleNotation()
+
+
+def menu():
+    cube_menu_model.enabled = True
+    title.enabled = True
+    help_menu.enabled = True
+    tutorial_menu.enabled = True
+    setting_menu.enabled = True
+    start_menu.enabled = True
+    exit.enabled = True
+    hintButton.enabled = False
+    settingsButton.enabled = False
+    cube.enabled = False
+    main_menu_button.enabled = False
+    hintDisplay.enabled = False
+    hintDetail.enabled = False
+    hintSpecific.enabled = False
+    resetButton.enabled = False
+    rotateRButton.enabled = False
+    rotateLButton.enabled = False
+    rotateUButton.enabled = False
+    rotateDButton.enabled = False
+    background.enabled = False
+    inputButton.enabled = False
+    scrambleButton.enabled = False
+    rotateZRButton.enabled = False
+    rotateZLButton.enabled = False
+    speedSlider.enabled = False
+    notationButton.enabled = False
+    settings = False
+    settingsButton.color = color.gray
+    hintButton.color = color.gray
+
+
+def start():
+    cube_menu_model.enabled = False
+    title.enabled = False
+    help_menu.enabled = False
+    tutorial_menu.enabled = False
+    setting_menu.enabled = False
+    exit.enabled = False
+    start_menu.enabled = False
+    hintButton.enabled = True
+    settingsButton.enabled = True
+    cube.enabled = True
+    main_menu_button.enabled = True
+    notationButton.enabled = True
+
+
+def darkLight():
+    if window.color == color.dark_gray:
+        window.color = color.light_gray
+    elif window.color == color.light_gray:
+        window.color = color.dark_gray
+
 
 # =============================================================UI buttons======================================================================
 # settings==============
