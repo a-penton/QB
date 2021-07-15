@@ -421,7 +421,45 @@ def menu():
     settings = False
     settingsButton.color = color.gray
     hintButton.color = color.gray
+    aboutus_menu.enabled = False
+    tutorial_box.enabled = False
 
+
+def darkLight():
+    if window.color == color.dark_gray:
+        window.color = color.light_gray
+        light_dark.icon = 'Picture2'
+    elif window.color == color.light_gray:
+        window.color = color.dark_gray
+        light_dark.icon = 'Picture1'
+
+def toggleAboutus():
+    tutorial_box.enabled = False
+    if aboutus_menu.enabled == True:
+        aboutus_menu.enabled = False
+    elif aboutus_menu.enabled == False:
+        aboutus_menu.enabled = True
+
+def toggleTutorial():
+    aboutus_menu.enabled = False
+    if tutorial_box.enabled == True:
+        tutorial_box.enabled = False
+    elif tutorial_box.enabled == False:
+        tutorial_box.enabled = True
+
+def toggleSettings():
+    if setting_menu.color == color.clear:
+        setting_menu.color = color.gray
+    elif setting_menu.color == color.gray:
+        setting_menu.color = color.clear
+    if light_dark.enabled == True:
+        light_dark.enabled = False
+    elif light_dark.enabled == False:
+        light_dark.enabled = True
+    if settings_box.enabled == True:
+        settings_box.enabled == False
+    elif settings_box.enabled == False:
+        settings_box.enabled == True
 
 def start():
     cube_menu_model.enabled = False
@@ -436,13 +474,9 @@ def start():
     cube.enabled = True
     main_menu_button.enabled = True
     notationButton.enabled = True
-
-
-def darkLight():
-    if window.color == color.dark_gray:
-        window.color = color.light_gray
-    elif window.color == color.light_gray:
-        window.color = color.dark_gray
+    aboutus_menu.enabled = False
+    tutorial_box.enabled = False
+    toggleSettings()
 
 
 # =============================================================UI buttons======================================================================
@@ -496,14 +530,21 @@ hintSpecific.icon.scale = (.33*3, .396*3)
 hintSpecific.icon.position = (0,-.3)
 hintSpecific.text_origin = (-.5, .3)
 
-
 # menu buttons ==================
 exit = Button(text='',icon='quit_button', text_color = color.black, color=color.clear, highlight_color = color.dark_gray, scale=(.36,.12), position=(-.7,-.35)) # button
 exit.on_click = application.quit
 exittooltip = Tooltip('exit')
 start_menu = Button(text='', icon='start_button', text_color = color.black, on_click=Func(start), color= color.clear, scale=(.36,.12), position  = (-.7,.1))# button
-tutorial_menu = Button(text='',icon='tutorial_button',text_color = color.black, color= color.clear,scale=(.36,.12),position  = (-.7,-.05)) #button
-help_menu = Button(text='',icon='aboutus_button',text_color = color.black, color=color.clear, scale=(.36,.12), position=(-.7,-.2)) #button
-setting_menu = Button(text='',icon='gear', color=color.clear,highlight_color = color.gray, scale=(.1,.1),on_click=Func(darkLight), position=(.85,.4))
-cube_menu_model = Entity(model='cubetest', color=color.rgb(200, 200, 200, 255), texture="RubiksTex", shader=lit_with_shadows_shader, scale=(3.5,3.5,3.5), position = (2,0))
+tutorial_menu = Button(text='',icon='tutorial_button',on_click=Func(toggleTutorial),text_color = color.black, color= color.clear,scale=(.36,.12),position  = (-.7,-.05)) #button
+help_menu = Button(text='',icon='aboutus_button',on_click=Func(toggleAboutus), text_color = color.black, color=color.clear, scale=(.36,.12), position=(-.7,-.2)) #button
+cube_menu_model = Entity(model='cubetest', color=color.rgb(200, 200, 200, 255), texture="RubiksTex", shader=lit_with_shadows_shader, scale=(3.5,3.5,3.5), position = (1.5,0))
 title = Button(text='',icon='title_text', color=color.clear, scale = (.45,.19),position = (-.7,.3))
+
+setting_menu = Button(text='',icon='gear', color=color.clear, highlight_color = color.gray, scale=(.1,.1),on_click=Func(toggleSettings), position=(.85,.4))
+light_dark = Button(text='',icon='Picture1', color=color.clear,scale=(.2,.08),on_click=Func(darkLight), position=(.85,.3), enabled=False)
+settings_box = Button(text='', color=color.gray, highlight_color=color.gray, icon = 'quad', pressed_color=color.gray, position = (.8,.3),scale=(.4,.4), enabled=False)
+
+aboutus_menu = Button(text='         About Us\nPlace holder text\nMembers\nAndrew Penton\nNoah Gorgevski-Sharpe\nHeinrich Perez\nSteven Perez\nDaniel Shinkarow',
+                        color=color.gray, position=(0,0), scale=(.69,.73),highlight_color=color.gray, pressed_color=color.gray,text_origin=(-.35,.45))
+tutorial_box = Button(text='Tutorial\nPlace holder text',color=color.gray, position=(0,0), scale=(.69,.73),highlight_color=color.gray, pressed_color=color.gray,text_origin=(-.35,.45))
+
