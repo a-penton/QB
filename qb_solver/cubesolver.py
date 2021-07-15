@@ -91,7 +91,7 @@ def get_cross_hint(cube, piece):
 		return get_specific_cross_hint(cube, piece)
 	else:
 		# piece is still unsolved, don't need to update
-		return (None, None, piece, 0)
+		return None, None, piece, 0
 
 def get_specific_cross_hint(cube, piece):
 	# returns tuple of hint text, image, piece, and stage number (0)
@@ -127,7 +127,7 @@ def get_specific_cross_hint(cube, piece):
 		s = fix_color_string(s)
 		img = "bottom.png"
 
-	return (s, img, piece, 0)
+	return s, img, piece, 0
 
 def get_white_layer_hint(cube, piece):
 	# checks if a new hint is needed or not, then returns the appropriate hint
@@ -146,7 +146,7 @@ def get_white_layer_hint(cube, piece):
 		return get_specific_white_layer_hint(cube, piece)
 	else:
 		# piece is still unsolved, don't need to update
-		return (None, None, piece, 1)
+		return None, None, piece, 1
 
 def get_specific_white_layer_hint(cube, piece):
 	# returns tuple of hint text, image, piece, and stage number (1)
@@ -202,7 +202,7 @@ def get_specific_white_layer_hint(cube, piece):
 			hint = fix_color_string(hint)
 			hint += "The sequence is Li Ui L U"
 
-	return (hint, None, piece, 1)
+	return hint, None, piece, 1
 
 def get_middle_layer_hint(cube, piece):
 	# determine the type of hint to return for the middle layer
@@ -221,7 +221,7 @@ def get_middle_layer_hint(cube, piece):
 		return get_specific_middle_layer_hint(cube, piece)
 	else:
 		# piece is being solved,  don't update the hint
-		return (None, None, piece, 2)
+		return None, None, piece, 2
 
 def get_specific_middle_layer_hint(cube, piece):
 	# return the specific hint for solving a middle layer edge
@@ -347,8 +347,6 @@ def get_specific_eo_hint(cube):
 				hint += "Turn the top so that these two edges\n"
 				hint += " are at the back and left of the top face"
 
-	print("NUM_ORIENTED_EDGES")
-	print(num_oriented_edges)
 	return hint, None, None, 3
 
 def is_cross_solved(cube):
