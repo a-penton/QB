@@ -476,7 +476,10 @@ def start():
     notationButton.enabled = True
     aboutus_menu.enabled = False
     tutorial_box.enabled = False
-    toggleSettings()
+    setting_menu.color = color.clear
+    settings_box.enabled == False
+    light_dark.enabled = False
+    
 
 
 # =============================================================UI buttons======================================================================
