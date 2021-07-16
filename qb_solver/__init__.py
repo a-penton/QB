@@ -307,6 +307,27 @@ def readString(rotations, scrambling = False):  # goes through string and does e
                 else:
                     readSequence.append(stepTime)
                     readSequence.append(Func(cube.rotateB))
+            elif rotations[i].upper() == 'X':
+                if rotations[i + 1].lower() == "i":
+                    readSequence.append(stepTime)
+                    readSequence.append(Func(cube.rotateXi))
+                else:
+                    readSequence.append(stepTime)
+                    readSequence.append(Func(cube.rotateX))
+            elif rotations[i].upper() == 'Y':
+                if rotations[i + 1].lower() == "i":
+                    readSequence.append(stepTime)
+                    readSequence.append(Func(cube.rotateYi))
+                else:
+                    readSequence.append(stepTime)
+                    readSequence.append(Func(cube.rotateY))
+            elif rotations[i].upper() == 'Z':
+                if rotations[i + 1].lower() == "i":
+                    readSequence.append(stepTime)
+                    readSequence.append(Func(cube.rotateZi))
+                else:
+                    readSequence.append(stepTime)
+                    readSequence.append(Func(cube.rotateZ))
 
 
 def resetReading():  # helps make sure no moves are made while reading a list of moves
