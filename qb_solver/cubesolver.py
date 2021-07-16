@@ -291,7 +291,7 @@ def get_specific_middle_layer_hint(cube, piece):
 				img = "middle-layer-u.png"
 			else:
 				hint += "Turn the top so the %s %s edge is on the right" % (*piece_colors,)
-				img = "middle-layer.ui.png"
+				img = "middle-layer-ui.png"
 			hint = fix_color_string(hint)
 		else:
 			# the piece is in position to perform the algorithm
