@@ -160,35 +160,43 @@ def get_specific_white_layer_hint(cube, piece):
 	piece_colors = sorted(piece.colors)
 
 	if piece.pos[0] != correct_pos[0] or piece.pos[2] != correct_pos[2]:
+		# piece is not in/above the correct slot
 		if piece.pos[1] == 1:
 			# piece is above the wrong slot (just turn the top)
 			hint = "Move the %s %s %s corner\n" % (*piece_colors,)
 			hint += " above the %s and %s centers" % (*filter(lambda x: x != 'W', piece_colors),)
 			hint = fix_color_string(hint)
+			img = "white-corner-u-ui.png"
 		# otherwise, the piece is inside the wrong slot: need to take it out
 		elif piece.pos[2] == -1:
 			# at the back of the cube
 			hint = "Rotate the cube so that the\n"
 			hint += " %s %s %s corner is at the front" % (*piece_colors,)
 			hint = fix_color_string(hint)
+			img = "rotate-y.png"
 		elif piece.pos[0] == 1:
 			# in the front-right slot
 			hint = "Use the right-hand sequence\n"
 			hint += " to take out the %s %s %s corner\n" % (*piece_colors,)
 			hint = fix_color_string(hint)
 			hint += "The sequence is R U Ri Ui"
+			# different images if in top/bottom layer
+			img = "white-corner-right-wrong.png"
 		elif piece.pos[0] == -1:
 			# in the front-left slot
 			hint = "Use the left-hand sequence\n"
 			hint += " to take out the %s %s %s corner\n" % (*piece_colors,)
 			hint = fix_color_string(hint)
 			hint += "The sequence is Li Ui L U"
+			# different images if in top/bottom layer
+			img = "white-corner-left-wrong.png"
 
 	elif piece.pos[2] != 1:
 		# piece/slot is at the back of the cube
 		hint = "Rotate the cube so that the\n"
 		hint += " %s %s %s corner is at the front" % (*piece_colors,)
 		hint = fix_color_string(hint)
+		img = "rotate-y.png"
 	else:
 		# piece is at front, at the correct slot, but unsolved
 		if piece.pos[0] == 1:
@@ -196,13 +204,21 @@ def get_specific_white_layer_hint(cube, piece):
 			hint += " to solve the %s %s %s corner\n" % (*piece_colors,)
 			hint = fix_color_string(hint)
 			hint += "The sequence is R U Ri Ui"
+			# different images if in top/bottom layer
+			img = "white-corner-right-"
+			img += "top" if piece.pos[1] == 1 else "bottom"
+			img += ".png"
 		elif piece.pos[0] == -1:
 			hint = "Repeat the left-hand sequence\n"
 			hint += " to solve the %s %s %s corner\n" % (*piece_colors,)
 			hint = fix_color_string(hint)
 			hint += "The sequence is Li Ui L U"
+			# different images if in top/bottom layer
+			img = "white-corner-left-"
+			img += "top" if piece.pos[1] == 1 else "bottom"
+			img += ".png"
 
-	return hint, None, piece, 1
+	return hint, img, piece, 1
 
 def get_middle_layer_hint(cube, piece):
 	# determine the type of hint to return for the middle layer
