@@ -252,6 +252,7 @@ def get_specific_middle_layer_hint(cube, piece):
 			hint = "Rotate the cube so the %s %s piece\n" % (*piece_colors,)
 			hint += " is at the front"
 			hint = fix_color_string(hint)
+			img = "rotate-y.png"
 		else:
 			hint = "We need to take out the %s %s piece\n" % (*piece_colors,)
 			hint += "Do this by inserting a random piece in its place\n"
@@ -261,11 +262,13 @@ def get_specific_middle_layer_hint(cube, piece):
 				hint += "1. Perform the right-hand move (R U Ri Ui)\n"
 				hint += "2. Rotate the cube to face the right (Y)\n"
 				hint += "3. Perform the left-hand move (Li Ui L U)"
+				img = "middle-layer-right-wrong.png"
 			else:
 				# insert on the left side
 				hint += "1. Perform the left-hand move (Li Ui L U)\n"
 				hint += "2. Rotate the cube to face the left (Yi)\n"
 				hint += "3. Perform the right-hand move (R U Ri Ui)"
+				img = "middle-layer-left-wrong.png"
 
 	# all other cases concern pieces in the top layer
 	else:
@@ -281,11 +284,14 @@ def get_specific_middle_layer_hint(cube, piece):
 		if side_center.pos != (0,0,1):
 			hint += "Rotate the cube so the %s center is at the front" % side_color
 			hint = fix_color_string(hint)
+			img = "rotate-y.png"
 		elif piece.pos[0] != -1*top_center.pos[0]:
 			if top_center.pos[0] == 1:
 				hint += "Turn the top so the %s %s edge is on the left" % (*piece_colors,)
+				img = "middle-layer-u.png"
 			else:
 				hint += "Turn the top so the %s %s edge is on the right" % (*piece_colors,)
+				img = "middle-layer.ui.png"
 			hint = fix_color_string(hint)
 		else:
 			# the piece is in position to perform the algorithm
@@ -295,14 +301,16 @@ def get_specific_middle_layer_hint(cube, piece):
 				hint += "1. Perform the right-hand move (R U Ri Ui)\n"
 				hint += "2. Rotate the cube to face the right (Y)\n"
 				hint += "3. Perform the left-hand move (Li Ui L U)"
+				img = "middle-layer-right.png"
 			else:
 				hint += "Insert the %s %s edge to the left:\n" % (*piece_colors,)
 				hint = fix_color_string(hint)
 				hint += "1. Perform the left-hand move (Li Ui L U)\n"
 				hint += "2. Rotate the cube to face the left (Yi)\n"
 				hint += "3. Perform the right-hand move (R U Ri Ui)"
+				img = "middle-layer-left.png"
 
-	return hint, None, piece, 2
+	return hint, img, piece, 2
 
 def get_eo_hint(cube):
 	# This step is very straightforward, only three cases to handle
