@@ -79,7 +79,7 @@ def get_cross_hint(cube, piece):
 	# check that white is on bottom
 	white_face = cube.find_piece('W')
 	if white_face.pos != (0,-1,0):
-		return ("Rotate the cube so the white face is on bottom", "rotate.png", white_face, 0)
+		return ("Rotate the cube so the white face is on bottom", "rotate-white-bottom.png", white_face, 0)
 
 	# determine if the current edge is solved
 	if piece == None or piece == white_face or is_piece_solved(cube, piece):
@@ -135,7 +135,7 @@ def get_white_layer_hint(cube, piece):
 	# check that white is on bottom
 	white_face = cube.find_piece('W')
 	if white_face.pos != (0,-1,0):
-		return ("Rotate the cube so the white face is on bottom", "rotate.png", white_face, 1)
+		return ("Rotate the cube so the white face is on bottom", "rotate-white-bottom.png", white_face, 1)
 
 	# determine if current piece is solved or a new piece is needed
 	if piece == None or piece == white_face or is_piece_solved(cube, piece):
@@ -210,7 +210,7 @@ def get_middle_layer_hint(cube, piece):
 	# check that white is on bottom
 	white_face = cube.find_piece('W')
 	if white_face.pos != (0,-1,0):
-		return ("Rotate the cube so the white face is on bottom", "rotate.png", white_face, 2)
+		return ("Rotate the cube so the white face is on bottom", "rotate-white-bottom.png", white_face, 2)
 
 	if piece == None or piece == white_face or is_piece_solved(cube, piece):
 		# piece needs to be updated
@@ -295,7 +295,7 @@ def get_eo_hint(cube):
 	# check that white is on bottom
 	white_face = cube.find_piece('W')
 	if white_face.pos != (0,-1,0):
-		return ("Rotate the cube so the white face is on bottom", "rotate.png", white_face, 3)
+		return ("Rotate the cube so the white face is on bottom", "rotate-white-bottom.png", white_face, 3)
 
 	# may need to update the hint
 	if is_middle_layer_solved(cube):
