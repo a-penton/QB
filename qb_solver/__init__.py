@@ -175,7 +175,7 @@ def resetCube():  # resets cube
 def openSettings(): #open settings menu
     global settings
     if not settings:
-        settingsButton.color = color.light_gray
+        #settingsButton.color = color.light_gray
         resetButton.enabled = True
         rotateRButton.enabled = True
         rotateLButton.enabled = True
@@ -189,7 +189,7 @@ def openSettings(): #open settings menu
         speedSlider.enabled = True
         settings = True
     else:
-        settingsButton.color = color.gray
+        #settingsButton.color = color.gray
         resetButton.enabled = False
         rotateRButton.enabled = False
         rotateLButton.enabled = False
@@ -207,11 +207,9 @@ def openHints(): #open hints menu
     global hints
     global blinking
     if not hints:
-        hintButton.color = color.light_gray
         hintDisplay.enabled = True
         hints = True
     else:
-        hintButton.color = color.gray
         hintDisplay.enabled = False
         hints = False
         hintSpecific.enabled = False
@@ -481,7 +479,7 @@ def menu():
     start_menu.enabled = True
     exit.enabled = True
     hintButton.enabled = False
-    settingsButton.enabled = False
+    #settingsButton.enabled = False
     cube.enabled = False
     main_menu_button.enabled = False
     hintDisplay.enabled = False
@@ -500,7 +498,7 @@ def menu():
     speedSlider.enabled = False
     notationButton.enabled = False
     settings = False
-    settingsButton.color = color.gray
+    #settingsButton.color = color.gray
     hintButton.color = color.gray
     aboutus_menu.enabled = False
     tutorial_box.enabled = False
@@ -513,6 +511,8 @@ def darkLight():
     elif window.color == color.light_gray:
         window.color = color.dark_gray
         light_dark.icon = 'Picture1'
+        # window.icon= 'gear'
+        #Sky(texture="dark_wallpaper",scale=(.1,.1))
 
 def toggleAboutus():
     tutorial_box.enabled = False
@@ -551,7 +551,7 @@ def start():
     exit.enabled = False
     start_menu.enabled = False
     hintButton.enabled = True
-    settingsButton.enabled = True
+    #settingsButton.enabled = True
     cube.enabled = True
     main_menu_button.enabled = True
     notationButton.enabled = True
@@ -560,45 +560,58 @@ def start():
     setting_menu.color = color.clear
     settings_box.enabled == False
     light_dark.enabled = False
+
+    resetButton.enabled = True
+    rotateRButton.enabled = True
+    rotateLButton.enabled = True
+    rotateUButton.enabled = True
+    rotateDButton.enabled = True
+    background.enabled = True
+    inputButton.enabled = True
+    scrambleButton.enabled = True
+    rotateZRButton.enabled = True
+    rotateZLButton.enabled = True
+    speedSlider.enabled = True
     
 
 
 # =============================================================UI buttons======================================================================
 # settings==============
-settingsButton = Button(text='Controls', text_color = color.black, color=color.gray, scale=.095, position=(-.81, .43, 0),
-                        on_click=Func(openSettings))
+# settingsButton = Button(text='Controls', text_color = color.black, color=color.gray, scale=.095, position=(-.81, .43, 0),
+                        # on_click=Func(openSettings))
 background = Button(text='', color=color.gray, highlight_color=color.gray, pressed_color=color.gray,
-                    position=(-.75, 0.06, 1), scale=(.25, .63), collider='', enabled=False)
-resetButton = Button(text='Reset', color=color.red, scale=.1, position=(-.81, -.18, 0), on_click=Func(resetCube),
+                    position=(-.75, 0, 1), scale=(.36, .74), collider='', enabled=False)
+resetButton = Button(text='Reset', color=color.red, scale=.12, position=(-.84, -.28, 0), on_click=Func(resetCube),
                      enabled=False)
-rotateRButton = Button(text='', icon='rotateR', color=color.white, highlight_color=color.light_gray, scale=.1, position=(-.69, .18, 0),
+rotateRButton = Button(text='', icon='rotateR', color=color.white, highlight_color=color.light_gray, scale=.12, position=(-.66, .14, 0),
                        on_click=Func(rotateD), enabled=False)
-rotateLButton = Button(text='', icon='rotateL', color=color.white, highlight_color=color.light_gray, scale=.1, position=(-.81, .18, 0),
+rotateLButton = Button(text='', icon='rotateL', color=color.white, highlight_color=color.light_gray, scale=.12, position=(-.84, .14, 0),
                        on_click=Func(rotateU), enabled=False)
-rotateUButton = Button(text='', icon='rotateU', color=color.white, highlight_color=color.light_gray, scale=.1, position=(-.81, .3, 0),
+rotateUButton = Button(text='', icon='rotateU', color=color.white, highlight_color=color.light_gray, scale=.12, position=(-.84, .28, 0),
                        on_click=Func(rotateR), enabled=False)
-rotateDButton = Button(text='', icon='rotateD', color=color.white, highlight_color=color.light_gray, scale=.1, position=(-.69, .3, 0),
+rotateDButton = Button(text='', icon='rotateD', color=color.white, highlight_color=color.light_gray, scale=.12, position=(-.66, .28, 0),
                        on_click=Func(rotateL), enabled=False)
-rotateZRButton = Button(text='', icon='rotateZL', color=color.white, highlight_color=color.light_gray, scale=.1, position=(-.69, .06, 0),
+rotateZRButton = Button(text='', icon='rotateZL', color=color.white, highlight_color=color.light_gray, scale=.12, position=(-.66, 0, 0),
                        on_click=Func(rotateZR), enabled=False)
-rotateZLButton = Button(text='', icon='rotateZR', color=color.white, highlight_color=color.light_gray, scale=.1, position=(-.81, .06, 0),
+rotateZLButton = Button(text='', icon='rotateZR', color=color.white, highlight_color=color.light_gray, scale=.12, position=(-.84, 0, 0),
                        on_click=Func(rotateZL), enabled=False)
-inputButton = Button(text='Input', color=color.red, scale=.1, position=(-.69, -.06, 0), on_click=Func(toggleInput),
+inputButton = Button(text='Input', color=color.red, scale=.12, position=(-.66, -.14, 0), on_click=Func(toggleInput),
                      enabled=False)
-inputList = TextField(max_lines=1, position=(-.75 ,-.3 ,0), enabled=False)
-scrambleButton = Button(text='Scramble', color=color.red, scale=.1, position=(-.81, -.06, 0), on_click=Func(scramble),
+inputList = TextField(max_lines=1, position=(-.9 ,-.4 ,0), enabled=False)
+scrambleButton = Button(text='Scramble', color=color.red, scale=.12, position=(-.84, -.14, 0), on_click=Func(scramble),
                      enabled=False)
-speedSlider = Slider(min=1, max=.1, default=.5, text='Turn Speed', height=.1, on_value_changed=Func(changeTurnSpeed), position=(-.742, -.20, 0), scale=.2, enabled=False)
+speedSlider = Slider(min=1, max=.1, default=.5, text='Turn Speed', height=.1, on_value_changed=Func(changeTurnSpeed), position=(-.73, -.3, 0), scale=.23, enabled=False)
 speedSlider.label.origin = (0,0)
 speedSlider.label.position = (.25,.25)
 speedSlider.label.scale = 4.5
 speedSlider.knob.text_color = color.clear
 
-main_menu_button = Button(text='Menu', text_color = color.black, color=color.gray,text_origin=(0,0),position = (-.69,.43,0), on_click=Func(menu), scale=.095)
+main_menu_button = Button(text='',icon='menu_button', color=color.clear, position = (-.75,.43), on_click=Func(menu), scale=(.27,.1))
 
 # hints============
-notationButton = Button(text='', text_color = color.black, icon='ShowNotation', color=color.gray, scale=.095, position=(-.69, -.43, 0), on_click=Func(displayNotation))
-hintButton = Button(text='Hints', text_color = color.black, color=color.gray, scale=.095, position=(-.81, -.43, 0), on_click=Func(openHints))
+notationButton = Button(text='', icon='notation_button', color=color.clear, scale=(.31,.12),position=(.13, -.43), on_click=Func(displayNotation))
+hintButton = Button(text='', icon='hints_button', color=color.clear, scale=(.31,.12), position=(-.22, -.43), on_click=Func(openHints))
+
 hintDisplay = Button(text='', icon='hint1', color=color.gray, highlight_color=color.gray, pressed_color=color.gray,
                     position=(.6, .35, 1), scale=(.5, .25), collider='', enabled=False)
 hintMoveButton = Button(text='Help', icon='', color=color.dark_gray, scale=(.3,.15), position=(-.3, -.375, -1), parent=hintDisplay, on_click=Func(hintSpecificToggle))
@@ -615,7 +628,7 @@ hintSpecific.icon.position = (0,-.3)
 hintSpecific.text_origin = (-.5, .3)
 
 # menu buttons ==================
-exit = Button(text='',icon='quit_button', text_color = color.black, color=color.clear, highlight_color = color.dark_gray, scale=(.36,.12), position=(-.7,-.35)) # button
+exit = Button(text='',icon='quit_button', text_color = color.black, color=color.clear,scale=(.36,.12), position=(-.7,-.35)) # button
 exit.on_click = application.quit
 exittooltip = Tooltip('exit')
 start_menu = Button(text='', icon='start_button', text_color = color.black, on_click=Func(start), color= color.clear, scale=(.36,.12), position  = (-.7,.1))# button
