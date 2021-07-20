@@ -70,7 +70,7 @@ def input(key):
         invoke(checkCurrentHint, delay=cube.turnSpeed+.25)
 
 
- 
+
 def update():  # called every frame
     global mousepos
     global center
@@ -163,7 +163,7 @@ def resetCube():  # resets cube
     cube = VisCube()
     # this fixes the issue where cube reset reverts color scheme
     if colorScheme == True:
-        toggle_color_scheme() 
+        toggle_color_scheme()
         toggle_color_scheme()
     anim = True
     invoke(endAnim, delay=.65)
@@ -228,7 +228,7 @@ def readString(rotations, scrambling = False):  # goes through string and does e
     if not reading:
         cube.disableArrows()
         cube.setTurnSpeed(.1)
-        stepTime = .3  # time between moves in sequence must be at least .2 higher than turn speed
+        stepTime = .4  # time between moves in sequence must be at least .2 higher than turn speed
         reading = True
         toggleInput()
         rotations += '0'
@@ -660,7 +660,7 @@ def start():
     rotateZRButton.enabled = True
     rotateZLButton.enabled = True
     speedSlider.enabled = True
-    
+
 
 # =============================================================UI buttons======================================================================
 # settings======================
@@ -696,6 +696,7 @@ speedSlider.label.scale = 4.5
 speedSlider.knob.text_color = color.clear
 
 main_menu_button = Button(text='',icon='menu_button', color=color.clear, position = (-.745,.435), on_click=Func(menu), scale=(.3,.11))
+
 
 # hints==================================
 #Bottom buttons
@@ -742,7 +743,12 @@ aboutus_menu = Button(text='\t      About Us\n\n\tMembers:\n\tAndrew Penton\n\tN
                         color=color.gray, position=(0,0), scale=(.69,.73),highlight_color=color.gray, pressed_color=color.gray,text_origin=(-.35,.45))
 tutorial_box = Button(text='Tutorial\nPlace holder text',color=color.gray, position=(0,0), scale=(.69,.73),highlight_color=color.gray, pressed_color=color.gray,text_origin=(-.35,.45))
 
-wallpaper = Button(text='',icon='dark_wall',color=color.clear,highlight_color=color.clear, pressed_color=color.clear,enabled=True, parent=camera, position=(0,0,50),scale=(1920/50,1200/50))
+#wallpaper = Button(text='',icon='dark_wall',color=color.clear,highlight_color=color.clear, pressed_color=color.clear,enabled=True, parent=camera, position=(0,0,50),scale=(1920/50,1200/50))
+bgVolume = .5
+bgAudio = Audio('impossiblegame', pitch=1, loop=True, autoplay=True, volume=.5)
 
+def changeAudio():
+    bgAudio.volume = volumeSlider.value
 
-
+volumeSlider = Slider(0, 1, default = .5,text = 'Volume', dynamic=True, on_value_changed=changeAudio, x = -.15,y = -.3)
+volumeSlider.knob.text_color = color.clear
