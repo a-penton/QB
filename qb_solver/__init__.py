@@ -168,8 +168,9 @@ def resetCube():  # resets cube
     anim = True
     invoke(endAnim, delay=.65)
     changeTurnSpeed()
+    inputList.text = ''
+    inputList.cursor.origin = (-1,-.5)
     inputList.enabled= False
-
     cube.virtualCube = Cube("RRRRRRRRRBBBWWWGGGYYYBBBWWWGGGYYYBBBWWWGGGYYYOOOOOOOOO") # Resets virtual cube
 
 
@@ -509,7 +510,7 @@ def menu():
     notationButton.enabled = False
     settings = False
     #settingsButton.color = color.gray
-    hintButton.color = color.gray
+    #hintButton.color = color.gray
     aboutus_menu.enabled = False
     tutorial_box.enabled = False
     inputList.enabled= False
@@ -519,10 +520,11 @@ def darkLight():
     if window.color == color.dark_gray:
         window.color = color.light_gray
         light_dark.icon = 'Picture2'
+        wallpaper.icon = 'white_wall'
     elif window.color == color.light_gray:
         window.color = color.dark_gray
         light_dark.icon = 'Picture1'
-        # Sky(texture="dark_wall", scale=(1.6,1))
+        wallpaper.icon = 'dark_wall'
 
 
 def toggleAboutus():
@@ -684,7 +686,7 @@ rotateZLButton = Button(text='', icon='rotateZR', color=color.white, highlight_c
 inputButton = Button(text='Input', color=color.red, scale=.152, position=(-.63, -.225, 0), on_click=Func(toggleInput),
                      enabled=False)
 
-inputList = TextField(max_lines=1, position=(-.37 ,-.32 ,0), enabled=False)
+inputList = TextField(max_lines=3, position=(-.37 ,-.32 ,0), enabled=False)
 scrambleButton = Button(text='Scramble', color=color.red, scale=.152, position=(-.85, -.225, 0), on_click=Func(scramble),
                      enabled=False)
 speedSlider = Slider(min=1, max=.1, default=.5, text='Turn Speed', height=.1, on_value_changed=Func(changeTurnSpeed), position=(-.7, -.42, 0), scale=.24, enabled=False)
@@ -698,7 +700,7 @@ main_menu_button = Button(text='',icon='menu_button', color=color.clear, positio
 # hints==================================
 #Bottom buttons
 notationButton = Button(text='', icon='notation_button', color=color.clear, scale=(.31,.12),position=(.13, -.43), on_click=Func(displayNotation))
-hintButton = Button(text='', icon='hints_button', color=color.clear, scale=(.31,.12), position=(-.22, -.43), on_click=Func(openHints))
+hintButton = Button(text='', icon='hints_button', color=color.clear,highlight_color=color.clear, scale=(.31,.12), position=(-.22, -.43), on_click=Func(openHints))
 
 #top hint box
 hintDisplay = Button(text='', icon='hint1', color=color.gray, highlight_color=color.gray, pressed_color=color.gray,
@@ -740,8 +742,7 @@ aboutus_menu = Button(text='\t      About Us\n\n\tMembers:\n\tAndrew Penton\n\tN
                         color=color.gray, position=(0,0), scale=(.69,.73),highlight_color=color.gray, pressed_color=color.gray,text_origin=(-.35,.45))
 tutorial_box = Button(text='Tutorial\nPlace holder text',color=color.gray, position=(0,0), scale=(.69,.73),highlight_color=color.gray, pressed_color=color.gray,text_origin=(-.35,.45))
 
-#wallpaper = Button(text='',icon='dark_wall',color=color.clear,highlight_color=color.clear, pressed_color=color.clear,enabled=True, position=(0,0,10),scale=(3,2))
-# Sky(texture="dark_wall", scale=(1))
+wallpaper = Button(text='',icon='dark_wall',color=color.clear,highlight_color=color.clear, pressed_color=color.clear,enabled=True, parent=camera, position=(0,0,50),scale=(1920/50,1200/50))
 
 
 
