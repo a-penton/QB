@@ -20,7 +20,7 @@ mousepos = []  # stores mouse position for rotating camera
 app = Ursina()
 # window settings
 window.borderless = False
-window.fps_counter.enabled = False
+window.fps_counter.enabled = True
 window.exit_button.visible = False
 window.color = color.dark_gray
 
@@ -34,6 +34,7 @@ center = Entity()  # center transform, used for rotation
 current_piece = None
 current_stage = -1
 
+error_timer = 0
 
 
 def main():
@@ -55,6 +56,7 @@ def input(key):
     global reading
     global drag
     global mousepos
+    global error_timer
     if not anim and not reading and not inputList.enabled:  # if not already animated, read keys and animate
         if key == 'm':  # this one is for hints, and requires a longer delay
             #anim = True
@@ -64,7 +66,11 @@ def input(key):
             #updateCurrentHint('Move the %s %s piece above its center\n test', 'flip-2', None)
     if inputList.enabled and not cube.anim:#inputs string from ui textbox as a list off moves
         if key == 'enter':
-            readString(inputList.text)
+            if validString(inputList.text):
+                readString(inputList.text)
+            else:
+                error_text.enabled = True
+                error_timer = 0
 
     if key == 'left mouse down':
         invoke(checkCurrentHint, delay=cube.turnSpeed+.25)
@@ -76,9 +82,16 @@ def update():  # called every frame
     global center
     global anim
     global reading
+    global error_timer
     # makes the main menu cube rotate
     if cube_menu_model.enabled:
         cube_menu_model.rotation_y += time.dt * 100
+
+    if error_text.enabled:
+        if error_timer >= 180:
+            error_text.enabled = False
+        else:
+            error_timer += 1
 
 
 
@@ -220,6 +233,8 @@ def openHints(): #open hints menu
         blinking = False
         cube.unblink()
 
+def validString(input):
+    return False
 
 def readString(rotations, scrambling = False):  # goes through string and does each move
     global reading
@@ -248,7 +263,7 @@ def readString(rotations, scrambling = False):  # goes through string and does e
                 if rotations[i + 1].lower() == "i":
                     readSequence.append(stepTime)
                     readSequence.append(Func(cube.rotateUi))
-                elif rotations[i + 1].lower() == "2":
+                elif rotations[i + 1] == "2":
                     readSequence.append(stepTime)
                     readSequence.append(Func(cube.rotateU))
                     readSequence.append(stepTime)
@@ -260,7 +275,7 @@ def readString(rotations, scrambling = False):  # goes through string and does e
                 if rotations[i + 1].lower() == "i":
                     readSequence.append(stepTime)
                     readSequence.append(Func(cube.rotateEi))
-                elif rotations[i + 1].lower() == "2":
+                elif rotations[i + 1] == "2":
                     readSequence.append(stepTime)
                     readSequence.append(Func(cube.rotateE))
                     readSequence.append(stepTime)
@@ -272,7 +287,7 @@ def readString(rotations, scrambling = False):  # goes through string and does e
                 if rotations[i + 1].lower() == "i":
                     readSequence.append(stepTime)
                     readSequence.append(Func(cube.rotateDi))
-                elif rotations[i + 1].lower() == "2":
+                elif rotations[i + 1] == "2":
                     readSequence.append(stepTime)
                     readSequence.append(Func(cube.rotateD))
                     readSequence.append(stepTime)
@@ -284,7 +299,7 @@ def readString(rotations, scrambling = False):  # goes through string and does e
                 if rotations[i + 1].lower() == "i":
                     readSequence.append(stepTime)
                     readSequence.append(Func(cube.rotateLi))
-                elif rotations[i + 1].lower() == "2":
+                elif rotations[i + 1] == "2":
                     readSequence.append(stepTime)
                     readSequence.append(Func(cube.rotateL))
                     readSequence.append(stepTime)
@@ -296,7 +311,7 @@ def readString(rotations, scrambling = False):  # goes through string and does e
                 if rotations[i + 1].lower() == "i":
                     readSequence.append(stepTime)
                     readSequence.append(Func(cube.rotateMi))
-                elif rotations[i + 1].lower() == "2":
+                elif rotations[i + 1] == "2":
                     readSequence.append(stepTime)
                     readSequence.append(Func(cube.rotateM))
                     readSequence.append(stepTime)
@@ -308,7 +323,7 @@ def readString(rotations, scrambling = False):  # goes through string and does e
                 if rotations[i + 1].lower() == "i":
                     readSequence.append(stepTime)
                     readSequence.append(Func(cube.rotateRi))
-                elif rotations[i + 1].lower() == "2":
+                elif rotations[i + 1] == "2":
                     readSequence.append(stepTime)
                     readSequence.append(Func(cube.rotateR))
                     readSequence.append(stepTime)
@@ -320,7 +335,7 @@ def readString(rotations, scrambling = False):  # goes through string and does e
                 if rotations[i + 1].lower() == "i":
                     readSequence.append(stepTime)
                     readSequence.append(Func(cube.rotateFi))
-                elif rotations[i + 1].lower() == "2":
+                elif rotations[i + 1] == "2":
                     readSequence.append(stepTime)
                     readSequence.append(Func(cube.rotateF))
                     readSequence.append(stepTime)
@@ -332,7 +347,7 @@ def readString(rotations, scrambling = False):  # goes through string and does e
                 if rotations[i + 1].lower() == "i":
                     readSequence.append(stepTime)
                     readSequence.append(Func(cube.rotateSi))
-                elif rotations[i + 1].lower() == "2":
+                elif rotations[i + 1] == "2":
                     readSequence.append(stepTime)
                     readSequence.append(Func(cube.rotateS))
                     readSequence.append(stepTime)
@@ -344,7 +359,7 @@ def readString(rotations, scrambling = False):  # goes through string and does e
                 if rotations[i + 1].lower() == "i":
                     readSequence.append(stepTime)
                     readSequence.append(Func(cube.rotateBi))
-                elif rotations[i + 1].lower() == "2":
+                elif rotations[i + 1] == "2":
                     readSequence.append(stepTime)
                     readSequence.append(Func(cube.rotateB))
                     readSequence.append(stepTime)
@@ -356,7 +371,7 @@ def readString(rotations, scrambling = False):  # goes through string and does e
                 if rotations[i + 1].lower() == "i":
                     readSequence.append(stepTime)
                     readSequence.append(Func(cube.rotateXi))
-                elif rotations[i + 1].lower() == "2":
+                elif rotations[i + 1] == "2":
                     readSequence.append(stepTime)
                     readSequence.append(Func(cube.rotateX))
                     readSequence.append(stepTime)
@@ -368,7 +383,7 @@ def readString(rotations, scrambling = False):  # goes through string and does e
                 if rotations[i + 1].lower() == "i":
                     readSequence.append(stepTime)
                     readSequence.append(Func(cube.rotateYi))
-                elif rotations[i + 1].lower() == "2":
+                elif rotations[i + 1] == "2":
                     readSequence.append(stepTime)
                     readSequence.append(Func(cube.rotateY))
                     readSequence.append(stepTime)
@@ -380,7 +395,7 @@ def readString(rotations, scrambling = False):  # goes through string and does e
                 if rotations[i + 1].lower() == "i":
                     readSequence.append(stepTime)
                     readSequence.append(Func(cube.rotateZi))
-                elif rotations[i + 1].lower() == "2":
+                elif rotations[i + 1] == "2":
                     readSequence.append(stepTime)
                     readSequence.append(Func(cube.rotateZ))
                     readSequence.append(stepTime)
@@ -388,6 +403,8 @@ def readString(rotations, scrambling = False):  # goes through string and does e
                 else:
                     readSequence.append(stepTime)
                     readSequence.append(Func(cube.rotateZ))
+            elif rotations[i].lower() != 'i' and rotations[i] != ' ' and rotations[i] != '2':
+                print("Invalid Input")
 
 
 def resetReading():  # helps make sure no moves are made while reading a list of moves
@@ -684,7 +701,6 @@ rotateZLButton = Button(text='', icon='rotateZR', color=color.white, highlight_c
 inputButton = Button(text='Input', color=color.red, scale=.152, position=(-.63, -.225, 0), on_click=Func(toggleInput),
                      enabled=False)
 
-inputList = TextField(max_lines=1, position=(-.37 ,-.32 ,0), enabled=False)
 scrambleButton = Button(text='Scramble', color=color.red, scale=.152, position=(-.85, -.225, 0), on_click=Func(scramble),
                      enabled=False)
 speedSlider = Slider(min=1, max=.1, default=.5, text='Turn Speed', height=.1, on_value_changed=Func(changeTurnSpeed), position=(-.7, -.42, 0), scale=.24, enabled=False)
@@ -752,3 +768,6 @@ def changeAudio():
 volumeSlider = Slider(0, 1, default = .5,text = 'Volume', dynamic=True, on_value_changed=changeAudio, x = -.15,y = -.3)
 volumeSlider.knob.text_color = color.clear
 
+
+inputList = TextField(max_lines=1, position=(-.22 ,-.33 ,0), enabled=False)
+error_text = Text(text='Error: Invalid Input', origin=(1.5 ,13.65 ,1), enabled=False, color=color.red)
