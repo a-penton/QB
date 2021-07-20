@@ -14,6 +14,7 @@ blinking = False
 reading = False # used to lockout inputs during reading strings
 settings = False #checks if settings menu is open
 hints = False #checks if hints menu is open
+colorScheme = False #Checks if the color scheme has changed
 readSequence = Sequence() #used for sequence of moves
 mousepos = []  # stores mouse position for rotating camera
 app = Ursina()
@@ -69,7 +70,7 @@ def input(key):
         invoke(checkCurrentHint, delay=cube.turnSpeed+.25)
 
 
-
+ 
 def update():  # called every frame
     global mousepos
     global center
@@ -160,6 +161,10 @@ def resetCube():  # resets cube
     cube.delete()
     cube.rotation = (0, 0, 0)
     cube = VisCube()
+    # this fixes the issue where cube reset reverts color scheme
+    if colorScheme == True:
+        toggle_color_scheme() 
+        toggle_color_scheme()
     anim = True
     invoke(endAnim, delay=.65)
     changeTurnSpeed()
@@ -517,8 +522,7 @@ def darkLight():
     elif window.color == color.light_gray:
         window.color = color.dark_gray
         light_dark.icon = 'Picture1'
-        # window.icon= 'gear'
-        #Sky(texture="dark_wallpaper",scale=(.1,.1))
+        # Sky(texture="dark_wall", scale=(1.6,1))
 
 
 def toggleAboutus():
@@ -537,6 +541,71 @@ def toggleTutorial():
         tutorial_box.enabled = True
 
 
+def toggle_color_scheme():
+    global colorScheme
+    if not colorScheme:
+        cube_menu_model.texture = "colorscheme2"
+        color_scheme.icon = "colorscheme2"
+        cube.e1.texture = "colorscheme2"
+        cube.e2.texture = "colorscheme2"
+        cube.e3.texture = "colorscheme2"
+        cube.e4.texture = "colorscheme2"
+        cube.e5.texture = "colorscheme2"
+        cube.e6.texture = "colorscheme2"
+        cube.e7.texture = "colorscheme2"
+        cube.e8.texture = "colorscheme2"
+        cube.e9.texture = "colorscheme2"
+        cube.e10.texture = "colorscheme2"
+        cube.e11.texture = "colorscheme2"
+        cube.e12.texture = "colorscheme2"
+        cube.e13.texture = "colorscheme2"
+        cube.e14.texture = "colorscheme2"
+        cube.e15.texture = "colorscheme2"
+        cube.e16.texture = "colorscheme2"
+        cube.e17.texture = "colorscheme2"
+        cube.e18.texture = "colorscheme2"
+        cube.e19.texture = "colorscheme2"
+        cube.e20.texture = "colorscheme2"
+        cube.e21.texture = "colorscheme2"
+        cube.e22.texture = "colorscheme2"
+        cube.e23.texture = "colorscheme2"
+        cube.e24.texture = "colorscheme2"
+        cube.e25.texture = "colorscheme2"
+        cube.e26.texture = "colorscheme2"
+        colorScheme = True
+    else:
+        cube_menu_model.texture = "RubiksTex"
+        cube.e1.texture = "RubiksTex"
+        cube.e2.texture = "RubiksTex"
+        cube.e3.texture = "RubiksTex"
+        cube.e4.texture = "RubiksTex"
+        cube.e5.texture = "RubiksTex"
+        cube.e6.texture = "RubiksTex"
+        cube.e7.texture = "RubiksTex"
+        cube.e8.texture = "RubiksTex"
+        cube.e9.texture = "RubiksTex"
+        cube.e10.texture = "RubiksTex"
+        cube.e11.texture = "RubiksTex"
+        cube.e12.texture = "RubiksTex"
+        cube.e13.texture = "RubiksTex"
+        cube.e14.texture = "RubiksTex"
+        cube.e15.texture = "RubiksTex"
+        cube.e16.texture = "RubiksTex"
+        cube.e17.texture = "RubiksTex"
+        cube.e18.texture = "RubiksTex"
+        cube.e19.texture = "RubiksTex"
+        cube.e20.texture = "RubiksTex"
+        cube.e21.texture = "RubiksTex"
+        cube.e22.texture = "RubiksTex"
+        cube.e23.texture = "RubiksTex"
+        cube.e24.texture = "RubiksTex"
+        cube.e25.texture = "RubiksTex"
+        cube.e26.texture = "RubiksTex"
+        color_scheme.icon = "RubiksTex"
+        colorScheme = False
+
+
+
 def toggleSettings():
     if setting_menu.color == color.clear:
         setting_menu.color = color.gray
@@ -550,6 +619,12 @@ def toggleSettings():
         settings_box.enabled == False
     elif settings_box.enabled == False:
         settings_box.enabled == True
+    if color_scheme.enabled == True:
+        color_scheme.enabled = False
+    elif color_scheme.enabled == False:
+        color_scheme.enabled = True
+
+
 
 
 def start():
@@ -570,6 +645,7 @@ def start():
     setting_menu.color = color.clear
     settings_box.enabled == False
     light_dark.enabled = False
+    color_scheme.enabled = False
 
     resetButton.enabled = True
     rotateRButton.enabled = True
@@ -623,6 +699,7 @@ main_menu_button = Button(text='',icon='menu_button', color=color.clear, positio
 #Bottom buttons
 notationButton = Button(text='', icon='notation_button', color=color.clear, scale=(.31,.12),position=(.13, -.43), on_click=Func(displayNotation))
 hintButton = Button(text='', icon='hints_button', color=color.clear, scale=(.31,.12), position=(-.22, -.43), on_click=Func(openHints))
+
 #top hint box
 hintDisplay = Button(text='', icon='hint1', color=color.gray, highlight_color=color.gray, pressed_color=color.gray,
                     position=(.65, .35, 1), scale=(.58, .252), collider='', enabled=False)
@@ -654,9 +731,12 @@ title = Button(text='',icon='title_text', color=color.clear, scale = (.45,.19),p
 
 setting_menu = Button(text='',icon='gear', color=color.clear, highlight_color = color.gray, scale=(.1,.1),on_click=Func(toggleSettings), position=(.85,.4))
 light_dark = Button(text='',icon='Picture1', color=color.clear,scale=(.2,.08),on_click=Func(darkLight), position=(.85,.3), enabled=False)
+color_scheme = Button(text='',icon='RubiksTex', color=color.clear,scale=(.2,.08),on_click=Func(toggle_color_scheme), position=(.85,.21), enabled=False)
+#not working
 settings_box = Button(text='', color=color.gray, highlight_color=color.gray, icon = 'quad', pressed_color=color.gray, position = (.8,.3),scale=(.4,.4), enabled=False)
 
-aboutus_menu = Button(text='         About Us\nPlace holder text\nMembers\nAndrew Penton\nNoah Gorgevski-Sharpe\nHeinrich Perez\nSteven Perez\nDaniel Shinkarow',
+
+aboutus_menu = Button(text='\t      About Us\n\n\tMembers:\n\tAndrew Penton\n\tNoah Gorgevski-Sharpe\n\tHeinrich Perez\n\tSteven Perez\n\tDaniel Shinkarow',
                         color=color.gray, position=(0,0), scale=(.69,.73),highlight_color=color.gray, pressed_color=color.gray,text_origin=(-.35,.45))
 tutorial_box = Button(text='Tutorial\nPlace holder text',color=color.gray, position=(0,0), scale=(.69,.73),highlight_color=color.gray, pressed_color=color.gray,text_origin=(-.35,.45))
 
