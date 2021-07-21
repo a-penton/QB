@@ -66,6 +66,7 @@ def input(key):
             #updateCurrentHint('Move the %s %s piece above its center\n test', 'flip-2', None)
     if inputList.enabled and not cube.anim:#inputs string from ui textbox as a list off moves
         if key == 'enter':
+            error_text.enabled = False
             if validString(inputList.text):
                 readString(inputList.text)
             else:
@@ -73,6 +74,7 @@ def input(key):
                 error_timer = 0
 
     if key == 'left mouse down':
+        error_text.enabled = False
         invoke(checkCurrentHint, delay=cube.turnSpeed+.25)
 
 
@@ -242,7 +244,7 @@ def validString(input):
         if input[i].upper() not in valid_chars:
             if not (i > 0 and input[i].lower() in other_chars and input[i - 1].upper() in valid_chars):
                 if input[i] != " ":
-                    return False`
+                    return False
     return True
 
 def readString(rotations, scrambling = False):  # goes through string and does each move
@@ -539,6 +541,7 @@ def menu():
     aboutus_menu.enabled = False
     tutorial_box.enabled = False
     inputList.enabled= False
+    error_text.enabled = False
 
 
 def darkLight():
