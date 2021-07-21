@@ -234,7 +234,16 @@ def openHints(): #open hints menu
         cube.unblink()
 
 def validString(input):
-    return False
+    
+    valid_chars = ["F", "L", "R", "D", "B", "M", "U", "S", "E", "X", "Y", "Z"]
+    other_chars = ["i", "2"]
+
+    for i in range(len(input)):
+        if input[i].upper() not in valid_chars:
+            if not (i > 0 and input[i].lower() in other_chars and input[i - 1].upper() in valid_chars):
+                if input[i] != " ":
+                    return False`
+    return True
 
 def readString(rotations, scrambling = False):  # goes through string and does each move
     global reading
