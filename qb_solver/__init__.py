@@ -520,11 +520,13 @@ def darkLight():
     if window.color == color.dark_gray:
         window.color = color.light_gray
         light_dark.icon = 'Picture2'
-        wallpaper.icon = 'white_wall'
+        wallpaper.icon = 'wallpaper_light'
+        title.icon = 'title_text_copy'
     elif window.color == color.light_gray:
         window.color = color.dark_gray
         light_dark.icon = 'Picture1'
-        wallpaper.icon = 'dark_wall'
+        wallpaper.icon = 'wallpaper_dark'
+        title.icon = 'title_text'
 
 
 def toggleAboutus():
@@ -548,61 +550,61 @@ def toggle_color_scheme():
     if not colorScheme:
         cube_menu_model.texture = "colorscheme2"
         color_scheme.icon = "colorscheme2"
-        cube.e1.texture = "colorscheme2"
-        cube.e2.texture = "colorscheme2"
-        cube.e3.texture = "colorscheme2"
-        cube.e4.texture = "colorscheme2"
-        cube.e5.texture = "colorscheme2"
-        cube.e6.texture = "colorscheme2"
-        cube.e7.texture = "colorscheme2"
-        cube.e8.texture = "colorscheme2"
-        cube.e9.texture = "colorscheme2"
-        cube.e10.texture = "colorscheme2"
-        cube.e11.texture = "colorscheme2"
-        cube.e12.texture = "colorscheme2"
-        cube.e13.texture = "colorscheme2"
-        cube.e14.texture = "colorscheme2"
-        cube.e15.texture = "colorscheme2"
-        cube.e16.texture = "colorscheme2"
-        cube.e17.texture = "colorscheme2"
-        cube.e18.texture = "colorscheme2"
-        cube.e19.texture = "colorscheme2"
-        cube.e20.texture = "colorscheme2"
-        cube.e21.texture = "colorscheme2"
-        cube.e22.texture = "colorscheme2"
-        cube.e23.texture = "colorscheme2"
-        cube.e24.texture = "colorscheme2"
-        cube.e25.texture = "colorscheme2"
-        cube.e26.texture = "colorscheme2"
+        cube.W.texture = "colorscheme2"
+        cube.WG.texture = "colorscheme2"
+        cube.WB.texture = "colorscheme2"
+        cube.WR.texture = "colorscheme2"
+        cube.WO.texture = "colorscheme2"
+        cube.WRG.texture = "colorscheme2"
+        cube.WGO.texture = "colorscheme2"
+        cube.WBR.texture = "colorscheme2"
+        cube.WOB.texture = "colorscheme2"
+        cube.R.texture = "colorscheme2"
+        cube.GR.texture = "colorscheme2"
+        cube.BR.texture = "colorscheme2"
+        cube.YR.texture = "colorscheme2"
+        cube.YGR.texture = "colorscheme2"
+        cube.YRB.texture = "colorscheme2"
+        cube.G.texture = "colorscheme2"
+        cube.GO.texture = "colorscheme2"
+        cube.YG.texture = "colorscheme2"
+        cube.YOG.texture = "colorscheme2"
+        cube.B.texture = "colorscheme2"
+        cube.BO.texture = "colorscheme2"
+        cube.YB.texture = "colorscheme2"
+        cube.YBO.texture = "colorscheme2"
+        cube.O.texture = "colorscheme2"
+        cube.YO.texture = "colorscheme2"
+        cube.Y.texture = "colorscheme2"
         colorScheme = True
     else:
         cube_menu_model.texture = "RubiksTex"
-        cube.e1.texture = "RubiksTex"
-        cube.e2.texture = "RubiksTex"
-        cube.e3.texture = "RubiksTex"
-        cube.e4.texture = "RubiksTex"
-        cube.e5.texture = "RubiksTex"
-        cube.e6.texture = "RubiksTex"
-        cube.e7.texture = "RubiksTex"
-        cube.e8.texture = "RubiksTex"
-        cube.e9.texture = "RubiksTex"
-        cube.e10.texture = "RubiksTex"
-        cube.e11.texture = "RubiksTex"
-        cube.e12.texture = "RubiksTex"
-        cube.e13.texture = "RubiksTex"
-        cube.e14.texture = "RubiksTex"
-        cube.e15.texture = "RubiksTex"
-        cube.e16.texture = "RubiksTex"
-        cube.e17.texture = "RubiksTex"
-        cube.e18.texture = "RubiksTex"
-        cube.e19.texture = "RubiksTex"
-        cube.e20.texture = "RubiksTex"
-        cube.e21.texture = "RubiksTex"
-        cube.e22.texture = "RubiksTex"
-        cube.e23.texture = "RubiksTex"
-        cube.e24.texture = "RubiksTex"
-        cube.e25.texture = "RubiksTex"
-        cube.e26.texture = "RubiksTex"
+        cube.W.texture = "RubiksTex"
+        cube.WG.texture = "RubiksTex"
+        cube.WB.texture = "RubiksTex"
+        cube.WR.texture = "RubiksTex"
+        cube.WO.texture = "RubiksTex"
+        cube.WRG.texture = "RubiksTex"
+        cube.WGO.texture = "RubiksTex"
+        cube.WBR.texture = "RubiksTex"
+        cube.WOB.texture = "RubiksTex"
+        cube.R.texture = "RubiksTex"
+        cube.GR.texture = "RubiksTex"
+        cube.BR.texture = "RubiksTex"
+        cube.YR.texture = "RubiksTex"
+        cube.YGR.texture = "RubiksTex"
+        cube.YRB.texture = "RubiksTex"
+        cube.G.texture = "RubiksTex"
+        cube.GO.texture = "RubiksTex"
+        cube.YG.texture = "RubiksTex"
+        cube.YOG.texture = "RubiksTex"
+        cube.B.texture = "RubiksTex"
+        cube.BO.texture = "RubiksTex"
+        cube.YB.texture = "RubiksTex"
+        cube.YBO.texture = "RubiksTex"
+        cube.O.texture = "RubiksTex"
+        cube.YO.texture = "RubiksTex"
+        cube.Y.texture = "RubiksTex"
         color_scheme.icon = "RubiksTex"
         colorScheme = False
 
@@ -625,7 +627,6 @@ def toggleSettings():
         color_scheme.enabled = False
     elif color_scheme.enabled == False:
         color_scheme.enabled = True
-
 
 
 
@@ -743,7 +744,8 @@ aboutus_menu = Button(text='\t      About Us\n\n\tMembers:\n\tAndrew Penton\n\tN
                         color=color.gray, position=(0,0), scale=(.69,.73),highlight_color=color.gray, pressed_color=color.gray,text_origin=(-.35,.45))
 tutorial_box = Button(text='Tutorial\nPlace holder text',color=color.gray, position=(0,0), scale=(.69,.73),highlight_color=color.gray, pressed_color=color.gray,text_origin=(-.35,.45))
 
-#wallpaper = Button(text='',icon='dark_wall',color=color.clear,highlight_color=color.clear, pressed_color=color.clear,enabled=True, parent=camera, position=(0,0,50),scale=(1920/50,1200/50))
+wallpaper = Button(text='',icon='wallpaper_dark',color=color.clear,highlight_color=color.clear, pressed_color=color.clear,enabled=True, parent=camera, position=(0,0,50),scale=(1920/52,1080/52))
+
 bgVolume = .5
 bgAudio = Audio('impossiblegame', pitch=1, loop=True, autoplay=True, volume=.5)
 
