@@ -20,7 +20,7 @@ mousepos = []  # stores mouse position for rotating camera
 app = Ursina()
 # window settings
 window.borderless = False
-window.fps_counter.enabled = False
+window.fps_counter.enabled = True
 window.exit_button.visible = False
 window.color = color.dark_gray
 
@@ -34,6 +34,7 @@ center = Entity()  # center transform, used for rotation
 current_piece = None
 current_stage = -1
 
+error_timer = 0
 
 
 def main():
@@ -55,6 +56,7 @@ def input(key):
     global reading
     global drag
     global mousepos
+    global error_timer
     if not anim and not reading and not inputList.enabled:  # if not already animated, read keys and animate
         if key == 'm':  # this one is for hints, and requires a longer delay
             #anim = True
@@ -64,9 +66,15 @@ def input(key):
             #updateCurrentHint('Move the %s %s piece above its center\n test', 'flip-2', None)
     if inputList.enabled and not cube.anim:#inputs string from ui textbox as a list off moves
         if key == 'enter':
-            readString(inputList.text)
+            error_text.enabled = False
+            if validString(inputList.text):
+                readString(inputList.text)
+            else:
+                error_text.enabled = True
+                error_timer = 0
 
     if key == 'left mouse down':
+        error_text.enabled = False
         invoke(checkCurrentHint, delay=cube.turnSpeed+.25)
 
 
@@ -76,9 +84,16 @@ def update():  # called every frame
     global center
     global anim
     global reading
+    global error_timer
     # makes the main menu cube rotate
     if cube_menu_model.enabled:
         cube_menu_model.rotation_y += time.dt * 100
+
+    if error_text.enabled:
+        if error_timer >= 180:
+            error_text.enabled = False
+        else:
+            error_timer += 1
 
 
 
@@ -168,8 +183,8 @@ def resetCube():  # resets cube
     anim = True
     invoke(endAnim, delay=.65)
     changeTurnSpeed()
-    inputList.text = ''
-    inputList.cursor.origin = (-1,-.5)
+    # inputList.text = ''
+    # inputList.cursor.origin = (-1,-.5)
     inputList.enabled= False
     cube.virtualCube = Cube("RRRRRRRRRBBBWWWGGGYYYBBBWWWGGGYYYBBBWWWGGGYYYOOOOOOOOO") # Resets virtual cube
 
@@ -221,6 +236,17 @@ def openHints(): #open hints menu
         blinking = False
         cube.unblink()
 
+def validString(input):
+    
+    valid_chars = ["F", "L", "R", "D", "B", "M", "U", "S", "E", "X", "Y", "Z"]
+    other_chars = ["i", "2"]
+
+    for i in range(len(input)):
+        if input[i].upper() not in valid_chars:
+            if not (i > 0 and input[i].lower() in other_chars and input[i - 1].upper() in valid_chars):
+                if input[i] != " ":
+                    return False
+    return True
 
 def readString(rotations, scrambling = False):  # goes through string and does each move
     global reading
@@ -249,7 +275,7 @@ def readString(rotations, scrambling = False):  # goes through string and does e
                 if rotations[i + 1].lower() == "i":
                     readSequence.append(stepTime)
                     readSequence.append(Func(cube.rotateUi))
-                elif rotations[i + 1].lower() == "2":
+                elif rotations[i + 1] == "2":
                     readSequence.append(stepTime)
                     readSequence.append(Func(cube.rotateU))
                     readSequence.append(stepTime)
@@ -261,7 +287,7 @@ def readString(rotations, scrambling = False):  # goes through string and does e
                 if rotations[i + 1].lower() == "i":
                     readSequence.append(stepTime)
                     readSequence.append(Func(cube.rotateEi))
-                elif rotations[i + 1].lower() == "2":
+                elif rotations[i + 1] == "2":
                     readSequence.append(stepTime)
                     readSequence.append(Func(cube.rotateE))
                     readSequence.append(stepTime)
@@ -273,7 +299,7 @@ def readString(rotations, scrambling = False):  # goes through string and does e
                 if rotations[i + 1].lower() == "i":
                     readSequence.append(stepTime)
                     readSequence.append(Func(cube.rotateDi))
-                elif rotations[i + 1].lower() == "2":
+                elif rotations[i + 1] == "2":
                     readSequence.append(stepTime)
                     readSequence.append(Func(cube.rotateD))
                     readSequence.append(stepTime)
@@ -285,7 +311,7 @@ def readString(rotations, scrambling = False):  # goes through string and does e
                 if rotations[i + 1].lower() == "i":
                     readSequence.append(stepTime)
                     readSequence.append(Func(cube.rotateLi))
-                elif rotations[i + 1].lower() == "2":
+                elif rotations[i + 1] == "2":
                     readSequence.append(stepTime)
                     readSequence.append(Func(cube.rotateL))
                     readSequence.append(stepTime)
@@ -297,7 +323,7 @@ def readString(rotations, scrambling = False):  # goes through string and does e
                 if rotations[i + 1].lower() == "i":
                     readSequence.append(stepTime)
                     readSequence.append(Func(cube.rotateMi))
-                elif rotations[i + 1].lower() == "2":
+                elif rotations[i + 1] == "2":
                     readSequence.append(stepTime)
                     readSequence.append(Func(cube.rotateM))
                     readSequence.append(stepTime)
@@ -309,7 +335,7 @@ def readString(rotations, scrambling = False):  # goes through string and does e
                 if rotations[i + 1].lower() == "i":
                     readSequence.append(stepTime)
                     readSequence.append(Func(cube.rotateRi))
-                elif rotations[i + 1].lower() == "2":
+                elif rotations[i + 1] == "2":
                     readSequence.append(stepTime)
                     readSequence.append(Func(cube.rotateR))
                     readSequence.append(stepTime)
@@ -321,7 +347,7 @@ def readString(rotations, scrambling = False):  # goes through string and does e
                 if rotations[i + 1].lower() == "i":
                     readSequence.append(stepTime)
                     readSequence.append(Func(cube.rotateFi))
-                elif rotations[i + 1].lower() == "2":
+                elif rotations[i + 1] == "2":
                     readSequence.append(stepTime)
                     readSequence.append(Func(cube.rotateF))
                     readSequence.append(stepTime)
@@ -333,7 +359,7 @@ def readString(rotations, scrambling = False):  # goes through string and does e
                 if rotations[i + 1].lower() == "i":
                     readSequence.append(stepTime)
                     readSequence.append(Func(cube.rotateSi))
-                elif rotations[i + 1].lower() == "2":
+                elif rotations[i + 1] == "2":
                     readSequence.append(stepTime)
                     readSequence.append(Func(cube.rotateS))
                     readSequence.append(stepTime)
@@ -345,7 +371,7 @@ def readString(rotations, scrambling = False):  # goes through string and does e
                 if rotations[i + 1].lower() == "i":
                     readSequence.append(stepTime)
                     readSequence.append(Func(cube.rotateBi))
-                elif rotations[i + 1].lower() == "2":
+                elif rotations[i + 1] == "2":
                     readSequence.append(stepTime)
                     readSequence.append(Func(cube.rotateB))
                     readSequence.append(stepTime)
@@ -357,7 +383,7 @@ def readString(rotations, scrambling = False):  # goes through string and does e
                 if rotations[i + 1].lower() == "i":
                     readSequence.append(stepTime)
                     readSequence.append(Func(cube.rotateXi))
-                elif rotations[i + 1].lower() == "2":
+                elif rotations[i + 1] == "2":
                     readSequence.append(stepTime)
                     readSequence.append(Func(cube.rotateX))
                     readSequence.append(stepTime)
@@ -369,7 +395,7 @@ def readString(rotations, scrambling = False):  # goes through string and does e
                 if rotations[i + 1].lower() == "i":
                     readSequence.append(stepTime)
                     readSequence.append(Func(cube.rotateYi))
-                elif rotations[i + 1].lower() == "2":
+                elif rotations[i + 1] == "2":
                     readSequence.append(stepTime)
                     readSequence.append(Func(cube.rotateY))
                     readSequence.append(stepTime)
@@ -381,7 +407,7 @@ def readString(rotations, scrambling = False):  # goes through string and does e
                 if rotations[i + 1].lower() == "i":
                     readSequence.append(stepTime)
                     readSequence.append(Func(cube.rotateZi))
-                elif rotations[i + 1].lower() == "2":
+                elif rotations[i + 1] == "2":
                     readSequence.append(stepTime)
                     readSequence.append(Func(cube.rotateZ))
                     readSequence.append(stepTime)
@@ -389,6 +415,8 @@ def readString(rotations, scrambling = False):  # goes through string and does e
                 else:
                     readSequence.append(stepTime)
                     readSequence.append(Func(cube.rotateZ))
+            elif rotations[i].lower() != 'i' and rotations[i] != ' ' and rotations[i] != '2':
+                print("Invalid Input")
 
 
 def resetReading():  # helps make sure no moves are made while reading a list of moves
@@ -514,19 +542,23 @@ def menu():
     aboutus_menu.enabled = False
     tutorial_box.enabled = False
     inputList.enabled= False
+    error_text.enabled = False
 
 
 def darkLight():
     if window.color == color.dark_gray:
         window.color = color.light_gray
         light_dark.icon = 'Picture2'
-        wallpaper.icon = 'wallpaper_light'
+        wallpaper.icon = 'testing_light'
         title.icon = 'title_text_copy'
+        setting_menu.icon = 'gear'
+
     elif window.color == color.light_gray:
         window.color = color.dark_gray
         light_dark.icon = 'Picture1'
-        wallpaper.icon = 'wallpaper_dark'
+        wallpaper.icon = 'testing_dark'
         title.icon = 'title_text'
+        setting_menu.icon = 'gear_light'
 
 
 def toggleAboutus():
@@ -620,13 +652,17 @@ def toggleSettings():
     elif light_dark.enabled == False:
         light_dark.enabled = True
     if settings_box.enabled == True:
-        settings_box.enabled == False
+        settings_box.enabled = False
     elif settings_box.enabled == False:
-        settings_box.enabled == True
+        settings_box.enabled = True
     if color_scheme.enabled == True:
         color_scheme.enabled = False
     elif color_scheme.enabled == False:
         color_scheme.enabled = True
+    if volumeSlider.enabled == True:
+        volumeSlider.enabled = False
+    elif volumeSlider.enabled == False:
+        volumeSlider.enabled = True
 
 
 
@@ -649,6 +685,8 @@ def start():
     settings_box.enabled == False
     light_dark.enabled = False
     color_scheme.enabled = False
+    settings_box.enabled = False
+    volumeSlider.enabled = False
 
     resetButton.enabled = True
     rotateRButton.enabled = True
@@ -686,8 +724,8 @@ rotateZLButton = Button(text='', icon='rotateZR', color=color.white, highlight_c
                        on_click=Func(rotateZL), enabled=False)
 inputButton = Button(text='Input', color=color.red, scale=.152, position=(-.63, -.225, 0), on_click=Func(toggleInput),
                      enabled=False)
+# inputList = TextField(max_lines=1, position=(-.37 ,-.32 ,0), enabled=False)
 
-inputList = TextField(max_lines=3, position=(-.37 ,-.32 ,0), enabled=False)
 scrambleButton = Button(text='Scramble', color=color.red, scale=.152, position=(-.85, -.225, 0), on_click=Func(scramble),
                      enabled=False)
 speedSlider = Slider(min=1, max=.1, default=.5, text='Turn Speed', height=.1, on_value_changed=Func(changeTurnSpeed), position=(-.7, -.42, 0), scale=.24, enabled=False)
@@ -731,20 +769,20 @@ start_menu = Button(text='', icon='start_button', text_color = color.black, on_c
 tutorial_menu = Button(text='',icon='tutorial_button',on_click=Func(toggleTutorial),text_color = color.black, color= color.clear,scale=(.36,.12),position  = (-.7,-.05)) #button
 help_menu = Button(text='',icon='aboutus_button',on_click=Func(toggleAboutus), text_color = color.black, color=color.clear, scale=(.36,.12), position=(-.7,-.2)) #button
 cube_menu_model = Entity(model='cubetest', color=color.rgb(200, 200, 200, 255), texture="RubiksTex", shader=lit_with_shadows_shader, scale=(3.5,3.5,3.5), position = (1.5,0))
-title = Button(text='',icon='title_text', color=color.clear, scale = (.45,.19),position = (-.7,.3))
+title = Button(text='',icon='title_text', color=color.clear, scale = (.5,.21),position = (-.7,.3))
 
-setting_menu = Button(text='',icon='gear', color=color.clear, highlight_color = color.gray, scale=(.1,.1),on_click=Func(toggleSettings), position=(.85,.4))
+setting_menu = Button(text='',icon='gear_light', color=color.clear, highlight_color = color.gray, scale=(.1,.1),on_click=Func(toggleSettings), position=(.85,.4))
 light_dark = Button(text='',icon='Picture1', color=color.clear,scale=(.2,.08),on_click=Func(darkLight), position=(.85,.3), enabled=False)
 color_scheme = Button(text='',icon='RubiksTex', color=color.clear,scale=(.2,.08),on_click=Func(toggle_color_scheme), position=(.85,.21), enabled=False)
 #not working
-settings_box = Button(text='', color=color.gray, highlight_color=color.gray, icon = 'quad', pressed_color=color.gray, position = (.8,.3),scale=(.4,.4), enabled=False)
+settings_box = Button(text='', color=color.gray, highlight_color=color.gray, icon = '', pressed_color=color.gray, position = (.85,.175,50),scale=(.23,.33), enabled=False)
 
 
 aboutus_menu = Button(text='\t      About Us\n\n\tMembers:\n\tAndrew Penton\n\tNoah Gorgevski-Sharpe\n\tHeinrich Perez\n\tSteven Perez\n\tDaniel Shinkarow',
                         color=color.gray, position=(0,0), scale=(.69,.73),highlight_color=color.gray, pressed_color=color.gray,text_origin=(-.35,.45))
 tutorial_box = Button(text='Tutorial\nPlace holder text',color=color.gray, position=(0,0), scale=(.69,.73),highlight_color=color.gray, pressed_color=color.gray,text_origin=(-.35,.45))
 
-wallpaper = Button(text='',icon='wallpaper_dark',color=color.clear,highlight_color=color.clear, pressed_color=color.clear,enabled=True, parent=camera, position=(0,0,50),scale=(1920/52,1080/52))
+wallpaper = Button(text='',icon='testing_dark',color=color.clear,highlight_color=color.clear, pressed_color=color.clear,enabled=True, parent=camera, position=(0,0,50),scale=(1920/52,1080/52))
 
 bgVolume = .5
 bgAudio = Audio('impossiblegame', pitch=1, loop=True, autoplay=True, volume=.5)
@@ -752,5 +790,12 @@ bgAudio = Audio('impossiblegame', pitch=1, loop=True, autoplay=True, volume=.5)
 def changeAudio():
     bgAudio.volume = volumeSlider.value
 
-volumeSlider = Slider(0, 1, default = .5,text = 'Volume', dynamic=True, on_value_changed=changeAudio, x = -.15,y = -.3)
+volumeSlider = Slider(0, 1, default = .5,text = 'Volume',height=.05, dynamic=True, on_value_changed=changeAudio, color=color.gray, scale=.4 ,x = .75,y = .1, enabled=False)
 volumeSlider.knob.text_color = color.clear
+
+volumeSlider.label.origin = (0,0)
+volumeSlider.label.position = (.25,.1)
+volumeSlider.label.scale = 2.3
+
+inputList = TextField(max_lines=1, position=(-.22 ,-.33 ,0), enabled=False)
+error_text = Text(text='Error: Invalid Input', origin=(1.5 ,13.65 ,1), enabled=False, color=color.red)
