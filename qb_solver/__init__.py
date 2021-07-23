@@ -707,7 +707,7 @@ def start():
                         # on_click=Func(openSettings))
 background = Button(text='', color=color.gray, highlight_color=color.gray, pressed_color=color.gray,
                     position=(-.74, -.059, 1), scale=(.42, .862), collider='', enabled=False)
-resetButton = Button(text='Reset', color=color.red, scale=.152, position=(-.85, -.39, 0), on_click=Func(resetCube),
+resetButton = Button(text='', icon='reset_button',color=color.clear,highlight_color=color.light_gray,scale=.152, position=(-.85, -.39, 0), on_click=Func(resetCube),
                      enabled=False)
 
 rotateRButton = Button(text='', icon='rotateR', color=color.white, highlight_color=color.light_gray, scale=.152, position=(-.63, .113, 0),
@@ -722,11 +722,11 @@ rotateZRButton = Button(text='', icon='rotateZL', color=color.white, highlight_c
                        on_click=Func(rotateZR), enabled=False)
 rotateZLButton = Button(text='', icon='rotateZR', color=color.white, highlight_color=color.light_gray, scale=.152, position=(-.85, -.056, 0),
                        on_click=Func(rotateZL), enabled=False)
-inputButton = Button(text='Input', color=color.red, scale=.152, position=(-.63, -.225, 0), on_click=Func(toggleInput),
+inputButton = Button(text='', icon='input_button',color=color.clear,highlight_color=color.light_gray, scale=.152, position=(-.63, -.225, 0), on_click=Func(toggleInput),
                      enabled=False)
 # inputList = TextField(max_lines=1, position=(-.37 ,-.32 ,0), enabled=False)
 
-scrambleButton = Button(text='Scramble', color=color.red, scale=.152, position=(-.85, -.225, 0), on_click=Func(scramble),
+scrambleButton = Button(text='', icon='scramble_button',color=color.clear,highlight_color=color.light_gray, scale=.152, position=(-.85, -.225, 0), on_click=Func(scramble),
                      enabled=False)
 speedSlider = Slider(min=1, max=.1, default=.5, text='Turn Speed', height=.1, on_value_changed=Func(changeTurnSpeed), position=(-.7, -.42, 0), scale=.24, enabled=False)
 speedSlider.label.origin = (0,0)
@@ -790,7 +790,7 @@ bgAudio = Audio('impossiblegame', pitch=1, loop=True, autoplay=True, volume=.5)
 def changeAudio():
     bgAudio.volume = volumeSlider.value
 
-volumeSlider = Slider(0, 1, default = .5,text = 'Volume',height=.05, dynamic=True, on_value_changed=changeAudio, color=color.gray, scale=.4 ,x = .75,y = .1, enabled=False)
+volumeSlider = Slider(0, 1, default = .5,text = 'Volume',height=.05, dynamic=True, on_value_changed=changeAudio, color=color.gray, scale=.4 ,x = .743,y = .1, enabled=False)
 volumeSlider.knob.text_color = color.clear
 
 volumeSlider.label.origin = (0,0)
