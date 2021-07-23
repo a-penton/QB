@@ -15,6 +15,7 @@ reading = False # used to lockout inputs during reading strings
 settings = False #checks if settings menu is open
 hints = False #checks if hints menu is open
 colorScheme = False #Checks if the color scheme has changed
+bgmToggle = False
 readSequence = Sequence() #used for sequence of moves
 mousepos = []  # stores mouse position for rotating camera
 app = Ursina()
@@ -561,6 +562,18 @@ def darkLight():
         setting_menu.icon = 'gear_light'
 
 
+def bgm_toggle():
+    global bgmToggle
+    if not bgmToggle:
+        bgm_buttom.icon = 'off_bgm'
+        bgAudio.pause()
+        bgmToggle = True
+    else:
+        bgm_buttom.icon = 'on_bgm'
+        bgAudio.resume()
+        bgmToggle = False
+
+
 def toggleAboutus():
     tutorial_box.enabled = False
     if aboutus_menu.enabled == True:
@@ -663,6 +676,14 @@ def toggleSettings():
         volumeSlider.enabled = False
     elif volumeSlider.enabled == False:
         volumeSlider.enabled = True
+    if bgm_buttom.enabled == True:
+        bgm_buttom.enabled = False
+    elif bgm_buttom.enabled == False:
+        bgm_buttom.enabled = True
+    if bgm_title.enabled == True:
+        bgm_title.enabled = False
+    elif bgm_title.enabled == False:
+        bgm_title.enabled = True
 
 
 
@@ -687,6 +708,8 @@ def start():
     color_scheme.enabled = False
     settings_box.enabled = False
     volumeSlider.enabled = False
+    bgm_buttom.enabled = False
+    bgm_title.enabled = False
 
     resetButton.enabled = True
     rotateRButton.enabled = True
@@ -774,8 +797,9 @@ title = Button(text='',icon='title_text', color=color.clear, scale = (.5,.21),po
 setting_menu = Button(text='',icon='gear_light', color=color.clear, highlight_color = color.gray, scale=(.1,.1),on_click=Func(toggleSettings), position=(.85,.4))
 light_dark = Button(text='',icon='Picture1', color=color.clear,scale=(.2,.08),on_click=Func(darkLight), position=(.85,.3), enabled=False)
 color_scheme = Button(text='',icon='RubiksTex', color=color.clear,scale=(.2,.08),on_click=Func(toggle_color_scheme), position=(.85,.21), enabled=False)
-#not working
-settings_box = Button(text='', color=color.gray, highlight_color=color.gray, icon = '', pressed_color=color.gray, position = (.85,.175,50),scale=(.23,.33), enabled=False)
+bgm_buttom = Button(text='',icon='on_bgm', color=color.clear,scale=(.2,.08),on_click=Func(bgm_toggle), position=(.85,.015), enabled=False)
+bgm_title = Button(text='Music', color=color.clear, position=(.85, 0.065), enabled=False, scale=.01)
+settings_box = Button(text='', color=color.gray, highlight_color=color.gray, icon = '', pressed_color=color.gray, position = (.85,.16,50),scale=(.23,.375), enabled=False)
 
 
 aboutus_menu = Button(text='\t      About Us\n\n\tMembers:\n\tAndrew Penton\n\tNoah Gorgevski-Sharpe\n\tHeinrich Perez\n\tSteven Perez\n\tDaniel Shinkarow',
