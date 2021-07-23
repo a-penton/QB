@@ -786,13 +786,13 @@ wallpaper = Button(text='',icon='testing_dark',color=color.clear,highlight_color
 
 bgVolume = .5
 bgAudio = Audio('impossiblegame', pitch=1, loop=True, autoplay=True, volume=.5)
+bgAudio.play()
 
 def changeAudio():
     bgAudio.volume = volumeSlider.value
 
 volumeSlider = Slider(0, 1, default = .5,text = 'Volume',height=.05, dynamic=True, on_value_changed=changeAudio, color=color.gray, scale=.4 ,x = .743,y = .1, enabled=False)
 volumeSlider.knob.text_color = color.clear
-
 volumeSlider.label.origin = (0,0)
 volumeSlider.label.position = (.25,.1)
 volumeSlider.label.scale = 2.3
