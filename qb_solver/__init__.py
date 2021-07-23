@@ -799,7 +799,7 @@ light_dark = Button(text='',icon='Picture1', color=color.clear,scale=(.2,.08),on
 color_scheme = Button(text='',icon='RubiksTex', color=color.clear,scale=(.2,.08),on_click=Func(toggle_color_scheme), position=(.85,.21), enabled=False)
 bgm_buttom = Button(text='',icon='on_bgm', color=color.clear,scale=(.2,.08),on_click=Func(bgm_toggle), position=(.85,.015), enabled=False)
 bgm_title = Button(text='Music', color=color.clear, position=(.85, 0.065), enabled=False, scale=.01)
-settings_box = Button(text='', color=color.gray, highlight_color=color.gray, icon = '', pressed_color=color.gray, position = (.85,.16,50),scale=(.23,.375), enabled=False)
+settings_box = Button(text='', color=color.gray, highlight_color=color.gray, icon = '', pressed_color=color.gray, position = (.85,.155,50),scale=(.23,.375), enabled=False)
 
 
 aboutus_menu = Button(text='\t      About Us\n\n\tMembers:\n\tAndrew Penton\n\tNoah Gorgevski-Sharpe\n\tHeinrich Perez\n\tSteven Perez\n\tDaniel Shinkarow',
