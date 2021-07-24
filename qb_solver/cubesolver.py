@@ -432,3 +432,27 @@ def is_eo_solved(cube):
 			if edge.colors[2] != 'Y':
 				return False
 	return True
+
+def is_ep_solved(cube):
+	if not is_eo_solved(cube):
+		return False
+
+	yellow_center = cube.find_piece("Y")
+	x,y,z = yellow_center.pos
+
+	face_edges = get_face_edges(cube, yellow_center)
+
+	for edge in face_edges:
+		if not is_piece_solved(cube, edge):
+			return False
+	return True
+
+def solved_yellow_edges(cube):
+	yellow_center = cube.find_piece("Y")
+	count = 0
+	if yellow_center.pos == (0, 1, 0):
+		face_edges = get_face_edges(cube, yellow_center)
+		for edge in face_edges:
+			if is_piece_solved(cube, edge):
+				count += 1
+	return count
