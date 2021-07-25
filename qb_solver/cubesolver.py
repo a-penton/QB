@@ -38,6 +38,8 @@ def hint(cube, piece, stage):
 			stage = 2
 		elif not is_eo_solved(cube):
 			stage = 3
+		elif not is_ep_solved(cube):
+			stage = 4
 
 	# if the current stage is solved, proceed to the next one
 	if stage == 0 and is_cross_solved(cube):
@@ -47,6 +49,8 @@ def hint(cube, piece, stage):
 	if stage == 2 and is_middle_layer_solved(cube):
 		stage = 3
 	if stage == 3 and is_eo_solved(cube):
+		stage = 4
+	if stage == 4 and is_ep_solved(cube):
 		stage = -1
 
 	if stage == 0:
@@ -57,9 +61,11 @@ def hint(cube, piece, stage):
 		return get_middle_layer_hint(cube, piece)
 	elif stage == 3:
 		return get_eo_hint(cube)
+	elif stage == 4:
+		return get_ep_hint(cube)
 	else:
 		# if solved, the piece returned is the white center
-		return ("The first two layers are solved!", "cross-solved.png", cube.find_piece('W'), -1)
+		return ("The cube is almost solved!", "cross-solved.png", cube.find_piece('W'), -1)
 
 def fix_color_string(s):
 	# replace individual letters with their colors
@@ -372,6 +378,48 @@ def get_specific_eo_hint(cube):
 				hint += " are at the back and left of the top face"
 
 	return hint, None, None, 3
+
+def get_ep_hint(cube):
+	# This step is also very straightforward, only one algorithm
+	# solving all yellow edges, so no particular piece to solve
+
+	# check that white is on bottom
+	white_face = cube.find_piece('W')
+	if white_face.pos != (0,-1,0):
+		return ("Rotate the cube so the white face is on bottom", "rotate-white-bottom.png", white_face, 4)
+
+	# only need to update hint if middle layer solved
+	if is_middle_layer_solved(cube):
+		return get_specific_ep_hint(cube)
+	else:
+		return None, None, None, 4
+
+def get_specific_ep_hint(cube):
+	# assumes white on D/yellow on U
+
+	# get number of solved yellow edges
+	num_solved = solved_yellow_edges(cube)
+
+	if num_solved < 2:
+		hint = "Rotate the top so that at least two edges are solved"
+	elif num_solved == 2:
+		# either edges are opposite swapped or adjacent swapped
+		uf_edge_color = cube.get_piece(0,1,1).colors[2]
+		ub_edge_color = cube.get_piece(0,1,-1).colors[2]
+		uf_ub_colors = sorted(list((uf_edge_color, ub_edge_color)))
+		if uf_ub_colors in [['B', 'G'], ['O', 'R']]:
+			# opposite swap, perform the algorithm from anywhere
+			hint = "Perform the algorithm"
+		else:
+			# adjacent swap, put in position then perform algorithm
+			ur_edge_solved = is_piece_solved(cube, cube.get_piece(1,1,0))
+			ub_edge_solved = is_piece_solved(cube, cube.get_piece(0,1,-1))
+			if ur_edge_solved and ub_edge_solved:
+				hint = "Perform the algorithm"
+			else:
+				hint = "Rotate the cube so ur/ub are solved"
+	
+	return hint, None, None, 4
 
 def is_cross_solved(cube):
 	# determine if the cross is solved
