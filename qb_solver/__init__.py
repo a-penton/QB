@@ -74,12 +74,13 @@ def input(key):
                 error_text.enabled = True
                 error_timer = 0
 
-    if key == 'left mouse down':
+    if key == 'left mouse down' and mouse_in_zone(mouse.position):
         error_text.enabled = False
         invoke(checkCurrentHint, delay=cube.turnSpeed+.25)
         cube.disableArrows()
         drag = True
         mousepos = mouse.position
+        print(mouse.position)
         
 
     if key == 'left mouse up':
@@ -121,6 +122,11 @@ def endAnim():  # resets anim to false, needs to be a function to be used with i
 
 
 # =====================================================ui buttons=====================================================
+
+def mouse_in_zone(mousepos):
+    if mousepos[0] < -0.43 or mousepos[1] < -0.35:
+        return False
+    return True
 
 def checkCurrentHint():
     updateCurrentHint(*hint(cube.virtualCube, current_piece, current_stage))
