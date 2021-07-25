@@ -10,7 +10,7 @@ import os
 
 anim = False  # used to lockout inputs during animation
 blinking = False
-# drag = False  # used to rotate cube with mouse
+drag = False  # used to rotate cube with mouse
 reading = False # used to lockout inputs during reading strings
 settings = False #checks if settings menu is open
 hints = False #checks if hints menu is open
@@ -77,6 +77,15 @@ def input(key):
     if key == 'left mouse down':
         error_text.enabled = False
         invoke(checkCurrentHint, delay=cube.turnSpeed+.25)
+        cube.disableArrows()
+        drag = True
+        mousepos = mouse.position
+        
+
+    if key == 'left mouse up':
+        cube.reenableArrows()
+        drag = False
+        cube.rotation = (0, 0, 0)
 
 
 
@@ -86,6 +95,7 @@ def update():  # called every frame
     global anim
     global reading
     global error_timer
+    global drag 
     # makes the main menu cube rotate
     if cube_menu_model.enabled:
         cube_menu_model.rotation_y += time.dt * 100
@@ -95,6 +105,13 @@ def update():  # called every frame
             error_text.enabled = False
         else:
             error_timer += 1
+    if drag:
+        cube.reparent_to(center)
+        center.rotation_y += 300 * (mousepos[0] - mouse.position[0])
+        center.rotation_x += 300 * (mouse.position[1] - mousepos[1])
+        cube.reparent_to(scene)
+        center.rotation = (0, 0, 0)
+    mousepos = mouse.position
 
 
 
