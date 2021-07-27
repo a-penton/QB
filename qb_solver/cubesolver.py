@@ -477,6 +477,7 @@ def solved_yellow_edges(cube):
     return count
 
 
+
 def is_cp_solved(cube):
     if not is_ep_solved(cube):
         return False
@@ -486,22 +487,13 @@ def is_cp_solved(cube):
 
     corner_pieces = get_corner_pieces(cube, yellow_center)
 
-    if x != 0:
-        for corner in corner_pieces:
-            if corner.colors[0] != 'Y':
-                return False
-    elif y != 0:
-        for corner in corner_pieces:
-            if corner.colors[1] != 'Y':
-                return False
-    elif z != 0:
-        for corner in corner_pieces:
-            if corner.corner[2] != 'Y':
-                return False
+    for corner in corner_pieces:
+        if not is_piece_permuted(corner):
+            return False
     return True
 
 
-def is_cube_solved(cube):
+def is_co_solved(cube):
     if not is_cp_solved(cube):
         return False
 
