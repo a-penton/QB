@@ -3001,6 +3001,12 @@ class VisCube(Entity):
                     self.G.rotation_z = 90
                 continue
 
+    def arrowsHovered(self):
+        for e in self.arrows:
+            if e.hovered:
+                return True
+        return False
+
     def print(self):
         print('-------------------------')
         print(self.virtualCube)
