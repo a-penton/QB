@@ -731,24 +731,24 @@ def toggle_color_scheme():
     if not shape:
         if not colorScheme:
             cube_menu_model.texture = "colorscheme2"
-            color_scheme.icon = "colorscheme2"
+            color_scheme.icon = "unfolded_cube2"
             colorscheme2()
             colorScheme = True
         else:
             cube_menu_model.texture = "RubiksTex"
             RubiksTex()
-            color_scheme.icon = "RubiksTex"
+            color_scheme.icon = "unfolded_cube"
             colorScheme = False
     else:
         if not colorScheme:
             cube_menu_model.texture = "colorblind2"
-            color_scheme.icon = "colorscheme2"
+            color_scheme.icon = "unfolded_cube2"
             colorblind2()
             colorScheme = True
         else:
             cube_menu_model.texture = "colorblind"
             colorblind()
-            color_scheme.icon = "RubiksTex"
+            color_scheme.icon = "unfolded_cube"
             colorScheme = False
 
 def shape_toggle():
@@ -927,11 +927,11 @@ title = Button(text='',icon='title_text', color=color.clear, scale = (.5,.21),po
 
 setting_menu = Button(text='',icon='gear_light', color=color.clear, highlight_color = color.gray, scale=(.1,.1),on_click=Func(toggleSettings), position=(.85,.4))
 light_dark = Button(text='',icon='Picture1', color=color.clear,scale=(.2,.08),on_click=Func(darkLight), position=(.85,.3), enabled=False)
-color_scheme = Button(text='',icon='RubiksTex', color=color.clear,scale=(.2,.08),on_click=Func(toggle_color_scheme), position=(.85,.21), enabled=False)
-bgm_buttom = Button(text='',icon='on_bgm', color=color.clear,scale=(.2,.08),on_click=Func(bgm_toggle), position=(.85,.015), enabled=False)
-bgm_title = Button(text='Music', color=color.clear, position=(.85, 0.065), enabled=False, scale=.01)
-shape_button = Button(text='',icon='off_bgm', color=color.clear,scale=(.2,.08),on_click=Func(shape_toggle), position=(.85,-.1), enabled=False)
-shape_title = Button(text='Symbols', color=color.clear, position=(.85, -.05), enabled=False, scale=.01)
+color_scheme = Button(text='',icon='unfolded_cube', color=color.clear,scale=(.2,.13),on_click=Func(toggle_color_scheme), position=(.85,.19), enabled=False)
+bgm_buttom = Button(text='',icon='on_bgm', color=color.clear,scale=(.2,.08),on_click=Func(bgm_toggle), position=(.85,-0.005), enabled=False)
+bgm_title = Button(text='Music', color=color.clear, position=(.85, 0.045), enabled=False, scale=.01)
+shape_button = Button(text='',icon='off_bgm', color=color.clear,scale=(.2,.08),on_click=Func(shape_toggle), position=(.85,-.12), enabled=False)
+shape_title = Button(text='Symbols', color=color.clear, position=(.85, -.07), enabled=False, scale=.01)
 settings_box = Button(text='', color=color.gray, highlight_color=color.gray, icon = '', pressed_color=color.gray, position = (.85,.087,50),scale=(.23,.51), enabled=False)
 
 
@@ -948,10 +948,10 @@ bgAudio.play()
 def changeAudio():
     bgAudio.volume = volumeSlider.value
 
-volumeSlider = Slider(0, 1, default = .5,text = 'Volume',height=.05, dynamic=True, on_value_changed=changeAudio, color=color.gray, scale=.4 ,x = .743,y = .1, enabled=False)
+volumeSlider = Slider(0, 1, default = .5,text = 'Volume',height=.05, dynamic=True, on_value_changed=changeAudio, color=color.gray, scale=.4 ,x = .743,y = .08, enabled=False)
 volumeSlider.knob.text_color = color.clear
 volumeSlider.label.origin = (0,0)
-volumeSlider.label.position = (.25,.1)
+volumeSlider.label.position = (.25,.08)
 volumeSlider.label.scale = 2.3
 
 inputList = TextField(max_lines=1, position=(-.22 ,-.33 ,0), enabled=False)
