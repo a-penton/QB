@@ -16,6 +16,7 @@ settings = False #checks if settings menu is open
 hints = False #checks if hints menu is open
 colorScheme = False #Checks if the color scheme has changed
 bgmToggle = False
+shape = False
 readSequence = Sequence() #used for sequence of moves
 mousepos = []  # stores mouse position for rotating camera
 app = Ursina()
@@ -611,69 +612,167 @@ def toggleTutorial():
         tutorial_box.enabled = True
 
 
+def colorscheme2():
+    cube.W.texture = "colorscheme2"
+    cube.WG.texture = "colorscheme2"
+    cube.WB.texture = "colorscheme2"
+    cube.WR.texture = "colorscheme2"
+    cube.WO.texture = "colorscheme2"
+    cube.WRG.texture = "colorscheme2"
+    cube.WGO.texture = "colorscheme2"
+    cube.WBR.texture = "colorscheme2"
+    cube.WOB.texture = "colorscheme2"
+    cube.R.texture = "colorscheme2"
+    cube.GR.texture = "colorscheme2"
+    cube.BR.texture = "colorscheme2"
+    cube.YR.texture = "colorscheme2"
+    cube.YGR.texture = "colorscheme2"
+    cube.YRB.texture = "colorscheme2"
+    cube.G.texture = "colorscheme2"
+    cube.GO.texture = "colorscheme2"
+    cube.YG.texture = "colorscheme2"
+    cube.YOG.texture = "colorscheme2"
+    cube.B.texture = "colorscheme2"
+    cube.BO.texture = "colorscheme2"
+    cube.YB.texture = "colorscheme2"
+    cube.YBO.texture = "colorscheme2"
+    cube.O.texture = "colorscheme2"
+    cube.YO.texture = "colorscheme2"
+    cube.Y.texture = "colorscheme2"
+
+def RubiksTex():
+    cube.W.texture = "RubiksTex"
+    cube.WG.texture = "RubiksTex"
+    cube.WB.texture = "RubiksTex"
+    cube.WR.texture = "RubiksTex"
+    cube.WO.texture = "RubiksTex"
+    cube.WRG.texture = "RubiksTex"
+    cube.WGO.texture = "RubiksTex"
+    cube.WBR.texture = "RubiksTex"
+    cube.WOB.texture = "RubiksTex"
+    cube.R.texture = "RubiksTex"
+    cube.GR.texture = "RubiksTex"
+    cube.BR.texture = "RubiksTex"
+    cube.YR.texture = "RubiksTex"
+    cube.YGR.texture = "RubiksTex"
+    cube.YRB.texture = "RubiksTex"
+    cube.G.texture = "RubiksTex"
+    cube.GO.texture = "RubiksTex"
+    cube.YG.texture = "RubiksTex"
+    cube.YOG.texture = "RubiksTex"
+    cube.B.texture = "RubiksTex"
+    cube.BO.texture = "RubiksTex"
+    cube.YB.texture = "RubiksTex"
+    cube.YBO.texture = "RubiksTex"
+    cube.O.texture = "RubiksTex"
+    cube.YO.texture = "RubiksTex"
+    cube.Y.texture = "RubiksTex"
+
+def colorblind2():
+    cube.W.texture = "colorblind2"
+    cube.WG.texture = "colorblind2"
+    cube.WB.texture = "colorblind2"
+    cube.WR.texture = "colorblind2"
+    cube.WO.texture = "colorblind2"
+    cube.WRG.texture = "colorblind2"
+    cube.WGO.texture = "colorblind2"
+    cube.WBR.texture = "colorblind2"
+    cube.WOB.texture = "colorblind2"
+    cube.R.texture = "colorblind2"
+    cube.GR.texture = "colorblind2"
+    cube.BR.texture = "colorblind2"
+    cube.YR.texture = "colorblind2"
+    cube.YGR.texture = "colorblind2"
+    cube.YRB.texture = "colorblind2"
+    cube.G.texture = "colorblind2"
+    cube.GO.texture = "colorblind2"
+    cube.YG.texture = "colorblind2"
+    cube.YOG.texture = "colorblind2"
+    cube.B.texture = "colorblind2"
+    cube.BO.texture = "colorblind2"
+    cube.YB.texture = "colorblind2"
+    cube.YBO.texture = "colorblind2"
+    cube.O.texture = "colorblind2"
+    cube.YO.texture = "colorblind2"
+    cube.Y.texture = "colorblind2"
+
+def colorblind():
+    cube.W.texture = "colorblind"
+    cube.WG.texture = "colorblind"
+    cube.WB.texture = "colorblind"
+    cube.WR.texture = "colorblind"
+    cube.WO.texture = "colorblind"
+    cube.WRG.texture = "colorblind"
+    cube.WGO.texture = "colorblind"
+    cube.WBR.texture = "colorblind"
+    cube.WOB.texture = "colorblind"
+    cube.R.texture = "colorblind"
+    cube.GR.texture = "colorblind"
+    cube.BR.texture = "colorblind"
+    cube.YR.texture = "colorblind"
+    cube.YGR.texture = "colorblind"
+    cube.YRB.texture = "colorblind"
+    cube.G.texture = "colorblind"
+    cube.GO.texture = "colorblind"
+    cube.YG.texture = "colorblind"
+    cube.YOG.texture = "colorblind"
+    cube.B.texture = "colorblind"
+    cube.BO.texture = "colorblind"
+    cube.YB.texture = "colorblind"
+    cube.YBO.texture = "colorblind"
+    cube.O.texture = "colorblind"
+    cube.YO.texture = "colorblind"
+    cube.Y.texture = "colorblind"
+
 def toggle_color_scheme():
     global colorScheme
-    if not colorScheme:
-        cube_menu_model.texture = "colorblind"
-        color_scheme.icon = "colorblind"
-        cube.W.texture = "colorblind"
-        cube.WG.texture = "colorblind"
-        cube.WB.texture = "colorblind"
-        cube.WR.texture = "colorblind"
-        cube.WO.texture = "colorblind"
-        cube.WRG.texture = "colorblind"
-        cube.WGO.texture = "colorblind"
-        cube.WBR.texture = "colorblind"
-        cube.WOB.texture = "colorblind"
-        cube.R.texture = "colorblind"
-        cube.GR.texture = "colorblind"
-        cube.BR.texture = "colorblind"
-        cube.YR.texture = "colorblind"
-        cube.YGR.texture = "colorblind"
-        cube.YRB.texture = "colorblind"
-        cube.G.texture = "colorblind"
-        cube.GO.texture = "colorblind"
-        cube.YG.texture = "colorblind"
-        cube.YOG.texture = "colorblind"
-        cube.B.texture = "colorblind"
-        cube.BO.texture = "colorblind"
-        cube.YB.texture = "colorblind"
-        cube.YBO.texture = "colorblind"
-        cube.O.texture = "colorblind"
-        cube.YO.texture = "colorblind"
-        cube.Y.texture = "colorblind"
-        colorScheme = True
+    if not shape:
+        if not colorScheme:
+            cube_menu_model.texture = "colorscheme2"
+            color_scheme.icon = "colorscheme2"
+            colorscheme2()
+            colorScheme = True
+        else:
+            cube_menu_model.texture = "RubiksTex"
+            RubiksTex()
+            color_scheme.icon = "RubiksTex"
+            colorScheme = False
     else:
-        cube_menu_model.texture = "RubiksTex"
-        cube.W.texture = "RubiksTex"
-        cube.WG.texture = "RubiksTex"
-        cube.WB.texture = "RubiksTex"
-        cube.WR.texture = "RubiksTex"
-        cube.WO.texture = "RubiksTex"
-        cube.WRG.texture = "RubiksTex"
-        cube.WGO.texture = "RubiksTex"
-        cube.WBR.texture = "RubiksTex"
-        cube.WOB.texture = "RubiksTex"
-        cube.R.texture = "RubiksTex"
-        cube.GR.texture = "RubiksTex"
-        cube.BR.texture = "RubiksTex"
-        cube.YR.texture = "RubiksTex"
-        cube.YGR.texture = "RubiksTex"
-        cube.YRB.texture = "RubiksTex"
-        cube.G.texture = "RubiksTex"
-        cube.GO.texture = "RubiksTex"
-        cube.YG.texture = "RubiksTex"
-        cube.YOG.texture = "RubiksTex"
-        cube.B.texture = "RubiksTex"
-        cube.BO.texture = "RubiksTex"
-        cube.YB.texture = "RubiksTex"
-        cube.YBO.texture = "RubiksTex"
-        cube.O.texture = "RubiksTex"
-        cube.YO.texture = "RubiksTex"
-        cube.Y.texture = "RubiksTex"
-        color_scheme.icon = "RubiksTex"
-        colorScheme = False
+        if not colorScheme:
+            cube_menu_model.texture = "colorblind2"
+            color_scheme.icon = "colorscheme2"
+            colorblind2()
+            colorScheme = True
+        else:
+            cube_menu_model.texture = "colorblind"
+            colorblind()
+            color_scheme.icon = "RubiksTex"
+            colorScheme = False
 
+def shape_toggle():
+    global shape
+    if not colorScheme:
+        if not shape:
+            cube_menu_model.texture = "colorblind"
+            colorblind()
+            shape = True
+            shape_button.icon = 'on_bgm'
+        else:
+            cube_menu_model.texture = "RubiksTex"
+            RubiksTex()
+            shape = False
+            shape_button.icon = 'off_bgm'
+    else:
+        if not shape:
+            cube_menu_model.texture = "colorblind2"
+            colorblind2()
+            shape = True
+            shape_button.icon = 'on_bgm'
+        else:
+            cube_menu_model.texture = "colorscheme2"
+            colorscheme2()
+            shape = False
+            shape_button.icon = 'off_bgm'
 
 
 def toggleSettings():
@@ -705,7 +804,14 @@ def toggleSettings():
         bgm_title.enabled = False
     elif bgm_title.enabled == False:
         bgm_title.enabled = True
-
+    if shape_button.enabled == True:
+        shape_button.enabled = False
+    elif shape_button.enabled == False:
+        shape_button.enabled = True
+    if shape_title.enabled == True:
+        shape_title.enabled = False
+    elif shape_title.enabled == False:
+        shape_title.enabled = True
 
 
 def start():
@@ -731,6 +837,8 @@ def start():
     volumeSlider.enabled = False
     bgm_buttom.enabled = False
     bgm_title.enabled = False
+    shape_button.enabled = False
+    shape_title.enabled = False
 
     resetButton.enabled = True
     rotateRButton.enabled = True
@@ -820,7 +928,9 @@ light_dark = Button(text='',icon='Picture1', color=color.clear,scale=(.2,.08),on
 color_scheme = Button(text='',icon='RubiksTex', color=color.clear,scale=(.2,.08),on_click=Func(toggle_color_scheme), position=(.85,.21), enabled=False)
 bgm_buttom = Button(text='',icon='on_bgm', color=color.clear,scale=(.2,.08),on_click=Func(bgm_toggle), position=(.85,.015), enabled=False)
 bgm_title = Button(text='Music', color=color.clear, position=(.85, 0.065), enabled=False, scale=.01)
-settings_box = Button(text='', color=color.gray, highlight_color=color.gray, icon = '', pressed_color=color.gray, position = (.85,.155,50),scale=(.23,.375), enabled=False)
+shape_button = Button(text='',icon='off_bgm', color=color.clear,scale=(.2,.08),on_click=Func(shape_toggle), position=(.85,-.1), enabled=False)
+shape_title = Button(text='Symbols', color=color.clear, position=(.85, -.05), enabled=False, scale=.01)
+settings_box = Button(text='', color=color.gray, highlight_color=color.gray, icon = '', pressed_color=color.gray, position = (.85,.087,50),scale=(.23,.51), enabled=False)
 
 
 aboutus_menu = Button(text='\t      About Us\n\n\tMembers:\n\tAndrew Penton\n\tNoah Gorgevski-Sharpe\n\tHeinrich Perez\n\tSteven Perez\n\tDaniel Shinkarow',
