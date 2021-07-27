@@ -74,7 +74,7 @@ def input(key):
                 error_text.enabled = True
                 error_timer = 0
 
-    if key == 'left mouse down' and cube.enabled:
+    if key == 'left mouse down' and cube.enabled and not cube.arrowsHovered():
         error_text.enabled = False
         invoke(checkCurrentHint, delay=cube.turnSpeed+.25)
         if mouse_in_zone(mouse.position):
