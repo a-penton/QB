@@ -949,29 +949,576 @@ class VisCube(Entity):
                         self.YGR.x = current_piece.pos[0]
                         self.YGR.y = current_piece.pos[1]
                         self.YGR.z = current_piece.pos[2] * -1
+                        if current_piece.pos[2] == -1:
+                            if current_piece.colors[2] == 'Y':
+                                self.YGR.rotation_x = 0
+                                self.YGR.rotation_y = 0
+                                if current_piece.colors[0] == 'G':
+                                    if current_piece.pos[1] == -1:
+                                        self.YGR.rotation_z = 180
+                                    else:
+                                        self.YGR.rotation_z = 0
+                                else:
+                                    if current_piece.pos[1] == -1:
+                                        self.YGR.rotation_z = 90
+                                    else:
+                                        self.YGR.rotation_z = -90
+                            elif current_piece.colors[2] == 'R':
+                                self.YGR.rotation_x = 0
+                                self.YGR.rotation_y = 90
+                                if current_piece.colors[0] == 'Y':
+                                    if current_piece.pos[1] == -1:
+                                        self.YGR.rotation_y = -90
+                                        self.YGR.rotation_z = 90
+                                    else:
+                                        self.YGR.rotation_y = 90
+                                        self.YGR.rotation_z = -90
+                                else:
+                                    if current_piece.pos[1] == -1:
+                                        self.YGR.rotation_x = 90
+                                        self.YGR.rotation_y = 0
+                                        self.YGR.rotation_z = 0
+                                    else:
+                                        self.YGR.rotation_x = -90
+                                        self.YGR.rotation_y = 0
+                                        self.YGR.rotation_z = 180
+                            elif current_piece.colors[2] == 'G':
+                                self.YGR.rotation_y = -90
+                                self.YGR.rotation_z = 0
+                                if current_piece.colors[0] == 'Y':
+                                    if current_piece.pos[1] == -1:
+                                        self.YGR.rotation_x = 180
+                                    else:
+                                        self.YGR.rotation_x = 0
+                                else:
+                                    if current_piece.pos[1] == -1:
+                                        self.YGR.rotation_x = 90
+                                    else:
+                                        self.YGR.rotation_x = -90
+                        elif current_piece.pos[2] == 1:
+                            if current_piece.colors[2] == 'Y':
+                                self.YGR.rotation_x = 0
+                                self.YGR.rotation_y = 180
+                                if current_piece.colors[0] == 'G':
+                                    if current_piece.pos[1] == -1:
+                                        self.YGR.rotation_z = 180
+                                    else:
+                                        self.YGR.rotation_z = 0
+                                else:
+                                    if current_piece.pos[1] == -1:
+                                        self.YGR.rotation_z = 90
+                                    else:
+                                        self.YGR.rotation_z = -90
+                            elif current_piece.colors[2] == 'R':
+                                self.YGR.rotation_x = 0
+                                self.YGR.rotation_y = -90
+                                if current_piece.colors[0] == 'Y':
+                                    if current_piece.pos[1] == -1:
+                                        self.YGR.rotation_y = 90
+                                        self.YGR.rotation_z = 90
+                                    else:
+                                        self.YGR.rotation_y = -90
+                                        self.YGR.rotation_z = -90
+                                else:
+                                    if current_piece.pos[1] == -1:
+                                        self.YGR.rotation_x = 90
+                                        self.YGR.rotation_y = 180
+                                        self.YGR.rotation_z = 0
+                                    else:
+                                        self.YGR.rotation_x = -90
+                                        self.YGR.rotation_y = 180
+                                        self.YGR.rotation_z = 180
+                            elif current_piece.colors[2] == 'G':
+                                self.YGR.rotation_y = 90
+                                self.YGR.rotation_z = 0
+                                if current_piece.colors[0] == 'Y':
+                                    if current_piece.pos[1] == -1:
+                                        self.YGR.rotation_x = 180
+                                    else:
+                                        self.YGR.rotation_x = 0
+                                else:
+                                    if current_piece.pos[1] == -1:
+                                        self.YGR.rotation_x = 90
+                                    else:
+                                        self.YGR.rotation_x = -90
                         continue
                     self.GR.x = current_piece.pos[0]
                     self.GR.y = current_piece.pos[1]
                     self.GR.z = current_piece.pos[2] * -1
+                    if current_piece.pos[2] == 1:
+                        if current_piece.pos[1] == 1:
+                            if current_piece.colors[2] == 'R':
+                                self.GR.rotation_x = 0
+                                self.GR.rotation_y = 90+180
+                                self.GR.rotation_z = 0-90
+                            else:
+                                self.GR.rotation_x = 0
+                                self.GR.rotation_y = 90
+                                self.GR.rotation_z = 0
+                        elif current_piece.pos[1] == -1:
+                            if current_piece.colors[2] == 'R':
+                                self.GR.rotation_x = 0
+                                self.GR.rotation_y = 0 - 90 + 180
+                                self.GR.rotation_z = 180 - 90
+                            else:
+                                self.GR.rotation_x = 0
+                                self.GR.rotation_y = 0-90
+                                self.GR.rotation_z = 180
+                        elif current_piece.pos[0] == -1:
+                            if current_piece.colors[0] == 'R':
+                                self.GR.rotation_x = -90
+                                self.GR.rotation_y = 0+90
+                                self.GR.rotation_z = 0
+                            else:
+                                self.GR.rotation_x = 90
+                                self.GR.rotation_y = 0 + 90 - 180
+                                self.GR.rotation_z = 0 - 90
+                        elif current_piece.pos[0] == 1:
+                            if current_piece.colors[0] == 'R':
+                                self.GR.rotation_x = 90
+                                self.GR.rotation_y = 0+90
+                                self.GR.rotation_z = 0
+                            else:
+                                self.GR.rotation_x = -90
+                                self.GR.rotation_y = 0 + 90 - 180
+                                self.GR.rotation_z = 0 - 90
+                    elif current_piece.pos[2] == -1:
+                        if current_piece.pos[1] == 1:
+                            if current_piece.colors[2] == 'R':
+                                self.GR.rotation_x = 0 +180
+                                self.GR.rotation_y = -90
+                                self.GR.rotation_z = 0 +90
+                            else:
+                                self.GR.rotation_x = 0
+                                self.GR.rotation_y = -90
+                                self.GR.rotation_z = 0
+                        elif current_piece.pos[1] == -1:
+                            if current_piece.colors[2] == 'R':
+                                self.GR.rotation_x = 0 + 180
+                                self.GR.rotation_y = 90
+                                self.GR.rotation_z = 180 + 90
+                            else:
+                                self.GR.rotation_x = 0
+                                self.GR.rotation_y = 90
+                                self.GR.rotation_z = 180
+                        elif current_piece.pos[0] == -1:
+                            if current_piece.colors[0] == 'R':
+                                self.GR.rotation_x = 90
+                                self.GR.rotation_y = -90
+                                self.GR.rotation_z = 0
+                            else:
+                                self.GR.rotation_x = 90 +180
+                                self.GR.rotation_y = -90
+                                self.GR.rotation_z = 0 + 90
+                        elif current_piece.pos[0] == 1:
+                            if current_piece.colors[0] == 'R':
+                                self.GR.rotation_x = -90
+                                self.GR.rotation_y = -90
+                                self.GR.rotation_z = 0
+                            else:
+                                self.GR.rotation_x = -90 + 180
+                                self.GR.rotation_y = -90
+                                self.GR.rotation_z = 0 + 90
+                    elif current_piece.pos[2] == 0:
+                        if current_piece.pos[1] == 1:
+                            if current_piece.pos[0] == 1:
+                                if current_piece.colors[1] == 'R':
+                                    self.GR.rotation_x = 0
+                                    self.GR.rotation_y = 0
+                                    self.GR.rotation_z = 0
+                                else:
+                                    self.GR.rotation_x = 180
+                                    self.GR.rotation_y = 0
+                                    self.GR.rotation_z = 90
+                            elif current_piece.pos[0] == -1:
+                                if current_piece.colors[1] == 'R':
+                                    self.GR.rotation_x = 0
+                                    self.GR.rotation_y = 90+90
+                                    self.GR.rotation_z = 0
+                                else:
+                                    self.GR.rotation_x = 0
+                                    self.GR.rotation_y = 0
+                                    self.GR.rotation_z = -90
+                        elif current_piece.pos[1] == -1:
+                            if current_piece.pos[0] == 1:
+                                if current_piece.colors[1] == 'R':
+                                    self.GR.rotation_x = 0
+                                    self.GR.rotation_y = -90-90
+                                    self.GR.rotation_z = 180
+                                else:
+                                    self.GR.rotation_x = 0
+                                    self.GR.rotation_y = 0
+                                    self.GR.rotation_z = 90
+                            elif current_piece.pos[0] == -1:
+                                if current_piece.colors[1] == 'R':
+                                    self.GR.rotation_x = 0
+                                    self.GR.rotation_y = 90-90
+                                    self.GR.rotation_z = 180
+                                else:
+                                    self.GR.rotation_x = 0
+                                    self.GR.rotation_y = 180
+                                    self.GR.rotation_z = 90
                     continue
                 if "B" in current_piece.colors:
                     if "Y" in current_piece.colors:
                         self.YRB.x = current_piece.pos[0]
                         self.YRB.y = current_piece.pos[1]
                         self.YRB.z = current_piece.pos[2] * -1
+                        if current_piece.pos[2] == -1:
+                            if current_piece.colors[2] == 'Y':
+                                self.YRB.rotation_x = 0
+                                self.YRB.rotation_y = 0
+                                if current_piece.colors[0] == 'B':
+                                    if current_piece.pos[1] == -1:
+                                        self.YRB.rotation_z = 180
+                                    else:
+                                        self.YRB.rotation_z = 0
+                                else:
+                                    if current_piece.pos[1] == -1:
+                                        self.YRB.rotation_z = -90
+                                    else:
+                                        self.YRB.rotation_z = 90
+                            elif current_piece.colors[2] == 'R':
+                                self.YRB.rotation_x = 0
+                                self.YRB.rotation_y = 90
+                                if current_piece.colors[0] == 'Y':
+                                    if current_piece.pos[1] == -1:
+                                        self.YRB.rotation_y = 90
+                                        self.YRB.rotation_z = -90
+                                    else:
+                                        self.YRB.rotation_y = -90
+                                        self.YRB.rotation_z = 90
+                                else:
+                                    if current_piece.pos[1] == -1:
+                                        self.YRB.rotation_x = 90
+                                        self.YRB.rotation_y = 0
+                                        self.YRB.rotation_z = 0
+                                    else:
+                                        self.YRB.rotation_x = -90
+                                        self.YRB.rotation_y = 0
+                                        self.YRB.rotation_z = 180
+                            elif current_piece.colors[2] == 'B':
+                                self.YRB.rotation_y = 90
+                                self.YRB.rotation_z = 0
+                                if current_piece.colors[0] == 'Y':
+                                    if current_piece.pos[1] == -1:
+                                        self.YRB.rotation_x = 180
+                                    else:
+                                        self.YRB.rotation_x = 0
+                                else:
+                                    if current_piece.pos[1] == -1:
+                                        self.YRB.rotation_x = 90
+                                    else:
+                                        self.YRB.rotation_x = -90
+                        elif current_piece.pos[2] == 1:
+                            if current_piece.colors[2] == 'Y':
+                                self.YRB.rotation_x = 0
+                                self.YRB.rotation_y = 180
+                                if current_piece.colors[0] == 'B':
+                                    if current_piece.pos[1] == -1:
+                                        self.YRB.rotation_z = 180
+                                    else:
+                                        self.YRB.rotation_z = 0
+                                else:
+                                    if current_piece.pos[1] == -1:
+                                        self.YRB.rotation_z = -90
+                                    else:
+                                        self.YRB.rotation_z = 90
+                            elif current_piece.colors[2] == 'R':
+                                self.YRB.rotation_x = 0
+                                self.YRB.rotation_y = -90
+                                if current_piece.colors[0] == 'Y':
+                                    if current_piece.pos[1] == -1:
+                                        self.YRB.rotation_y = -90
+                                        self.YRB.rotation_z = -90
+                                    else:
+                                        self.YRB.rotation_y = 90
+                                        self.YRB.rotation_z = 90
+                                else:
+                                    if current_piece.pos[1] == -1:
+                                        self.YRB.rotation_x = 90
+                                        self.YRB.rotation_y = 0
+                                        self.YRB.rotation_z = 180
+                                    else:
+                                        self.YRB.rotation_x = -90
+                                        self.YRB.rotation_y = 180
+                                        self.YRB.rotation_z = 180
+                            elif current_piece.colors[2] == 'B':
+                                self.YRB.rotation_y = -90
+                                self.YRB.rotation_z = 0
+                                if current_piece.colors[0] == 'Y':
+                                    if current_piece.pos[1] == -1:
+                                        self.YRB.rotation_x = 180
+                                    else:
+                                        self.YRB.rotation_x = 0
+                                else:
+                                    if current_piece.pos[1] == -1:
+                                        self.YRB.rotation_x = 90
+                                    else:
+                                        self.YRB.rotation_x = -90
                         continue
                     self.BR.x = current_piece.pos[0]
                     self.BR.y = current_piece.pos[1]
                     self.BR.z = current_piece.pos[2] * -1
+                    if current_piece.pos[2] == -1:
+                        if current_piece.pos[1] == 1:
+                            if current_piece.colors[2] == 'R':
+                                self.BR.rotation_x = 0
+                                self.BR.rotation_y = 90+180
+                                self.BR.rotation_z = 0-90+180
+                            else:
+                                self.BR.rotation_x = 0
+                                self.BR.rotation_y = 90
+                                self.BR.rotation_z = 0
+                        elif current_piece.pos[1] == -1:
+                            if current_piece.colors[2] == 'R':
+                                self.BR.rotation_x = 0
+                                self.BR.rotation_y = 0 - 90 + 180
+                                self.BR.rotation_z = 180 - 90+180
+                            else:
+                                self.BR.rotation_x = 0
+                                self.BR.rotation_y = 0-90
+                                self.BR.rotation_z = 180
+                        elif current_piece.pos[0] == -1:
+                            if current_piece.colors[0] == 'R':
+                                self.BR.rotation_x = -90
+                                self.BR.rotation_y = 0+90
+                                self.BR.rotation_z = 0
+                            else:
+                                self.BR.rotation_x = 90
+                                self.BR.rotation_y = 0 + 90 - 180
+                                self.BR.rotation_z = 0 - 90+180
+                        elif current_piece.pos[0] == 1:
+                            if current_piece.colors[0] == 'R':
+                                self.BR.rotation_x = 90
+                                self.BR.rotation_y = 0+90
+                                self.BR.rotation_z = 0
+                            else:
+                                self.BR.rotation_x = -90
+                                self.BR.rotation_y = 0 + 90 - 180
+                                self.BR.rotation_z = 0 - 90+180
+                    elif current_piece.pos[2] == 1:
+                        if current_piece.pos[1] == 1:
+                            if current_piece.colors[2] == 'R':
+                                self.BR.rotation_x = 0 +180
+                                self.BR.rotation_y = -90
+                                self.BR.rotation_z = 0 +90 +180
+                            else:
+                                self.BR.rotation_x = 0
+                                self.BR.rotation_y = -90
+                                self.BR.rotation_z = 0
+                        elif current_piece.pos[1] == -1:
+                            if current_piece.colors[2] == 'R':
+                                self.BR.rotation_x = 0 + 180
+                                self.BR.rotation_y = 90
+                                self.BR.rotation_z = 180 + 90 +180
+                            else:
+                                self.BR.rotation_x = 0
+                                self.BR.rotation_y = 90
+                                self.BR.rotation_z = 180
+                        elif current_piece.pos[0] == -1:
+                            if current_piece.colors[0] == 'R':
+                                self.BR.rotation_x = 90
+                                self.BR.rotation_y = -90
+                                self.BR.rotation_z = 0
+                            else:
+                                self.BR.rotation_x = 90 +180
+                                self.BR.rotation_y = -90
+                                self.BR.rotation_z = 0 + 90 +180
+                        elif current_piece.pos[0] == 1:
+                            if current_piece.colors[0] == 'R':
+                                self.BR.rotation_x = -90
+                                self.BR.rotation_y = -90
+                                self.BR.rotation_z = 0
+                            else:
+                                self.BR.rotation_x = -90 + 180
+                                self.BR.rotation_y = -90
+                                self.BR.rotation_z = 0 + 90 +180
+                    elif current_piece.pos[2] == 0:
+                        if current_piece.pos[1] == 1:
+                            if current_piece.pos[0] == -1:
+                                if current_piece.colors[1] == 'R':
+                                    self.BR.rotation_x = 0
+                                    self.BR.rotation_y = 0
+                                    self.BR.rotation_z = 0
+                                else:
+                                    self.BR.rotation_x = 0
+                                    self.BR.rotation_y = 180
+                                    self.BR.rotation_z = 90
+                            elif current_piece.pos[0] == 1:
+                                if current_piece.colors[1] == 'R':
+                                    self.BR.rotation_x = 0
+                                    self.BR.rotation_y = 90+90
+                                    self.BR.rotation_z = 0
+                                else:
+                                    self.BR.rotation_x = 0
+                                    self.BR.rotation_y = 0
+                                    self.BR.rotation_z = 90
+                        elif current_piece.pos[1] == -1:
+                            if current_piece.pos[0] == -1:
+                                if current_piece.colors[1] == 'R':
+                                    self.BR.rotation_x = 0
+                                    self.BR.rotation_y = -90-90
+                                    self.BR.rotation_z = 180
+                                else:
+                                    self.BR.rotation_x = 0
+                                    self.BR.rotation_y = 0
+                                    self.BR.rotation_z = -90
+                            elif current_piece.pos[0] == 1:
+                                if current_piece.colors[1] == 'R':
+                                    self.BR.rotation_x = 0
+                                    self.BR.rotation_y = 90-90
+                                    self.BR.rotation_z = 180
+                                else:
+                                    self.BR.rotation_x = 180
+                                    self.BR.rotation_y = 0
+                                    self.BR.rotation_z = 90
                     continue
                 if "Y" in current_piece.colors:
                     self.YR.x = current_piece.pos[0]
                     self.YR.y = current_piece.pos[1]
                     self.YR.z = current_piece.pos[2] * -1
+                    if current_piece.pos[2] == -1:
+                        if current_piece.pos[1] == -1:
+                            if current_piece.colors[2] == 'R':
+                                self.YR.rotation_x = 90
+                                self.YR.rotation_y = 0
+                                self.YR.rotation_z = 0
+                            else:
+                                self.YR.rotation_x = 0
+                                self.YR.rotation_y = 0
+                                self.YR.rotation_z = 180
+                        elif current_piece.pos[1] == 1:
+                            if current_piece.colors[2] == 'R':
+                                self.YR.rotation_x = -90
+                                self.YR.rotation_y = 0
+                                self.YR.rotation_z = 180
+                            else:
+                                self.YR.rotation_x = 0
+                                self.YR.rotation_y = 0
+                                self.YR.rotation_z = 0
+                        elif current_piece.pos[0] == 1:
+                            if current_piece.colors[0] == 'R':
+                                self.YR.rotation_x = 0
+                                self.YR.rotation_y = 0
+                                self.YR.rotation_z = 90
+                            else:
+                                self.YR.rotation_x = 180
+                                self.YR.rotation_y = -90
+                                self.YR.rotation_z = 90
+                        elif current_piece.pos[0] == -1:
+                            if current_piece.colors[0] == 'R':
+                                self.YR.rotation_x = 0
+                                self.YR.rotation_y = 0
+                                self.YR.rotation_z = -90
+                            else:
+                                self.YR.rotation_x = 180
+                                self.YR.rotation_y = 90
+                                self.YR.rotation_z = -90
+                    elif current_piece.pos[2] == 1:
+                        if current_piece.pos[1] == -1:
+                            if current_piece.colors[2] == 'R':
+                                self.YR.rotation_x = 90
+                                self.YR.rotation_y = 0
+                                self.YR.rotation_z = 180
+                            else:
+                                self.YR.rotation_x = 0
+                                self.YR.rotation_y = 180
+                                self.YR.rotation_z = 180
+                        elif current_piece.pos[1] == 1:
+                            if current_piece.colors[2] == 'R':
+                                self.YR.rotation_x = -90
+                                self.YR.rotation_y = 0
+                                self.YR.rotation_z = 0
+                            else:
+                                self.YR.rotation_x = 0
+                                self.YR.rotation_y = 180
+                                self.YR.rotation_z = 0
+                        elif current_piece.pos[0] == 1:
+                            if current_piece.colors[0] == 'R':
+                                self.YR.rotation_x = 0
+                                self.YR.rotation_y = 180
+                                self.YR.rotation_z = -90
+                            else:
+                                self.YR.rotation_x = 180
+                                self.YR.rotation_y = -90
+                                self.YR.rotation_z = -90
+                        elif current_piece.pos[0] == -1:
+                            if current_piece.colors[0] == 'R':
+                                self.YR.rotation_x = 0
+                                self.YR.rotation_y = 180
+                                self.YR.rotation_z = 90
+                            else:
+                                self.YR.rotation_x = 180
+                                self.YR.rotation_y = 90
+                                self.YR.rotation_z = 90
+                    elif current_piece.pos[2] == 0:
+                        if current_piece.pos[1] == -1:
+                            if current_piece.pos[0] == -1:
+                                if current_piece.colors[1] == 'R':
+                                    self.YR.rotation_x = 0
+                                    self.YR.rotation_y = -90
+                                    self.YR.rotation_z = 180
+                                else:
+                                    self.YR.rotation_x = 90
+                                    self.YR.rotation_y = 90
+                                    self.YR.rotation_z = 180
+                            elif current_piece.pos[0] == 1:
+                                if current_piece.colors[1] == 'R':
+                                    self.YR.rotation_x = 0
+                                    self.YR.rotation_y = 90
+                                    self.YR.rotation_z = 180
+                                else:
+                                    self.YR.rotation_x = 90
+                                    self.YR.rotation_y = 90
+                                    self.YR.rotation_z = 0
+                        elif current_piece.pos[1] == 1:
+                            if current_piece.pos[0] == -1:
+                                if current_piece.colors[1] == 'R':
+                                    self.YR.rotation_x = 0
+                                    self.YR.rotation_y = -90
+                                    self.YR.rotation_z = 0
+                                else:
+                                    self.YR.rotation_x = -90
+                                    self.YR.rotation_y = -90
+                                    self.YR.rotation_z = 180
+                            elif current_piece.pos[0] == 1:
+                                if current_piece.colors[1] == 'R':
+                                    self.YR.rotation_x = 0
+                                    self.YR.rotation_y = 90
+                                    self.YR.rotation_z = 0
+                                else:
+                                    self.YR.rotation_x = -90
+                                    self.YR.rotation_y = 90
+                                    self.YR.rotation_z = 180
                     continue
                 self.R.x = current_piece.pos[0]
                 self.R.y = current_piece.pos[1]
                 self.R.z = current_piece.pos[2] * -1
+                if current_piece.pos[1] == 1:
+                    self.R.rotation_x = 0
+                    self.R.rotation_y = 0
+                    self.R.rotation_z = 0
+                elif current_piece.pos[1] == -1:
+                    self.R.rotation_x = 0
+                    self.R.rotation_y = 0
+                    self.R.rotation_z = 180
+                if current_piece.pos[0] == 1:
+                    self.R.rotation_x = 0
+                    self.R.rotation_y = 0
+                    self.R.rotation_z = 90
+                elif current_piece.pos[0] == -1:
+                    self.R.rotation_x = 0
+                    self.R.rotation_y = 0
+                    self.R.rotation_z = -90
+                if current_piece.pos[2] == 1:
+                    self.R.rotation_x = -90
+                    self.R.rotation_y = 0
+                    self.R.rotation_z = 0
+                elif current_piece.pos[2] == -1:
+                    self.R.rotation_x = 90
+                    self.R.rotation_y = 0
+                    self.R.rotation_z = 0
                 continue
             if "O" in current_piece.colors:  # does bottom layer
                 if "W" in current_piece.colors:
@@ -1291,29 +1838,576 @@ class VisCube(Entity):
                         self.YOG.x = current_piece.pos[0]
                         self.YOG.y = current_piece.pos[1]
                         self.YOG.z = current_piece.pos[2] * -1
+                        if current_piece.pos[2] == -1:
+                            if current_piece.colors[2] == 'Y':
+                                self.YOG.rotation_x = 0
+                                self.YOG.rotation_y = 0
+                                if current_piece.colors[0] == 'G':
+                                    if current_piece.pos[1] == -1:
+                                        self.YOG.rotation_z = 0
+                                    else:
+                                        self.YOG.rotation_z = 180
+                                else:
+                                    if current_piece.pos[1] == -1:
+                                        self.YOG.rotation_z = 90
+                                    else:
+                                        self.YOG.rotation_z = -90
+                            elif current_piece.colors[2] == 'O':
+                                self.YOG.rotation_x = 0
+                                self.YOG.rotation_y = 90
+                                if current_piece.colors[0] == 'Y':
+                                    if current_piece.pos[1] == -1:
+                                        self.YOG.rotation_y = 90
+                                        self.YOG.rotation_z = 90
+                                    else:
+                                        self.YOG.rotation_y = -90
+                                        self.YOG.rotation_z = -90
+                                else:
+                                    if current_piece.pos[1] == -1:
+                                        self.YOG.rotation_x = 90
+                                        self.YOG.rotation_y = 0
+                                        self.YOG.rotation_z = 180
+                                    else:
+                                        self.YOG.rotation_x = -90
+                                        self.YOG.rotation_y = 0
+                                        self.YOG.rotation_z = 0
+                            elif current_piece.colors[2] == 'G':
+                                self.YOG.rotation_y = -90
+                                self.YOG.rotation_z = 0
+                                if current_piece.colors[0] == 'Y':
+                                    if current_piece.pos[1] == -1:
+                                        self.YOG.rotation_x = 0
+                                    else:
+                                        self.YOG.rotation_x = 180
+                                else:
+                                    if current_piece.pos[1] == -1:
+                                        self.YOG.rotation_x = 90
+                                    else:
+                                        self.YOG.rotation_x = -90
+                        elif current_piece.pos[2] == 1:
+                            if current_piece.colors[2] == 'Y':
+                                self.YOG.rotation_x = 0
+                                self.YOG.rotation_y = 180
+                                if current_piece.colors[0] == 'G':
+                                    if current_piece.pos[1] == -1:
+                                        self.YOG.rotation_z = 0
+                                    else:
+                                        self.YOG.rotation_z = 180
+                                else:
+                                    if current_piece.pos[1] == -1:
+                                        self.YOG.rotation_z = 90
+                                    else:
+                                        self.YOG.rotation_z = -90
+                            elif current_piece.colors[2] == 'O':
+                                self.YOG.rotation_x = 0
+                                self.YOG.rotation_y = -90
+                                if current_piece.colors[0] == 'Y':
+                                    if current_piece.pos[1] == -1:
+                                        self.YOG.rotation_y = -90
+                                        self.YOG.rotation_z = 90
+                                    else:
+                                        self.YOG.rotation_y = 90
+                                        self.YOG.rotation_z = -90
+                                else:
+                                    if current_piece.pos[1] == -1:
+                                        self.YOG.rotation_x = 90
+                                        self.YOG.rotation_y = 180
+                                        self.YOG.rotation_z = 180
+                                    else:
+                                        self.YOG.rotation_x = -90
+                                        self.YOG.rotation_y = 180
+                                        self.YOG.rotation_z = 0
+                            elif current_piece.colors[2] == 'G':
+                                self.YOG.rotation_y = 90
+                                self.YOG.rotation_z = 0
+                                if current_piece.colors[0] == 'Y':
+                                    if current_piece.pos[1] == -1:
+                                        self.YOG.rotation_x = 0
+                                    else:
+                                        self.YOG.rotation_x = 180
+                                else:
+                                    if current_piece.pos[1] == -1:
+                                        self.YOG.rotation_x = 90
+                                    else:
+                                        self.YOG.rotation_x = -90
                         continue
                     self.GO.x = current_piece.pos[0]
                     self.GO.y = current_piece.pos[1]
                     self.GO.z = current_piece.pos[2] * -1
+                    if current_piece.pos[2] == 1:
+                        if current_piece.pos[1] == -1:
+                            if current_piece.colors[2] == 'O':
+                                self.GO.rotation_x = 0
+                                self.GO.rotation_y = 90+180
+                                self.GO.rotation_z = 0-90+180
+                            else:
+                                self.GO.rotation_x = 0
+                                self.GO.rotation_y = 90
+                                self.GO.rotation_z = 0
+                        elif current_piece.pos[1] == 1:
+                            if current_piece.colors[2] == 'O':
+                                self.GO.rotation_x = 0
+                                self.GO.rotation_y = 0 - 90 + 180
+                                self.GO.rotation_z = 180 - 90+180
+                            else:
+                                self.GO.rotation_x = 0
+                                self.GO.rotation_y = 0-90
+                                self.GO.rotation_z = 180
+                        elif current_piece.pos[0] == 1:
+                            if current_piece.colors[0] == 'O':
+                                self.GO.rotation_x = -90
+                                self.GO.rotation_y = 0+90
+                                self.GO.rotation_z = 0
+                            else:
+                                self.GO.rotation_x = 90
+                                self.GO.rotation_y = 0 + 90 - 180
+                                self.GO.rotation_z = 0 - 90+180
+                        elif current_piece.pos[0] == -1:
+                            if current_piece.colors[0] == 'O':
+                                self.GO.rotation_x = 90
+                                self.GO.rotation_y = 0+90
+                                self.GO.rotation_z = 0
+                            else:
+                                self.GO.rotation_x = -90
+                                self.GO.rotation_y = 0 + 90 - 180
+                                self.GO.rotation_z = 0 - 90+180
+                    elif current_piece.pos[2] == -1:
+                        if current_piece.pos[1] == -1:
+                            if current_piece.colors[2] == 'O':
+                                self.GO.rotation_x = 0 +180
+                                self.GO.rotation_y = -90
+                                self.GO.rotation_z = 0 +90 +180
+                            else:
+                                self.GO.rotation_x = 0
+                                self.GO.rotation_y = -90
+                                self.GO.rotation_z = 0
+                        elif current_piece.pos[1] == 1:
+                            if current_piece.colors[2] == 'O':
+                                self.GO.rotation_x = 0 + 180
+                                self.GO.rotation_y = 90
+                                self.GO.rotation_z = 180 + 90 +180
+                            else:
+                                self.GO.rotation_x = 0
+                                self.GO.rotation_y = 90
+                                self.GO.rotation_z = 180
+                        elif current_piece.pos[0] == 1:
+                            if current_piece.colors[0] == 'O':
+                                self.GO.rotation_x = 90
+                                self.GO.rotation_y = -90
+                                self.GO.rotation_z = 0
+                            else:
+                                self.GO.rotation_x = 90 +180
+                                self.GO.rotation_y = -90
+                                self.GO.rotation_z = 0 + 90 +180
+                        elif current_piece.pos[0] == -1:
+                            if current_piece.colors[0] == 'O':
+                                self.GO.rotation_x = -90
+                                self.GO.rotation_y = -90
+                                self.GO.rotation_z = 0
+                            else:
+                                self.GO.rotation_x = -90 + 180
+                                self.GO.rotation_y = -90
+                                self.GO.rotation_z = 0 + 90 +180
+                    elif current_piece.pos[2] == 0:
+                        if current_piece.pos[1] == -1:
+                            if current_piece.pos[0] == 1:
+                                if current_piece.colors[1] == 'O':
+                                    self.GO.rotation_x = 0
+                                    self.GO.rotation_y = 0
+                                    self.GO.rotation_z = 0
+                                else:
+                                    self.GO.rotation_x = 0
+                                    self.GO.rotation_y = 180
+                                    self.GO.rotation_z = 90
+                            elif current_piece.pos[0] == -1:
+                                if current_piece.colors[1] == 'O':
+                                    self.GO.rotation_x = 0
+                                    self.GO.rotation_y = 90+90
+                                    self.GO.rotation_z = 0
+                                else:
+                                    self.GO.rotation_x = 0
+                                    self.GO.rotation_y = 0
+                                    self.GO.rotation_z = 90
+                        elif current_piece.pos[1] == 1:
+                            if current_piece.pos[0] == 1:
+                                if current_piece.colors[1] == 'O':
+                                    self.GO.rotation_x = 0
+                                    self.GO.rotation_y = -90-90
+                                    self.GO.rotation_z = 180
+                                else:
+                                    self.GO.rotation_x = 0
+                                    self.GO.rotation_y = 0
+                                    self.GO.rotation_z = -90
+                            elif current_piece.pos[0] == -1:
+                                if current_piece.colors[1] == 'O':
+                                    self.GO.rotation_x = 0
+                                    self.GO.rotation_y = 90-90
+                                    self.GO.rotation_z = 180
+                                else:
+                                    self.GO.rotation_x = 180
+                                    self.GO.rotation_y = 0
+                                    self.GO.rotation_z = 90
                     continue
                 if "B" in current_piece.colors:
                     if "Y" in current_piece.colors:
                         self.YBO.x = current_piece.pos[0]
                         self.YBO.y = current_piece.pos[1]
                         self.YBO.z = current_piece.pos[2] * -1
+                        if current_piece.pos[2] == -1:
+                            if current_piece.colors[2] == 'Y':
+                                self.YBO.rotation_x = 0
+                                self.YBO.rotation_y = 0
+                                if current_piece.colors[0] == 'B':
+                                    if current_piece.pos[1] == -1:
+                                        self.YBO.rotation_z = 0
+                                    else:
+                                        self.YBO.rotation_z = 180
+                                else:
+                                    if current_piece.pos[1] == -1:
+                                        self.YBO.rotation_z = -90
+                                    else:
+                                        self.YBO.rotation_z = 90
+                            elif current_piece.colors[2] == 'O':
+
+                                self.YBO.rotation_x = 0
+                                self.YBO.rotation_y = 90
+                                if current_piece.colors[0] == 'Y':
+                                    if current_piece.pos[1] == -1:
+                                        self.YBO.rotation_y = -90
+                                        self.YBO.rotation_z = -90
+                                    else:
+                                        self.YBO.rotation_z = 90
+                                else:
+                                    if current_piece.pos[1] == -1:
+                                        self.YBO.rotation_x = 90
+                                        self.YBO.rotation_y = 0
+                                        self.YBO.rotation_z = 180
+                                    else:
+                                        self.YBO.rotation_x = -90
+                                        self.YBO.rotation_y = 0
+                                        self.YBO.rotation_z = 0
+
+                            elif current_piece.colors[2] == 'B':
+                                self.YBO.rotation_y = 90
+                                self.YBO.rotation_z = 0
+                                if current_piece.colors[0] == 'Y':
+                                    if current_piece.pos[1] == -1:
+                                        self.YBO.rotation_x = 0
+                                    else:
+                                        self.YBO.rotation_x = 180
+                                else:
+                                    if current_piece.pos[1] == -1:
+                                        self.YBO.rotation_x = 90
+                                    else:
+                                        self.YBO.rotation_x = -90
+                        elif current_piece.pos[2] == 1:
+                            if current_piece.colors[2] == 'Y':
+                                self.YBO.rotation_x = 0
+                                self.YBO.rotation_y = 180
+                                if current_piece.colors[0] == 'B':
+                                    if current_piece.pos[1] == -1:
+                                        self.YBO.rotation_z = 0
+                                    else:
+                                        self.YBO.rotation_z = 180
+                                else:
+                                    if current_piece.pos[1] == -1:
+                                        self.YBO.rotation_z = -90
+                                    else:
+                                        self.YBO.rotation_z = 90
+                            elif current_piece.colors[2] == 'O':
+                                self.YBO.rotation_x = 0
+                                self.YBO.rotation_y = -90
+                                if current_piece.colors[0] == 'Y':
+                                    if current_piece.pos[1] == -1:
+                                        self.YBO.rotation_y = 90
+                                        self.YBO.rotation_z = -90
+                                    else:
+                                        self.YBO.rotation_z = 90
+                                else:
+                                    if current_piece.pos[1] == -1:
+                                        self.YBO.rotation_x = 90
+                                        self.YBO.rotation_y = 180
+                                        self.YBO.rotation_z = 180
+                                    else:
+                                        self.YBO.rotation_x = -90
+                                        self.YBO.rotation_y = 180
+                                        self.YBO.rotation_z = 0
+                            elif current_piece.colors[2] == 'B':
+                                self.YBO.rotation_y = -90
+                                self.YBO.rotation_z = 0
+                                if current_piece.colors[0] == 'Y':
+                                    if current_piece.pos[1] == -1:
+                                        self.YBO.rotation_x = 0
+                                    else:
+                                        self.YBO.rotation_x = 180
+                                else:
+                                    if current_piece.pos[1] == -1:
+                                        self.YBO.rotation_x = 90
+                                    else:
+                                        self.YBO.rotation_x = -90
                         continue
                     self.BO.x = current_piece.pos[0]
                     self.BO.y = current_piece.pos[1]
                     self.BO.z = current_piece.pos[2] * -1
+                    if current_piece.pos[2] == -1:
+                        if current_piece.pos[1] == -1:
+                            if current_piece.colors[2] == 'O':
+                                self.BO.rotation_x = 0
+                                self.BO.rotation_y = 90+180
+                                self.BO.rotation_z = 0-90
+                            else:
+                                self.BO.rotation_x = 0
+                                self.BO.rotation_y = 90
+                                self.BO.rotation_z = 0
+                        elif current_piece.pos[1] == 1:
+                            if current_piece.colors[2] == 'O':
+                                self.BO.rotation_x = 0
+                                self.BO.rotation_y = 0 - 90 + 180
+                                self.BO.rotation_z = 180 - 90
+                            else:
+                                self.BO.rotation_x = 0
+                                self.BO.rotation_y = 0-90
+                                self.BO.rotation_z = 180
+                        elif current_piece.pos[0] == 1:
+                            if current_piece.colors[0] == 'O':
+                                self.BO.rotation_x = -90
+                                self.BO.rotation_y = 0+90
+                                self.BO.rotation_z = 0
+                            else:
+                                self.BO.rotation_x = 90
+                                self.BO.rotation_y = 0 + 90 - 180
+                                self.BO.rotation_z = 0 - 90
+                        elif current_piece.pos[0] == -1:
+                            if current_piece.colors[0] == 'O':
+                                self.BO.rotation_x = 90
+                                self.BO.rotation_y = 0+90
+                                self.BO.rotation_z = 0
+                            else:
+                                self.BO.rotation_x = -90
+                                self.BO.rotation_y = 0 + 90 - 180
+                                self.BO.rotation_z = 0 - 90
+                    elif current_piece.pos[2] == 1:
+                        if current_piece.pos[1] == -1:
+                            if current_piece.colors[2] == 'O':
+                                self.BO.rotation_x = 0 +180
+                                self.BO.rotation_y = -90
+                                self.BO.rotation_z = 0 +90
+                            else:
+                                self.BO.rotation_x = 0
+                                self.BO.rotation_y = -90
+                                self.BO.rotation_z = 0
+                        elif current_piece.pos[1] == 1:
+                            if current_piece.colors[2] == 'O':
+                                self.BO.rotation_x = 0 + 180
+                                self.BO.rotation_y = 90
+                                self.BO.rotation_z = 180 + 90
+                            else:
+                                self.BO.rotation_x = 0
+                                self.BO.rotation_y = 90
+                                self.BO.rotation_z = 180
+                        elif current_piece.pos[0] == 1:
+                            if current_piece.colors[0] == 'O':
+                                self.BO.rotation_x = 90
+                                self.BO.rotation_y = -90
+                                self.BO.rotation_z = 0
+                            else:
+                                self.BO.rotation_x = 90 +180
+                                self.BO.rotation_y = -90
+                                self.BO.rotation_z = 0 + 90
+                        elif current_piece.pos[0] == -1:
+                            if current_piece.colors[0] == 'O':
+                                self.BO.rotation_x = -90
+                                self.BO.rotation_y = -90
+                                self.BO.rotation_z = 0
+                            else:
+                                self.BO.rotation_x = -90 + 180
+                                self.BO.rotation_y = -90
+                                self.BO.rotation_z = 0 + 90
+                    elif current_piece.pos[2] == 0:
+                        if current_piece.pos[1] == -1:
+                            if current_piece.pos[0] == -1:
+                                if current_piece.colors[1] == 'O':
+                                    self.BO.rotation_x = 0
+                                    self.BO.rotation_y = 0
+                                    self.BO.rotation_z = 0
+                                else:
+                                    self.BO.rotation_x = 180
+                                    self.BO.rotation_y = 0
+                                    self.BO.rotation_z = 90
+                            elif current_piece.pos[0] == 1:
+                                if current_piece.colors[1] == 'O':
+                                    self.BO.rotation_x = 0
+                                    self.BO.rotation_y = 90+90
+                                    self.BO.rotation_z = 0
+                                else:
+                                    self.BO.rotation_x = 0
+                                    self.BO.rotation_y = 0
+                                    self.BO.rotation_z = -90
+                        elif current_piece.pos[1] == 1:
+                            if current_piece.pos[0] == -1:
+                                if current_piece.colors[1] == 'O':
+                                    self.BO.rotation_x = 0
+                                    self.BO.rotation_y = -90-90
+                                    self.BO.rotation_z = 180
+                                else:
+                                    self.BO.rotation_x = 0
+                                    self.BO.rotation_y = 0
+                                    self.BO.rotation_z = 90
+                            elif current_piece.pos[0] == 1:
+                                if current_piece.colors[1] == 'O':
+                                    self.BO.rotation_x = 0
+                                    self.BO.rotation_y = 90-90
+                                    self.BO.rotation_z = 180
+                                else:
+                                    self.BO.rotation_x = 0
+                                    self.BO.rotation_y = 180
+                                    self.BO.rotation_z = 90
                     continue
                 if "Y" in current_piece.colors:
                     self.YO.x = current_piece.pos[0]
                     self.YO.y = current_piece.pos[1]
                     self.YO.z = current_piece.pos[2] * -1
+                    if current_piece.pos[2] == -1:
+                        if current_piece.pos[1] == -1:
+                            if current_piece.colors[2] == 'O':
+                                self.YO.rotation_x = 90
+                                self.YO.rotation_y = 0
+                                self.YO.rotation_z = 180
+                            else:
+                                self.YO.rotation_x = 0
+                                self.YO.rotation_y = 0
+                                self.YO.rotation_z = 0
+                        elif current_piece.pos[1] == 1:
+                            if current_piece.colors[2] == 'O':
+                                self.YO.rotation_x = -90
+                                self.YO.rotation_y = 0
+                                self.YO.rotation_z = 0
+                            else:
+                                self.YO.rotation_x = 0
+                                self.YO.rotation_y = 0
+                                self.YO.rotation_z = 180
+                        elif current_piece.pos[0] == 1:
+                            if current_piece.colors[0] == 'O':
+                                self.YO.rotation_x = 0
+                                self.YO.rotation_y = 0
+                                self.YO.rotation_z = -90
+                            else:
+                                self.YO.rotation_x = 180
+                                self.YO.rotation_y = -90
+                                self.YO.rotation_z = -90
+                        elif current_piece.pos[0] == -1:
+                            if current_piece.colors[0] == 'O':
+                                self.YO.rotation_x = 0
+                                self.YO.rotation_y = 0
+                                self.YO.rotation_z = 90
+                            else:
+                                self.YO.rotation_x = 180
+                                self.YO.rotation_y = 90
+                                self.YO.rotation_z = 90
+                    elif current_piece.pos[2] == 1:
+                        if current_piece.pos[1] == -1:
+                            if current_piece.colors[2] == 'O':
+                                self.YO.rotation_x = 90
+                                self.YO.rotation_y = 0
+                                self.YO.rotation_z = 0
+                            else:
+                                self.YO.rotation_x = 0
+                                self.YO.rotation_y = 180
+                                self.YO.rotation_z = 0
+                        elif current_piece.pos[1] == 1:
+                            if current_piece.colors[2] == 'O':
+                                self.YO.rotation_x = -90
+                                self.YO.rotation_y = 0
+                                self.YO.rotation_z = 180
+                            else:
+                                self.YO.rotation_x = 0
+                                self.YO.rotation_y = 180
+                                self.YO.rotation_z = 180
+                        elif current_piece.pos[0] == 1:
+                            if current_piece.colors[0] == 'O':
+                                self.YO.rotation_x = 0
+                                self.YO.rotation_y = 180
+                                self.YO.rotation_z = 90
+                            else:
+                                self.YO.rotation_x = 180
+                                self.YO.rotation_y = -90
+                                self.YO.rotation_z = 90
+                        elif current_piece.pos[0] == -1:
+                            if current_piece.colors[0] == 'O':
+                                self.YO.rotation_x = 0
+                                self.YO.rotation_y = 180
+                                self.YO.rotation_z = -90
+                            else:
+                                self.YO.rotation_x = 180
+                                self.YO.rotation_y = 90
+                                self.YO.rotation_z = -90
+                    elif current_piece.pos[2] == 0:
+                        if current_piece.pos[1] == -1:
+                            if current_piece.pos[0] == -1:
+                                if current_piece.colors[1] == 'O':
+                                    self.YO.rotation_x = 0
+                                    self.YO.rotation_y = -90
+                                    self.YO.rotation_z = 0
+                                else:
+                                    self.YO.rotation_x = 90
+                                    self.YO.rotation_y = 90
+                                    self.YO.rotation_z = 0
+                            elif current_piece.pos[0] == 1:
+                                if current_piece.colors[1] == 'O':
+                                    self.YO.rotation_x = 0
+                                    self.YO.rotation_y = 90
+                                    self.YO.rotation_z = 0
+                                else:
+                                    self.YO.rotation_x = 90
+                                    self.YO.rotation_y = 90
+                                    self.YO.rotation_z = 180
+                        elif current_piece.pos[1] == 1:
+                            if current_piece.pos[0] == -1:
+                                if current_piece.colors[1] == 'O':
+                                    self.YO.rotation_x = 0
+                                    self.YO.rotation_y = -90
+                                    self.YO.rotation_z = 180
+                                else:
+                                    self.YO.rotation_x = -90
+                                    self.YO.rotation_y = -90
+                                    self.YO.rotation_z = 0
+                            elif current_piece.pos[0] == 1:
+                                if current_piece.colors[1] == 'O':
+                                    self.YO.rotation_x = 0
+                                    self.YO.rotation_y = 90
+                                    self.YO.rotation_z = 180
+                                else:
+                                    self.YO.rotation_x = -90
+                                    self.YO.rotation_y = 90
+                                    self.YO.rotation_z = 0
                     continue
                 self.O.x = current_piece.pos[0]
                 self.O.y = current_piece.pos[1]
                 self.O.z = current_piece.pos[2] * -1
+                if current_piece.pos[1] == -1:
+                    self.O.rotation_x = 0
+                    self.O.rotation_y = 0
+                    self.O.rotation_z = 0
+                elif current_piece.pos[1] == 1:
+                    self.O.rotation_x = 0
+                    self.O.rotation_y = 0
+                    self.O.rotation_z = 180
+                if current_piece.pos[0] == -1:
+                    self.O.rotation_x = 0
+                    self.O.rotation_y = 0
+                    self.O.rotation_z = 90
+                elif current_piece.pos[0] == 1:
+                    self.O.rotation_x = 0
+                    self.O.rotation_y = 0
+                    self.O.rotation_z = -90
+                if current_piece.pos[2] == -1:
+                    self.O.rotation_x = -90
+                    self.O.rotation_y = 0
+                    self.O.rotation_z = 0
+                elif current_piece.pos[2] == 1:
+                    self.O.rotation_x = 90
+                    self.O.rotation_y = 0
+                    self.O.rotation_z = 0
                 continue
             # middle front layer====
             if "W" in current_piece.colors:
@@ -1321,6 +2415,119 @@ class VisCube(Entity):
                     self.WB.x = current_piece.pos[0]
                     self.WB.y = current_piece.pos[1]
                     self.WB.z = current_piece.pos[2] * -1
+                    if current_piece.pos[2] == 1:
+                        if current_piece.pos[0] == 1:
+                            if current_piece.colors[0] == 'W':
+                                self.WB.rotation_x = 180
+                                self.WB.rotation_y = 90
+                                self.WB.rotation_z = 180
+                            else:
+                                self.WB.rotation_x = 0
+                                self.WB.rotation_y = 0
+                                self.WB.rotation_z = 180
+                        elif current_piece.pos[0] == -1:
+                            if current_piece.colors[0] == 'W':
+                                self.WB.rotation_x = 0
+                                self.WB.rotation_y = 90
+                                self.WB.rotation_z = 180
+                            else:
+                                self.WB.rotation_x = 0
+                                self.WB.rotation_y = 0
+                                self.WB.rotation_z = 0
+                        elif current_piece.pos[1] == 1:
+                            if current_piece.colors[1] == 'B':
+                                self.WB.rotation_x = 0
+                                self.WB.rotation_y = 0
+                                self.WB.rotation_z = 90
+                            else:
+                                self.WB.rotation_x = 90
+                                self.WB.rotation_y = -90
+                                self.WB.rotation_z = 0
+                        elif current_piece.pos[1] == -1:
+                            if current_piece.colors[1] == 'B':
+                                self.WB.rotation_x = 0
+                                self.WB.rotation_y = 0
+                                self.WB.rotation_z = -90
+                            else:
+                                self.WB.rotation_x = -90
+                                self.WB.rotation_y = -90
+                                self.WB.rotation_z = 0
+                    elif current_piece.pos[2] == -1:
+                        if current_piece.pos[0] == 1:
+                            if current_piece.colors[0] == 'W':
+                                self.WB.rotation_x = 180
+                                self.WB.rotation_y = 90
+                                self.WB.rotation_z = 0
+                            else:
+                                self.WB.rotation_x = 180
+                                self.WB.rotation_y = 0
+                                self.WB.rotation_z = 180
+                        elif current_piece.pos[0] == -1:
+                            if current_piece.colors[0] == 'W':
+                                self.WB.rotation_x = 0
+                                self.WB.rotation_y = 90
+                                self.WB.rotation_z = 0
+                            else:
+                                self.WB.rotation_x = 180
+                                self.WB.rotation_y = 0
+                                self.WB.rotation_z = 0
+                        elif current_piece.pos[1] == 1:
+                            if current_piece.colors[1] == 'B':
+                                self.WB.rotation_x = 180
+                                self.WB.rotation_y = 0
+                                self.WB.rotation_z = -90
+                            else:
+                                self.WB.rotation_x = 90
+                                self.WB.rotation_y = -90
+                                self.WB.rotation_z = 180
+                        elif current_piece.pos[1] == -1:
+                            if current_piece.colors[1] == 'B':
+                                self.WB.rotation_x = 180
+                                self.WB.rotation_y = 0
+                                self.WB.rotation_z = 90
+                            else:
+                                self.WB.rotation_x = -90
+                                self.WB.rotation_y = -90
+                                self.WB.rotation_z = 180
+                    elif current_piece.pos[2] == 0:
+                        if current_piece.pos[1] == -1:
+                            if current_piece.pos[0] == 1:
+                                if current_piece.colors[1] == 'W':
+                                    self.WB.rotation_x = -90
+                                    self.WB.rotation_y = 0
+                                    self.WB.rotation_z = 180
+                                else:
+                                    self.WB.rotation_x = 180
+                                    self.WB.rotation_y = 90
+                                    self.WB.rotation_z = 90
+                            elif current_piece.pos[0] == -1:
+                                if current_piece.colors[1] == 'W':
+                                    self.WB.rotation_x = -90
+                                    self.WB.rotation_y = 0
+                                    self.WB.rotation_z = 0
+                                else:
+                                    self.WB.rotation_x = 180
+                                    self.WB.rotation_y = -90
+                                    self.WB.rotation_z = 90
+                        elif current_piece.pos[1] == 1:
+                            if current_piece.pos[0] == 1:
+                                if current_piece.colors[1] == 'W':
+                                    self.WB.rotation_x = 90
+                                    self.WB.rotation_y = 0
+                                    self.WB.rotation_z = 180
+                                else:
+                                    self.WB.rotation_x = 180
+                                    self.WB.rotation_y = 90
+                                    self.WB.rotation_z = -90
+                            elif current_piece.pos[0] == -1:
+                                if current_piece.colors[1] == 'W':
+                                    self.WB.rotation_x = 90
+                                    self.WB.rotation_y = 0
+                                    self.WB.rotation_z = 0
+                                else:
+                                    self.WB.rotation_x = 0
+                                    self.WB.rotation_y = 90
+                                    self.WB.rotation_z = 90
                     continue
                 if "G" in current_piece.colors:
                     self.WG.x = current_piece.pos[0]
@@ -1408,18 +2615,18 @@ class VisCube(Entity):
                                     self.WG.rotation_y = 0
                                     self.WG.rotation_z = 0
                                 else:
-                                    self.WG.rotation_x = 90
+                                    self.WG.rotation_x = 180
                                     self.WG.rotation_y = 90
-                                    self.WG.rotation_z = 180
+                                    self.WG.rotation_z = 90
                             elif current_piece.pos[0] == -1:
                                 if current_piece.colors[1] == 'W':
                                     self.WG.rotation_x = 90
                                     self.WG.rotation_y = 0
                                     self.WG.rotation_z = 180
                                 else:
-                                    self.WG.rotation_x = -90
-                                    self.WG.rotation_y = 90
-                                    self.WG.rotation_z = 180
+                                    self.WG.rotation_x = 180
+                                    self.WG.rotation_y = -90
+                                    self.WG.rotation_z = 90
                         elif current_piece.pos[1] == -1:
                             if current_piece.pos[0] == 1:
                                 if current_piece.colors[1] == 'W':
@@ -1427,18 +2634,18 @@ class VisCube(Entity):
                                     self.WG.rotation_y = 0
                                     self.WG.rotation_z = 0
                                 else:
-                                    self.WG.rotation_x = -90
+                                    self.WG.rotation_x = 180
                                     self.WG.rotation_y = 90
-                                    self.WG.rotation_z = 180
+                                    self.WG.rotation_z = -90
                             elif current_piece.pos[0] == -1:
-                                if current_piece.colors[1] == 'O':
+                                if current_piece.colors[1] == 'W':
+                                    self.WG.rotation_x = -90
+                                    self.WG.rotation_y = 0
+                                    self.WG.rotation_z = 180
+                                else:
                                     self.WG.rotation_x = 0
                                     self.WG.rotation_y = 90
-                                    self.WG.rotation_z = 0
-                                else:
-                                    self.WG.rotation_x = -90
-                                    self.WG.rotation_y = 90
-                                    self.WG.rotation_z = 180
+                                    self.WG.rotation_z = 90
                     continue
                 self.W.x = current_piece.pos[0]
                 self.W.y = current_piece.pos[1]
@@ -1474,28 +2681,325 @@ class VisCube(Entity):
                     self.YB.x = current_piece.pos[0]
                     self.YB.y = current_piece.pos[1]
                     self.YB.z = current_piece.pos[2] * -1
+                    if current_piece.pos[2] == -1:
+                        if current_piece.pos[0] == 1:
+                            if current_piece.colors[0] == 'Y':
+                                self.YB.rotation_x = 180
+                                self.YB.rotation_y = -90
+                                self.YB.rotation_z = 180
+                            else:
+                                self.YB.rotation_x = 0
+                                self.YB.rotation_y = 0
+                                self.YB.rotation_z = 180
+                        elif current_piece.pos[0] == -1:
+                            if current_piece.colors[0] == 'Y':
+                                self.YB.rotation_x = 0
+                                self.YB.rotation_y = -90
+                                self.YB.rotation_z = 180
+                            else:
+                                self.YB.rotation_x = 0
+                                self.YB.rotation_y = 0
+                                self.YB.rotation_z = 0
+                        elif current_piece.pos[1] == 1:
+                            if current_piece.colors[1] == 'B':
+                                self.YB.rotation_x = 0
+                                self.YB.rotation_y = 0
+                                self.YB.rotation_z = 90
+                            else:
+                                self.YB.rotation_x = -90
+                                self.YB.rotation_y = 90
+                                self.YB.rotation_z = 0
+                        elif current_piece.pos[1] == -1:
+                            if current_piece.colors[1] == 'B':
+                                self.YB.rotation_x = 0
+                                self.YB.rotation_y = 0
+                                self.YB.rotation_z = -90
+                            else:
+                                self.YB.rotation_x = 90
+                                self.YB.rotation_y = 90
+                                self.YB.rotation_z = 0
+                    elif current_piece.pos[2] == 1:
+                        if current_piece.pos[0] == 1:
+                            if current_piece.colors[0] == 'Y':
+                                self.YB.rotation_x = 180
+                                self.YB.rotation_y = -90
+                                self.YB.rotation_z = 0
+                            else:
+                                self.YB.rotation_x = 180
+                                self.YB.rotation_y = 0
+                                self.YB.rotation_z = 180
+                        elif current_piece.pos[0] == -1:
+                            if current_piece.colors[0] == 'Y':
+                                self.YB.rotation_x = 0
+                                self.YB.rotation_y = -90
+                                self.YB.rotation_z = 0
+                            else:
+                                self.YB.rotation_x = 180
+                                self.YB.rotation_y = 0
+                                self.YB.rotation_z = 0
+                        elif current_piece.pos[1] == 1:
+                            if current_piece.colors[1] == 'B':
+                                self.YB.rotation_x = 180
+                                self.YB.rotation_y = 0
+                                self.YB.rotation_z = -90
+                            else:
+                                self.YB.rotation_x = -90
+                                self.YB.rotation_y = 90
+                                self.YB.rotation_z = 180
+                        elif current_piece.pos[1] == -1:
+                            if current_piece.colors[1] == 'B':
+                                self.YB.rotation_x = 180
+                                self.YB.rotation_y = 0
+                                self.YB.rotation_z = 90
+                            else:
+                                self.YB.rotation_x = 90
+                                self.YB.rotation_y = 90
+                                self.YB.rotation_z = 180
+                    elif current_piece.pos[2] == 0:
+                        if current_piece.pos[1] == -1:
+                            if current_piece.pos[0] == -1:
+                                if current_piece.colors[1] == 'Y':
+                                    self.YB.rotation_x = 90
+                                    self.YB.rotation_y = 0
+                                    self.YB.rotation_z = 0
+                                else:
+                                    self.YB.rotation_x = 180
+                                    self.YB.rotation_y = 90
+                                    self.YB.rotation_z = 90
+                            elif current_piece.pos[0] == 1:
+                                if current_piece.colors[1] == 'Y':
+                                    self.YB.rotation_x = 90
+                                    self.YB.rotation_y = 0
+                                    self.YB.rotation_z = 180
+                                else:
+                                    self.YB.rotation_x = 180
+                                    self.YB.rotation_y = -90
+                                    self.YB.rotation_z = 90
+                        elif current_piece.pos[1] == 1:
+                            if current_piece.pos[0] == -1:
+                                if current_piece.colors[1] == 'Y':
+                                    self.YB.rotation_x = -90
+                                    self.YB.rotation_y = 0
+                                    self.YB.rotation_z = 0
+                                else:
+                                    self.YB.rotation_x = 180
+                                    self.YB.rotation_y = 90
+                                    self.YB.rotation_z = -90
+                            elif current_piece.pos[0] == 1:
+                                if current_piece.colors[1] == 'Y':
+                                    self.YB.rotation_x = -90
+                                    self.YB.rotation_y = 0
+                                    self.YB.rotation_z = 180
+                                else:
+                                    self.YB.rotation_x = 0
+                                    self.YB.rotation_y = 90
+                                    self.YB.rotation_z = 90
                     continue
                 if "G" in current_piece.colors:
                     self.YG.x = current_piece.pos[0]
                     self.YG.y = current_piece.pos[1]
                     self.YG.z = current_piece.pos[2] * -1
+                    if current_piece.pos[2] == -1:
+                        if current_piece.pos[0] == -1:
+                            if current_piece.colors[0] == 'Y':
+                                self.YG.rotation_x = 180
+                                self.YG.rotation_y = 90
+                                self.YG.rotation_z = 180
+                            else:
+                                self.YG.rotation_x = 0
+                                self.YG.rotation_y = 0
+                                self.YG.rotation_z = 180
+                        elif current_piece.pos[0] == 1:
+                            if current_piece.colors[0] == 'Y':
+                                self.YG.rotation_x = 0
+                                self.YG.rotation_y = 90
+                                self.YG.rotation_z = 180
+                            else:
+                                self.YG.rotation_x = 0
+                                self.YG.rotation_y = 0
+                                self.YG.rotation_z = 0
+                        elif current_piece.pos[1] == -1:
+                            if current_piece.colors[1] == 'G':
+                                self.YG.rotation_x = 0
+                                self.YG.rotation_y = 0
+                                self.YG.rotation_z = 90
+                            else:
+                                self.YG.rotation_x = 90
+                                self.YG.rotation_y = -90
+                                self.YG.rotation_z = 0
+                        elif current_piece.pos[1] == 1:
+                            if current_piece.colors[1] == 'G':
+                                self.YG.rotation_x = 0
+                                self.YG.rotation_y = 0
+                                self.YG.rotation_z = -90
+                            else:
+                                self.YG.rotation_x = -90
+                                self.YG.rotation_y = -90
+                                self.YG.rotation_z = 0
+                    elif current_piece.pos[2] == 1:
+                        if current_piece.pos[0] == -1:
+                            if current_piece.colors[0] == 'Y':
+                                self.YG.rotation_x = 180
+                                self.YG.rotation_y = 90
+                                self.YG.rotation_z = 0
+                            else:
+                                self.YG.rotation_x = 180
+                                self.YG.rotation_y = 0
+                                self.YG.rotation_z = 180
+                        elif current_piece.pos[0] == 1:
+                            if current_piece.colors[0] == 'Y':
+                                self.YG.rotation_x = 0
+                                self.YG.rotation_y = 90
+                                self.YG.rotation_z = 0
+                            else:
+                                self.YG.rotation_x = 180
+                                self.YG.rotation_y = 0
+                                self.YG.rotation_z = 0
+                        elif current_piece.pos[1] == -1:
+                            if current_piece.colors[1] == 'G':
+                                self.YG.rotation_x = 180
+                                self.YG.rotation_y = 0
+                                self.YG.rotation_z = -90
+                            else:
+                                self.YG.rotation_x = 90
+                                self.YG.rotation_y = -90
+                                self.YG.rotation_z = 180
+                        elif current_piece.pos[1] == 1:
+                            if current_piece.colors[1] == 'G':
+                                self.YG.rotation_x = 180
+                                self.YG.rotation_y = 0
+                                self.YG.rotation_z = 90
+                            else:
+                                self.YG.rotation_x = -90
+                                self.YG.rotation_y = -90
+                                self.YG.rotation_z = 180
+                    elif current_piece.pos[2] == 0:
+                        if current_piece.pos[1] == 1:
+                            if current_piece.pos[0] == -1:
+                                if current_piece.colors[1] == 'Y':
+                                    self.YG.rotation_x = -90
+                                    self.YG.rotation_y = 0
+                                    self.YG.rotation_z = 180
+                                else:
+                                    self.YG.rotation_x = 180
+                                    self.YG.rotation_y = 90
+                                    self.YG.rotation_z = 90
+                            elif current_piece.pos[0] == 1:
+                                if current_piece.colors[1] == 'Y':
+                                    self.YG.rotation_x = -90
+                                    self.YG.rotation_y = 0
+                                    self.YG.rotation_z = 0
+                                else:
+                                    self.YG.rotation_x = 180
+                                    self.YG.rotation_y = -90
+                                    self.YG.rotation_z = 90
+                        elif current_piece.pos[1] == -1:
+                            if current_piece.pos[0] == -1:
+                                if current_piece.colors[1] == 'Y':
+                                    self.YG.rotation_x = 90
+                                    self.YG.rotation_y = 0
+                                    self.YG.rotation_z = 180
+                                else:
+                                    self.YG.rotation_x = 180
+                                    self.YG.rotation_y = 90
+                                    self.YG.rotation_z = -90
+                            elif current_piece.pos[0] == 1:
+                                if current_piece.colors[1] == 'Y':
+                                    self.YG.rotation_x = 90
+                                    self.YG.rotation_y = 0
+                                    self.YG.rotation_z = 0
+                                else:
+                                    self.YG.rotation_x = 0
+                                    self.YG.rotation_y = 90
+                                    self.YG.rotation_z = 90
                     continue
                 self.Y.x = current_piece.pos[0]
                 self.Y.y = current_piece.pos[1]
                 self.Y.z = current_piece.pos[2] * -1
+                if current_piece.pos[2] == -1:
+                    self.Y.rotation_x = 0
+                    self.Y.rotation_y = 0
+                    self.Y.rotation_z = 0
+                elif current_piece.pos[2] == 1:
+                    self.Y.rotation_x = 0
+                    self.Y.rotation_y = 180
+                    self.Y.rotation_z = 0
+                if current_piece.pos[0] == -1:
+                    self.Y.rotation_x = 0
+                    self.Y.rotation_y = -90
+                    self.Y.rotation_z = 0
+                elif current_piece.pos[0] == 1:
+                    self.Y.rotation_x = 0
+                    self.Y.rotation_y = 90
+                    self.Y.rotation_z = 0
+                if current_piece.pos[1] == -1:
+                    self.Y.rotation_x = 90
+                    self.Y.rotation_y = 0
+                    self.Y.rotation_z = 0
+                elif current_piece.pos[1] == 1:
+                    self.Y.rotation_x = -90
+                    self.Y.rotation_y = 0
+                    self.Y.rotation_z = 0
                 continue
             # remaining two centers====
             if "B" in current_piece.colors:
                 self.B.x = current_piece.pos[0]
                 self.B.y = current_piece.pos[1]
                 self.B.z = current_piece.pos[2] * -1
+                if current_piece.pos[0] == -1:
+                    self.B.rotation_x = 0
+                    self.B.rotation_y = 0
+                    self.B.rotation_z = 0
+                elif current_piece.pos[0] == 1:
+                    self.B.rotation_x = 0
+                    self.B.rotation_y = 0
+                    self.B.rotation_z = 180
+                if current_piece.pos[2] == -1:
+                    self.B.rotation_x = 0
+                    self.B.rotation_y = 90
+                    self.B.rotation_z = 0
+                elif current_piece.pos[2] == 1:
+                    self.B.rotation_x = 0
+                    self.B.rotation_y = -90
+                    self.B.rotation_z = 0
+                if current_piece.pos[1] == -1:
+                    self.B.rotation_x = 0
+                    self.B.rotation_y = 0
+                    self.B.rotation_z = -90
+                elif current_piece.pos[1] == 1:
+                    self.B.rotation_x = 0
+                    self.B.rotation_y = 0
+                    self.B.rotation_z = 90
                 continue
             if "G" in current_piece.colors:
                 self.G.x = current_piece.pos[0]
                 self.G.y = current_piece.pos[1]
                 self.G.z = current_piece.pos[2] * -1
+                if current_piece.pos[0] == 1:
+                    self.G.rotation_x = 0
+                    self.G.rotation_y = 0
+                    self.G.rotation_z = 0
+                elif current_piece.pos[0] == -1:
+                    self.G.rotation_x = 0
+                    self.G.rotation_y = 0
+                    self.G.rotation_z = 180
+                if current_piece.pos[2] == 1:
+                    self.G.rotation_x = 0
+                    self.G.rotation_y = 90
+                    self.G.rotation_z = 0
+                elif current_piece.pos[2] == -1:
+                    self.G.rotation_x = 0
+                    self.G.rotation_y = -90
+                    self.G.rotation_z = 0
+                if current_piece.pos[1] == 1:
+                    self.G.rotation_x = 0
+                    self.G.rotation_y = 0
+                    self.G.rotation_z = -90
+                elif current_piece.pos[1] == -1:
+                    self.G.rotation_x = 0
+                    self.G.rotation_y = 0
+                    self.G.rotation_z = 90
                 continue
-
 
     def print(self):
         print('-------------------------')
