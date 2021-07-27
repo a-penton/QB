@@ -292,6 +292,7 @@ def readString(rotations, scrambling = False):  # goes through string and does e
                 readSequence.append(Func(cube.reenableArrows))
                 readSequence.append(Func(changeTurnSpeed))
                 readSequence.append(Func(checkCurrentHint))
+                readSequence.append(Func(cube.assertVirtualCube))
                 readSequence.start()
                 return
             elif rotations[i].upper() == 'U':
