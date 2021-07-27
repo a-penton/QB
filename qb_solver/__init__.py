@@ -590,11 +590,11 @@ def bgm_toggle():
     global bgmToggle
     if not bgmToggle:
         bgm_buttom.icon = 'off_bgm'
-        bgAudio.pause()
+        bgAudio.stop()
         bgmToggle = True
     else:
         bgm_buttom.icon = 'on_bgm'
-        bgAudio.resume()
+        bgAudio.play()
         bgmToggle = False
 
 
