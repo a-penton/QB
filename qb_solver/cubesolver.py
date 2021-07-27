@@ -29,7 +29,7 @@ def hint(cube, piece, stage):
 	# returns tuple of string, name of image, and next piece to solve
 	# calls other functions to do so
 
-	# if the cube is scrambled, switch to the appropriate step
+	# if the cube becomes scrambled, switch to the appropriate step
 	if stage == -1:
 		if not is_cross_solved(cube):
 			stage = 0
@@ -41,6 +41,10 @@ def hint(cube, piece, stage):
 			stage = 3
 		elif not is_ep_solved(cube):
 			stage = 4
+		elif not is_cp_solved(cube):
+			stage = 5
+		elif not is_cube_solved(cube):
+			stage = 6
 
 	# if the current stage is solved, proceed to the next one
 	if stage == 0 and is_cross_solved(cube):
@@ -52,8 +56,13 @@ def hint(cube, piece, stage):
 	if stage == 3 and is_eo_solved(cube):
 		stage = 4
 	if stage == 4 and is_ep_solved(cube):
+		stage = 5
+	if stage == 5 and is_cp_solved(cube):
+		stage = 6
+	if is_cube_solved(cube):
 		stage = -1
 
+	# the later stages don't need a specific piece to solve
 	if stage == 0:
 		return get_cross_hint(cube, piece)
 	elif stage == 1:
@@ -64,9 +73,13 @@ def hint(cube, piece, stage):
 		return get_eo_hint(cube)
 	elif stage == 4:
 		return get_ep_hint(cube)
+	elif stage == 5:
+		return get_cp_hint(cube)
+	elif stage == 6:
+		return get_co_hint(cube)
 	else:
 		# if solved, the piece returned is the white center
-		return ("The cube is almost solved!", "cross-solved.png", cube.find_piece('W'), -1)
+		return ("The cube is solved!", "cross-solved.png", cube.find_piece('W'), -1)
 
 def fix_color_string(s):
     # replace individual letters with their colors
@@ -389,7 +402,8 @@ def get_specific_eo_hint(cube):
                 hint += "Turn the top so that these two edges\n"
                 hint += " are at the back and left of the top face"
 
-    return hint, None, None, 3
+    img = None
+    return hint, img, None, 3
 
 
 def get_ep_hint(cube):
@@ -432,7 +446,71 @@ def get_specific_ep_hint(cube):
 			else:
 				hint = "Rotate the cube so ur/ub are solved"
 	
-	return hint, None, None, 4
+	img = None
+	return hint, img, None, 4
+
+def get_cp_hint(cube):
+	# This step is also very straightforward, only one algorithm
+	# solving all yellow corners, so no particular piece to solve
+
+	# check that white is on bottom
+	white_face = cube.find_piece('W')
+	if white_face.pos != (0,-1,0):
+		return ("Rotate the cube so the white face is on bottom", "rotate-white-bottom.png", white_face, 5)
+
+	# only need to update hint if middle layer solved
+	if is_middle_layer_solved(cube):
+		return get_specific_cp_hint(cube)
+	else:
+		return None, None, None, 5
+
+def get_specific_cp_hint(cube):
+	corners = get_corner_pieces(cube, cube.find_piece('Y'))
+	count = 0
+	permuted_corner = None
+	for corner in corners:
+		if is_piece_permuted(cube, corner):
+			permuted_corner = corner
+			count += 1
+	hint = None
+	if count == 0:
+		hint = "There are no solved corners\n"
+		hint += "Do the algorithm for positioning yellow corners\n"
+		hint += "U R Ui Li U Ri Ui L"
+	elif count == 1:
+		piece_colors = sorted(permuted_corner.colors)
+		if permuted_corner.pos != (1,1,1):
+			hint = "Rotate the cube so the %s %s %s corner\n" % (*piece_colors,)
+			hint += " is at the front-right"
+		else:
+			hint = "Do the algorithm for positioning yellow corners\n"
+			hint += "U R Ui Li U Ri Ui L"
+
+	img = None
+	return hint, img, permuted_corner, 5
+
+def get_co_hint(cube):
+	# This step is slightly different since white should be on top
+
+	# check that white is on top
+	white_face = cube.find_piece('W')
+	if white_face.pos != (0,1,0):
+		return ("Rotate the cube so the white face is on top", "rotate-white-bottom.png", white_face, 5)
+
+	# update hint if just starting the step or if DFR is oriented
+	if is_cp_solved(cube) or cube.get_piece(1,-1,1).colors[1] == 'Y':
+		return get_specific_co_hint(cube)
+	else:
+		return None, None, None, 6
+
+def get_specific_co_hint(cube):
+	if cube.get_piece(1,-1,1).colors[1] == 'Y':
+		hint = "Turn the bottom layer (D)"
+	else:
+		hint = "Repeat the right-hand move (R U Ri Ui)"
+
+	img = None
+	return hint, img, None, 6
 
 def is_cross_solved(cube):
     # determine if the cross is solved
@@ -543,7 +621,7 @@ def is_cp_solved(cube):
                 return False
     elif z != 0:
         for corner in corner_pieces:
-            if corner.corner[2] != 'Y':
+            if corner.colors[2] != 'Y':
                 return False
     return True
 
