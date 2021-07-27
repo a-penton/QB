@@ -43,7 +43,7 @@ def hint(cube, piece, stage):
 			stage = 4
 		elif not is_cp_solved(cube):
 			stage = 5
-		elif not is_cube_solved(cube):
+		elif not is_co_solved(cube):
 			stage = 6
 
 	# if the current stage is solved, proceed to the next one
@@ -59,7 +59,7 @@ def hint(cube, piece, stage):
 		stage = 5
 	if stage == 5 and is_cp_solved(cube):
 		stage = 6
-	if is_cube_solved(cube):
+	if is_co_solved(cube):
 		stage = -1
 
 	# the later stages don't need a specific piece to solve
@@ -424,27 +424,30 @@ def get_ep_hint(cube):
 def get_specific_ep_hint(cube):
 	# assumes white on D/yellow on U
 
+	# first check for opposite swapped edges
+	uf_edge_color = cube.get_piece(0,1,1).colors[2]
+	ub_edge_color = cube.get_piece(0,1,-1).colors[2]
+	uf_ub_colors = sorted(list((uf_edge_color, ub_edge_color)))
+	if uf_ub_colors in [['B', 'G'], ['O', 'R']]:
+		# opposite swap, perform the algorithm from anywhere
+		hint = "Do the algorithm for positiong yellow edges\n"
+		hint += "R U Ri U R U2 Ri"
+
 	# get number of solved yellow edges
 	num_solved = solved_yellow_edges(cube)
 
 	if num_solved < 2:
 		hint = "Rotate the top so that at least two edges are solved"
-	elif num_solved == 2:
-		# either edges are opposite swapped or adjacent swapped
-		uf_edge_color = cube.get_piece(0,1,1).colors[2]
-		ub_edge_color = cube.get_piece(0,1,-1).colors[2]
-		uf_ub_colors = sorted(list((uf_edge_color, ub_edge_color)))
-		if uf_ub_colors in [['B', 'G'], ['O', 'R']]:
-			# opposite swap, perform the algorithm from anywhere
-			hint = "Perform the algorithm"
+	elif num_solved == 2 and not uf_ub_colors in [['B', 'G'], ['O', 'R']]:
+		# edges are adjacent swapped
+		# put in position then perform algorithm
+		ur_edge_solved = is_piece_solved(cube, cube.get_piece(1,1,0))
+		ub_edge_solved = is_piece_solved(cube, cube.get_piece(0,1,-1))
+		if ur_edge_solved and ub_edge_solved:
+			hint = "Do the algorithm for positioning yellow edges\n"
+			hint += "R U Ri U R U2 Ri"
 		else:
-			# adjacent swap, put in position then perform algorithm
-			ur_edge_solved = is_piece_solved(cube, cube.get_piece(1,1,0))
-			ub_edge_solved = is_piece_solved(cube, cube.get_piece(0,1,-1))
-			if ur_edge_solved and ub_edge_solved:
-				hint = "Perform the algorithm"
-			else:
-				hint = "Rotate the cube so ur/ub are solved"
+			hint = "Rotate the cube so ur/ub are solved"
 	
 	img = None
 	return hint, img, None, 4
@@ -458,8 +461,8 @@ def get_cp_hint(cube):
 	if white_face.pos != (0,-1,0):
 		return ("Rotate the cube so the white face is on bottom", "rotate-white-bottom.png", white_face, 5)
 
-	# only need to update hint if middle layer solved
-	if is_middle_layer_solved(cube):
+	# only need to update hint if previous step is solved
+	if is_ep_solved(cube):
 		return get_specific_cp_hint(cube)
 	else:
 		return None, None, None, 5
@@ -497,8 +500,10 @@ def get_co_hint(cube):
 	if white_face.pos != (0,1,0):
 		return ("Rotate the cube so the white face is on top", "rotate-white-bottom.png", white_face, 5)
 
-	# update hint if just starting the step or if DFR is oriented
-	if is_cp_solved(cube) or cube.get_piece(1,-1,1).colors[1] == 'Y':
+	# update hint if DFR corner has yellow
+	uf_edge_solved = is_piece_solved(cube, cube.get_piece(0,1,1))
+	br_edge_solved = is_piece_solved(cube, cube.get_piece(1,0,-1))
+	if 'Y' in cube.get_piece(1,-1,1).colors and uf_edge_solved and br_edge_solved:
 		return get_specific_co_hint(cube)
 	else:
 		return None, None, None, 6
@@ -602,6 +607,7 @@ def solved_yellow_edges(cube):
     return count
 
 
+
 def is_cp_solved(cube):
     if not is_ep_solved(cube):
         return False
@@ -611,22 +617,13 @@ def is_cp_solved(cube):
 
     corner_pieces = get_corner_pieces(cube, yellow_center)
 
-    if x != 0:
-        for corner in corner_pieces:
-            if corner.colors[0] != 'Y':
-                return False
-    elif y != 0:
-        for corner in corner_pieces:
-            if corner.colors[1] != 'Y':
-                return False
-    elif z != 0:
-        for corner in corner_pieces:
-            if corner.colors[2] != 'Y':
-                return False
+    for corner in corner_pieces:
+        if not is_piece_permuted(cube, corner):
+            return False
     return True
 
 
-def is_cube_solved(cube):
+def is_co_solved(cube):
     if not is_cp_solved(cube):
         return False
 
