@@ -562,6 +562,7 @@ def menu():
     speedSlider.enabled = False
     notationButton.enabled = False
     settings = False
+    legend.enabled = False
     #settingsButton.color = color.gray
     #hintButton.color = color.gray
     aboutus_menu.enabled = False
@@ -841,7 +842,8 @@ def start():
     bgm_title.enabled = False
     shape_button.enabled = False
     shape_title.enabled = False
-
+    if shape:
+        legend.enabled = True
     resetButton.enabled = True
     rotateRButton.enabled = True
     rotateLButton.enabled = True
@@ -933,7 +935,7 @@ bgm_title = Button(text='Music', color=color.clear, position=(.85, 0.045), enabl
 shape_button = Button(text='',icon='off_bgm', color=color.clear,scale=(.2,.08),on_click=Func(shape_toggle), position=(.85,-.12), enabled=False)
 shape_title = Button(text='Symbols', color=color.clear, position=(.85, -.07), enabled=False, scale=.01)
 settings_box = Button(text='', color=color.gray, highlight_color=color.gray, icon = '', pressed_color=color.gray, position = (.85,.087,50),scale=(.23,.51), enabled=False)
-
+legend = Button(text='Insert symbol key', icon = '', color=color.gray, enabled=False, highlight_color=color.gray, pressed_color=color.gray, position = (0,.4,1), scale=(.33,.15))
 
 aboutus_menu = Button(text='\t      About Us\n\n\tMembers:\n\tAndrew Penton\n\tNoah Gorgevski-Sharpe\n\tHeinrich Perez\n\tSteven Perez\n\tDaniel Shinkarow',
                         color=color.gray, position=(0,0), scale=(.69,.73),highlight_color=color.gray, pressed_color=color.gray,text_origin=(-.35,.45))
