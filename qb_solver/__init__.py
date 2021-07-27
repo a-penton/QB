@@ -80,6 +80,8 @@ def input(key):
         if mouse_in_zone(mouse.position):
             drag = True
             mousepos = mouse.position
+    elif key == 'left mouse down':
+        invoke(checkCurrentHint, delay=cube.turnSpeed + .25)
 
     if key == 'left mouse up':
         drag = False
