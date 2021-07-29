@@ -204,6 +204,9 @@ def resetCube():  # resets cube
     if colorScheme == True:
         toggle_color_scheme()
         toggle_color_scheme()
+    if shape == True:
+        shape_toggle()
+        shape_toggle()
     anim = True
     invoke(endAnim, delay=.65)
     changeTurnSpeed()
@@ -863,6 +866,11 @@ def start():
     shape_title.enabled = False
     if shape:
         legend.enabled = True
+        if colorScheme:
+            legend.icon = 'key2'
+        else:
+            legend.icon = 'key1'
+
     resetButton.enabled = True
     rotateRButton.enabled = True
     rotateLButton.enabled = True
@@ -954,7 +962,7 @@ bgm_title = Button(text='Music', color=color.clear, position=(.85, 0.045), enabl
 shape_button = Button(text='',icon='off_bgm', color=color.clear,scale=(.2,.08),on_click=Func(shape_toggle), position=(.85,-.12), enabled=False)
 shape_title = Button(text='Symbols', color=color.clear, position=(.85, -.07), enabled=False, scale=.01)
 settings_box = Button(text='', color=color.gray, highlight_color=color.gray, icon = '', pressed_color=color.gray, position = (.85,.087,50),scale=(.23,.51), enabled=False)
-legend = Button(text='Insert symbol key', icon = '', color=color.gray, enabled=False, highlight_color=color.gray, pressed_color=color.gray, position = (0,.4,1), scale=(.33,.15))
+legend = Button(text='', icon = 'key1', color=color.gray, enabled=False, highlight_color=color.gray, pressed_color=color.gray, position = (-.335,.37,1), scale=(.28,.22))
 
 aboutus_menu = Button(text='\t      About Us\n\n\tMembers:\n\tAndrew Penton\n\tNoah Gorgevski-Sharpe\n\tHeinrich Perez\n\tSteven Perez\n\tDaniel Shinkarow',
                         color=color.gray, position=(0,0), scale=(.69,.73),highlight_color=color.gray, pressed_color=color.gray,text_origin=(-.35,.45))
