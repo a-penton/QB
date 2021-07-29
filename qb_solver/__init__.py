@@ -282,7 +282,7 @@ def readString(rotations, scrambling = False):  # goes through string and does e
     if not reading:
         cube.disableArrows()
         cube.setTurnSpeed(.1)
-        stepTime = .4  # time between moves in sequence must be at least .2 higher than turn speed
+        stepTime = .2  # time between moves in sequence must be at least .2 higher than turn speed
         reading = True
         toggleInput()
         rotations += '0'
@@ -303,146 +303,194 @@ def readString(rotations, scrambling = False):  # goes through string and does e
             elif rotations[i].upper() == 'U':
                 if rotations[i + 1].lower() == "i":
                     readSequence.append(stepTime)
+                    readSequence.append(Func(cube.assertVirtualCube))
                     readSequence.append(Func(cube.rotateUi))
                 elif rotations[i + 1] == "2":
                     readSequence.append(stepTime)
+                    readSequence.append(Func(cube.assertVirtualCube))
                     readSequence.append(Func(cube.rotateU))
                     readSequence.append(stepTime)
+                    readSequence.append(Func(cube.assertVirtualCube))
                     readSequence.append(Func(cube.rotateU))
                 else:
                     readSequence.append(stepTime)
+                    readSequence.append(Func(cube.assertVirtualCube))
                     readSequence.append(Func(cube.rotateU))
             elif rotations[i].upper() == 'E':
                 if rotations[i + 1].lower() == "i":
                     readSequence.append(stepTime)
+                    readSequence.append(Func(cube.assertVirtualCube))
                     readSequence.append(Func(cube.rotateEi))
                 elif rotations[i + 1] == "2":
                     readSequence.append(stepTime)
+                    readSequence.append(Func(cube.assertVirtualCube))
                     readSequence.append(Func(cube.rotateE))
                     readSequence.append(stepTime)
+                    readSequence.append(Func(cube.assertVirtualCube))
                     readSequence.append(Func(cube.rotateE))
                 else:
                     readSequence.append(stepTime)
+                    readSequence.append(Func(cube.assertVirtualCube))
                     readSequence.append(Func(cube.rotateE))
             elif rotations[i].upper() == 'D':
                 if rotations[i + 1].lower() == "i":
                     readSequence.append(stepTime)
+                    readSequence.append(Func(cube.assertVirtualCube))
                     readSequence.append(Func(cube.rotateDi))
                 elif rotations[i + 1] == "2":
                     readSequence.append(stepTime)
+                    readSequence.append(Func(cube.assertVirtualCube))
                     readSequence.append(Func(cube.rotateD))
                     readSequence.append(stepTime)
+                    readSequence.append(Func(cube.assertVirtualCube))
                     readSequence.append(Func(cube.rotateD))
                 else:
                     readSequence.append(stepTime)
+                    readSequence.append(Func(cube.assertVirtualCube))
                     readSequence.append(Func(cube.rotateD))
             elif rotations[i].upper() == 'L':
                 if rotations[i + 1].lower() == "i":
                     readSequence.append(stepTime)
+                    readSequence.append(Func(cube.assertVirtualCube))
                     readSequence.append(Func(cube.rotateLi))
                 elif rotations[i + 1] == "2":
                     readSequence.append(stepTime)
+                    readSequence.append(Func(cube.assertVirtualCube))
                     readSequence.append(Func(cube.rotateL))
                     readSequence.append(stepTime)
+                    readSequence.append(Func(cube.assertVirtualCube))
                     readSequence.append(Func(cube.rotateL))
                 else:
                     readSequence.append(stepTime)
+                    readSequence.append(Func(cube.assertVirtualCube))
                     readSequence.append(Func(cube.rotateL))
             elif rotations[i].upper() == 'M':
                 if rotations[i + 1].lower() == "i":
                     readSequence.append(stepTime)
+                    readSequence.append(Func(cube.assertVirtualCube))
                     readSequence.append(Func(cube.rotateMi))
                 elif rotations[i + 1] == "2":
                     readSequence.append(stepTime)
+                    readSequence.append(Func(cube.assertVirtualCube))
                     readSequence.append(Func(cube.rotateM))
                     readSequence.append(stepTime)
+                    readSequence.append(Func(cube.assertVirtualCube))
                     readSequence.append(Func(cube.rotateM))
                 else:
                     readSequence.append(stepTime)
+                    readSequence.append(Func(cube.assertVirtualCube))
                     readSequence.append(Func(cube.rotateM))
             elif rotations[i].upper() == 'R':
                 if rotations[i + 1].lower() == "i":
                     readSequence.append(stepTime)
+                    readSequence.append(Func(cube.assertVirtualCube))
                     readSequence.append(Func(cube.rotateRi))
                 elif rotations[i + 1] == "2":
                     readSequence.append(stepTime)
+                    readSequence.append(Func(cube.assertVirtualCube))
                     readSequence.append(Func(cube.rotateR))
                     readSequence.append(stepTime)
+                    readSequence.append(Func(cube.assertVirtualCube))
                     readSequence.append(Func(cube.rotateR))
                 else:
                     readSequence.append(stepTime)
+                    readSequence.append(Func(cube.assertVirtualCube))
                     readSequence.append(Func(cube.rotateR))
             elif rotations[i].upper() == 'F':
                 if rotations[i + 1].lower() == "i":
                     readSequence.append(stepTime)
+                    readSequence.append(Func(cube.assertVirtualCube))
                     readSequence.append(Func(cube.rotateFi))
                 elif rotations[i + 1] == "2":
                     readSequence.append(stepTime)
+                    readSequence.append(Func(cube.assertVirtualCube))
                     readSequence.append(Func(cube.rotateF))
                     readSequence.append(stepTime)
+                    readSequence.append(Func(cube.assertVirtualCube))
                     readSequence.append(Func(cube.rotateF))
                 else:
                     readSequence.append(stepTime)
+                    readSequence.append(Func(cube.assertVirtualCube))
                     readSequence.append(Func(cube.rotateF))
             elif rotations[i].upper() == 'S':
                 if rotations[i + 1].lower() == "i":
                     readSequence.append(stepTime)
+                    readSequence.append(Func(cube.assertVirtualCube))
                     readSequence.append(Func(cube.rotateSi))
                 elif rotations[i + 1] == "2":
                     readSequence.append(stepTime)
+                    readSequence.append(Func(cube.assertVirtualCube))
                     readSequence.append(Func(cube.rotateS))
                     readSequence.append(stepTime)
+                    readSequence.append(Func(cube.assertVirtualCube))
                     readSequence.append(Func(cube.rotateS))
                 else:
                     readSequence.append(stepTime)
+                    readSequence.append(Func(cube.assertVirtualCube))
                     readSequence.append(Func(cube.rotateS))
             elif rotations[i].upper() == 'B':
                 if rotations[i + 1].lower() == "i":
                     readSequence.append(stepTime)
+                    readSequence.append(Func(cube.assertVirtualCube))
                     readSequence.append(Func(cube.rotateBi))
                 elif rotations[i + 1] == "2":
                     readSequence.append(stepTime)
+                    readSequence.append(Func(cube.assertVirtualCube))
                     readSequence.append(Func(cube.rotateB))
                     readSequence.append(stepTime)
+                    readSequence.append(Func(cube.assertVirtualCube))
                     readSequence.append(Func(cube.rotateB))
                 else:
                     readSequence.append(stepTime)
+                    readSequence.append(Func(cube.assertVirtualCube))
                     readSequence.append(Func(cube.rotateB))
             elif rotations[i].upper() == 'X':
                 if rotations[i + 1].lower() == "i":
                     readSequence.append(stepTime)
+                    readSequence.append(Func(cube.assertVirtualCube))
                     readSequence.append(Func(cube.rotateXi))
                 elif rotations[i + 1] == "2":
                     readSequence.append(stepTime)
+                    readSequence.append(Func(cube.assertVirtualCube))
                     readSequence.append(Func(cube.rotateX))
                     readSequence.append(stepTime)
+                    readSequence.append(Func(cube.assertVirtualCube))
                     readSequence.append(Func(cube.rotateX))
                 else:
                     readSequence.append(stepTime)
+                    readSequence.append(Func(cube.assertVirtualCube))
                     readSequence.append(Func(cube.rotateX))
             elif rotations[i].upper() == 'Y':
                 if rotations[i + 1].lower() == "i":
                     readSequence.append(stepTime)
+                    readSequence.append(Func(cube.assertVirtualCube))
                     readSequence.append(Func(cube.rotateYi))
                 elif rotations[i + 1] == "2":
                     readSequence.append(stepTime)
+                    readSequence.append(Func(cube.assertVirtualCube))
                     readSequence.append(Func(cube.rotateY))
                     readSequence.append(stepTime)
+                    readSequence.append(Func(cube.assertVirtualCube))
                     readSequence.append(Func(cube.rotateY))
                 else:
                     readSequence.append(stepTime)
+                    readSequence.append(Func(cube.assertVirtualCube))
                     readSequence.append(Func(cube.rotateY))
             elif rotations[i].upper() == 'Z':
                 if rotations[i + 1].lower() == "i":
                     readSequence.append(stepTime)
+                    readSequence.append(Func(cube.assertVirtualCube))
                     readSequence.append(Func(cube.rotateZi))
                 elif rotations[i + 1] == "2":
                     readSequence.append(stepTime)
+                    readSequence.append(Func(cube.assertVirtualCube))
                     readSequence.append(Func(cube.rotateZ))
                     readSequence.append(stepTime)
+                    readSequence.append(Func(cube.assertVirtualCube))
                     readSequence.append(Func(cube.rotateZ))
                 else:
                     readSequence.append(stepTime)
+                    readSequence.append(Func(cube.assertVirtualCube))
                     readSequence.append(Func(cube.rotateZ))
             elif rotations[i].lower() != 'i' and rotations[i] != ' ' and rotations[i] != '2':
                 print("Invalid Input")
@@ -462,7 +510,7 @@ def toggleInput():  # toggles the text input on or off
 
 def scramble():  # creates a random string of moves
     moves = ["U" ,"E" ,"D" ,"L" ,"M" ,"R" ,"F" ,"S" ,"B" ,"Ui" ,"Ei" ,"Di" ,"Li" ,"Mi" ,"Ri" ,"Fi" ,"Si" ,"Bi"]
-    scrambled_moves = " ".join(random.choices(moves, k=10))
+    scrambled_moves = " ".join(random.choices(moves, k=20))
     readString(scrambled_moves, True)
     #print(cube.virtualCube)
 
