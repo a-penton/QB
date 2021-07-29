@@ -578,6 +578,7 @@ def updateCurrentHint(hintText, hintPicture, next_piece, next_stage):
     current_piece = next_piece
     current_stage = next_stage
 
+    showhints = True
     if current_stage == 0:
         hintDisplay.icon = 'hint1'
     elif current_stage == 1:
@@ -592,7 +593,11 @@ def updateCurrentHint(hintText, hintPicture, next_piece, next_stage):
         hintDisplay.icon = 'hint6'
     elif current_stage == 6:
         hintDisplay.icon = 'hint7'
-
+    elif current_stage == -1:
+        hintDisplay.icon = 'hint8'
+        showhints = False
+    hintMoveButton.enabled = showhints
+    hintDetailButton.enabled = showhints
     if blinking:
         cube.unblink()
         cube.blink(current_piece)
