@@ -18,7 +18,7 @@ setup(
 	author="Andrew Penton, Heinrich Perez, Steven Perez, Noah Sharpe, Daniel Shinkarow",
 	author_email = "andrew.penton@gmail.com",
 	description="Rubik's cube simulation and tutorial",
-	install_requires=["ursina==3.6.0",
+	install_requires=["ursina==3.5.0",
 		"rubik-cube==0.0.1",
 		"psd-tools3==1.8.2"],
 	scripts=['bin/run_simulation']
