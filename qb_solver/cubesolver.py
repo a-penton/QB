@@ -62,7 +62,7 @@ def hint(cube, piece, stage):
 	if is_co_solved(cube):
 		stage = -1
 
-	# the later stages don't need a specific piece to solve
+	# some stages don't need a specific piece to solve
 	if stage == 0:
 		return get_cross_hint(cube, piece)
 	elif stage == 1:
@@ -74,9 +74,9 @@ def hint(cube, piece, stage):
 	elif stage == 4:
 		return get_ep_hint(cube)
 	elif stage == 5:
-		return get_cp_hint(cube)
+		return get_cp_hint(cube, piece)
 	elif stage == 6:
-		return get_co_hint(cube)
+		return get_co_hint(cube, piece)
 	else:
 		# if solved, the piece returned is the white center
 		return ("The cube is solved!", "cross-solved.png", cube.find_piece('W'), -1)
@@ -424,35 +424,37 @@ def get_ep_hint(cube):
 def get_specific_ep_hint(cube):
 	# assumes white on D/yellow on U
 
-	# first check for opposite swapped edges
-	uf_edge_color = cube.get_piece(0,1,1).colors[2]
-	ub_edge_color = cube.get_piece(0,1,-1).colors[2]
-	uf_ub_colors = sorted(list((uf_edge_color, ub_edge_color)))
-	if uf_ub_colors in [['B', 'G'], ['O', 'R']]:
-		# opposite swap, perform the algorithm from anywhere
-		hint = "Do the algorithm for positiong yellow edges\n"
-		hint += "R U Ri U R U2 Ri"
-
 	# get number of solved yellow edges
 	num_solved = solved_yellow_edges(cube)
 
 	if num_solved < 2:
 		hint = "Rotate the top so that at least two edges are solved"
-	elif num_solved == 2 and not uf_ub_colors in [['B', 'G'], ['O', 'R']]:
-		# edges are adjacent swapped
-		# put in position then perform algorithm
-		ur_edge_solved = is_piece_solved(cube, cube.get_piece(1,1,0))
-		ub_edge_solved = is_piece_solved(cube, cube.get_piece(0,1,-1))
-		if ur_edge_solved and ub_edge_solved:
-			hint = "Do the algorithm for positioning yellow edges\n"
+	elif num_solved == 2:
+		# first check for opposite swapped edges
+		uf_edge_color = cube.get_piece(0,1,1).colors[2]
+		ub_edge_color = cube.get_piece(0,1,-1).colors[2]
+		uf_ub_colors = sorted(list((uf_edge_color, ub_edge_color)))
+		if uf_ub_colors in [['B', 'G'], ['O', 'R']]:
+			# opposite swap, perform the algorithm from anywhere
+			hint = "Two edges are swapped across from each other\n"
+			hint = "Do the algorithm for positiong yellow edges\n"
 			hint += "R U Ri U R U2 Ri"
 		else:
-			hint = "Rotate the cube so ur/ub are solved"
+			# edges are adjacent swapped
+			# put in position then perform algorithm
+			ur_edge_solved = is_piece_solved(cube, cube.get_piece(1,1,0))
+			ub_edge_solved = is_piece_solved(cube, cube.get_piece(0,1,-1))
+			if ur_edge_solved and ub_edge_solved:
+				hint = "Do the algorithm for positioning yellow edges\n"
+				hint += "R U Ri U R U2 Ri"
+			else:
+				hint = "Rotate the cube so the top-right and\n"
+				hint += "top-back edges are solved"
 	
 	img = None
 	return hint, img, None, 4
 
-def get_cp_hint(cube):
+def get_cp_hint(cube, piece):
 	# This step is also very straightforward, only one algorithm
 	# solving all yellow corners, so no particular piece to solve
 
@@ -465,7 +467,7 @@ def get_cp_hint(cube):
 	if is_ep_solved(cube):
 		return get_specific_cp_hint(cube)
 	else:
-		return None, None, None, 5
+		return None, None, piece, 5
 
 def get_specific_cp_hint(cube):
 	corners = get_corner_pieces(cube, cube.find_piece('Y'))
@@ -492,7 +494,7 @@ def get_specific_cp_hint(cube):
 	img = None
 	return hint, img, permuted_corner, 5
 
-def get_co_hint(cube):
+def get_co_hint(cube, piece):
 	# This step is slightly different since white should be on top
 
 	# check that white is on top
@@ -506,16 +508,20 @@ def get_co_hint(cube):
 	if 'Y' in cube.get_piece(1,-1,1).colors and uf_edge_solved and br_edge_solved:
 		return get_specific_co_hint(cube)
 	else:
-		return None, None, None, 6
+		return None, None, piece, 6
 
 def get_specific_co_hint(cube):
-	if cube.get_piece(1,-1,1).colors[1] == 'Y':
-		hint = "Turn the bottom layer (D)"
+	dfr_corner = cube.get_piece(1,-1,1)
+	piece_colors = sorted(dfr_corner.colors)
+
+	if dfr_corner.colors[1] == 'Y':
+		hint = "Turn the bottom layer (D)\n"
 	else:
-		hint = "Repeat the right-hand move (R U Ri Ui)"
+		hint = "Repeat the right-hand move (R U Ri Ui)\n"
+		hint += "to twist the %s %s %s corner correctly" % (*piece_colors,)
 
 	img = None
-	return hint, img, None, 6
+	return hint, img, dfr_corner, 6
 
 def is_cross_solved(cube):
     # determine if the cross is solved
