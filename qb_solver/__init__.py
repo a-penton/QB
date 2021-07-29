@@ -16,6 +16,7 @@ settings = False #checks if settings menu is open
 hints = False #checks if hints menu is open
 colorScheme = False #Checks if the color scheme has changed
 bgmToggle = False
+notation = False
 shape = False
 readSequence = Sequence() #used for sequence of moves
 mousepos = []  # stores mouse position for rotating camera
@@ -529,13 +530,10 @@ def updateCurrentHint(hintText, hintPicture, next_piece, next_stage):
     current_piece = next_piece
     current_stage = next_stage
 
-    print(current_stage)
     if current_stage == 0:
         hintDisplay.icon = 'hint1'
-        print('test')
     elif current_stage == 1:
         hintDisplay.icon = 'hint2'
-        print('test2')
     elif current_stage == 2:
         hintDisplay.icon = 'hint3'
     elif current_stage == 3:
@@ -553,7 +551,24 @@ def updateCurrentHint(hintText, hintPicture, next_piece, next_stage):
 
 
 def displayNotation():
+    global notation
     cube.toggleNotation()
+    if not notation:
+        rotateLButton.icon = 'rotateLnotation'
+        rotateRButton.icon = 'rotateRnotation'
+        rotateUButton.icon = 'rotateUnotation'
+        rotateDButton.icon = 'rotateDnotation'
+        rotateZLButton.icon = 'rotateZLnotation'
+        rotateZRButton.icon = 'rotateZRnotation'
+        notation = True
+    else:
+        rotateLButton.icon = 'rotateL'
+        rotateRButton.icon = 'rotateR'
+        rotateUButton.icon = 'rotateU'
+        rotateDButton.icon = 'rotateD'
+        rotateZLButton.icon = 'rotateZL'
+        rotateZRButton.icon = 'rotateZR'
+        notation = False
 
 
 def menu():
@@ -901,9 +916,9 @@ rotateUButton = Button(text='', icon='rotateU', color=color.white, highlight_col
                        on_click=Func(rotateR), enabled=False)
 rotateDButton = Button(text='', icon='rotateD', color=color.white, highlight_color=color.light_gray, scale=.152, position=(-.63, .278, 0),
                        on_click=Func(rotateL), enabled=False)
-rotateZRButton = Button(text='', icon='rotateZL', color=color.white, highlight_color=color.light_gray, scale=.152, position=(-.63, -.056, 0),
+rotateZRButton = Button(text='', icon='rotateZL', color=color.white, highlight_color=color.light_gray, scale=.152, position=(-.85, -.056, 0),
                        on_click=Func(rotateZR), enabled=False)
-rotateZLButton = Button(text='', icon='rotateZR', color=color.white, highlight_color=color.light_gray, scale=.152, position=(-.85, -.056, 0),
+rotateZLButton = Button(text='', icon='rotateZR', color=color.white, highlight_color=color.light_gray, scale=.152, position=(-.63, -.056, 0),
                        on_click=Func(rotateZL), enabled=False)
 inputButton = Button(text='', icon='input_button',color=color.clear,highlight_color=color.light_gray, scale=.152, position=(-.63, -.225, 0), on_click=Func(toggleInput),
                      enabled=False)
