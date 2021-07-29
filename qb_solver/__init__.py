@@ -16,6 +16,7 @@ settings = False #checks if settings menu is open
 hints = False #checks if hints menu is open
 colorScheme = False #Checks if the color scheme has changed
 bgmToggle = False
+notation = False
 shape = False
 readSequence = Sequence() #used for sequence of moves
 mousepos = []  # stores mouse position for rotating camera
@@ -281,7 +282,7 @@ def readString(rotations, scrambling = False):  # goes through string and does e
     if not reading:
         cube.disableArrows()
         cube.setTurnSpeed(.1)
-        stepTime = .4  # time between moves in sequence must be at least .2 higher than turn speed
+        stepTime = .2  # time between moves in sequence must be at least .2 higher than turn speed
         reading = True
         toggleInput()
         rotations += '0'
@@ -302,146 +303,194 @@ def readString(rotations, scrambling = False):  # goes through string and does e
             elif rotations[i].upper() == 'U':
                 if rotations[i + 1].lower() == "i":
                     readSequence.append(stepTime)
+                    readSequence.append(Func(cube.assertVirtualCube))
                     readSequence.append(Func(cube.rotateUi))
                 elif rotations[i + 1] == "2":
                     readSequence.append(stepTime)
+                    readSequence.append(Func(cube.assertVirtualCube))
                     readSequence.append(Func(cube.rotateU))
                     readSequence.append(stepTime)
+                    readSequence.append(Func(cube.assertVirtualCube))
                     readSequence.append(Func(cube.rotateU))
                 else:
                     readSequence.append(stepTime)
+                    readSequence.append(Func(cube.assertVirtualCube))
                     readSequence.append(Func(cube.rotateU))
             elif rotations[i].upper() == 'E':
                 if rotations[i + 1].lower() == "i":
                     readSequence.append(stepTime)
+                    readSequence.append(Func(cube.assertVirtualCube))
                     readSequence.append(Func(cube.rotateEi))
                 elif rotations[i + 1] == "2":
                     readSequence.append(stepTime)
+                    readSequence.append(Func(cube.assertVirtualCube))
                     readSequence.append(Func(cube.rotateE))
                     readSequence.append(stepTime)
+                    readSequence.append(Func(cube.assertVirtualCube))
                     readSequence.append(Func(cube.rotateE))
                 else:
                     readSequence.append(stepTime)
+                    readSequence.append(Func(cube.assertVirtualCube))
                     readSequence.append(Func(cube.rotateE))
             elif rotations[i].upper() == 'D':
                 if rotations[i + 1].lower() == "i":
                     readSequence.append(stepTime)
+                    readSequence.append(Func(cube.assertVirtualCube))
                     readSequence.append(Func(cube.rotateDi))
                 elif rotations[i + 1] == "2":
                     readSequence.append(stepTime)
+                    readSequence.append(Func(cube.assertVirtualCube))
                     readSequence.append(Func(cube.rotateD))
                     readSequence.append(stepTime)
+                    readSequence.append(Func(cube.assertVirtualCube))
                     readSequence.append(Func(cube.rotateD))
                 else:
                     readSequence.append(stepTime)
+                    readSequence.append(Func(cube.assertVirtualCube))
                     readSequence.append(Func(cube.rotateD))
             elif rotations[i].upper() == 'L':
                 if rotations[i + 1].lower() == "i":
                     readSequence.append(stepTime)
+                    readSequence.append(Func(cube.assertVirtualCube))
                     readSequence.append(Func(cube.rotateLi))
                 elif rotations[i + 1] == "2":
                     readSequence.append(stepTime)
+                    readSequence.append(Func(cube.assertVirtualCube))
                     readSequence.append(Func(cube.rotateL))
                     readSequence.append(stepTime)
+                    readSequence.append(Func(cube.assertVirtualCube))
                     readSequence.append(Func(cube.rotateL))
                 else:
                     readSequence.append(stepTime)
+                    readSequence.append(Func(cube.assertVirtualCube))
                     readSequence.append(Func(cube.rotateL))
             elif rotations[i].upper() == 'M':
                 if rotations[i + 1].lower() == "i":
                     readSequence.append(stepTime)
+                    readSequence.append(Func(cube.assertVirtualCube))
                     readSequence.append(Func(cube.rotateMi))
                 elif rotations[i + 1] == "2":
                     readSequence.append(stepTime)
+                    readSequence.append(Func(cube.assertVirtualCube))
                     readSequence.append(Func(cube.rotateM))
                     readSequence.append(stepTime)
+                    readSequence.append(Func(cube.assertVirtualCube))
                     readSequence.append(Func(cube.rotateM))
                 else:
                     readSequence.append(stepTime)
+                    readSequence.append(Func(cube.assertVirtualCube))
                     readSequence.append(Func(cube.rotateM))
             elif rotations[i].upper() == 'R':
                 if rotations[i + 1].lower() == "i":
                     readSequence.append(stepTime)
+                    readSequence.append(Func(cube.assertVirtualCube))
                     readSequence.append(Func(cube.rotateRi))
                 elif rotations[i + 1] == "2":
                     readSequence.append(stepTime)
+                    readSequence.append(Func(cube.assertVirtualCube))
                     readSequence.append(Func(cube.rotateR))
                     readSequence.append(stepTime)
+                    readSequence.append(Func(cube.assertVirtualCube))
                     readSequence.append(Func(cube.rotateR))
                 else:
                     readSequence.append(stepTime)
+                    readSequence.append(Func(cube.assertVirtualCube))
                     readSequence.append(Func(cube.rotateR))
             elif rotations[i].upper() == 'F':
                 if rotations[i + 1].lower() == "i":
                     readSequence.append(stepTime)
+                    readSequence.append(Func(cube.assertVirtualCube))
                     readSequence.append(Func(cube.rotateFi))
                 elif rotations[i + 1] == "2":
                     readSequence.append(stepTime)
+                    readSequence.append(Func(cube.assertVirtualCube))
                     readSequence.append(Func(cube.rotateF))
                     readSequence.append(stepTime)
+                    readSequence.append(Func(cube.assertVirtualCube))
                     readSequence.append(Func(cube.rotateF))
                 else:
                     readSequence.append(stepTime)
+                    readSequence.append(Func(cube.assertVirtualCube))
                     readSequence.append(Func(cube.rotateF))
             elif rotations[i].upper() == 'S':
                 if rotations[i + 1].lower() == "i":
                     readSequence.append(stepTime)
+                    readSequence.append(Func(cube.assertVirtualCube))
                     readSequence.append(Func(cube.rotateSi))
                 elif rotations[i + 1] == "2":
                     readSequence.append(stepTime)
+                    readSequence.append(Func(cube.assertVirtualCube))
                     readSequence.append(Func(cube.rotateS))
                     readSequence.append(stepTime)
+                    readSequence.append(Func(cube.assertVirtualCube))
                     readSequence.append(Func(cube.rotateS))
                 else:
                     readSequence.append(stepTime)
+                    readSequence.append(Func(cube.assertVirtualCube))
                     readSequence.append(Func(cube.rotateS))
             elif rotations[i].upper() == 'B':
                 if rotations[i + 1].lower() == "i":
                     readSequence.append(stepTime)
+                    readSequence.append(Func(cube.assertVirtualCube))
                     readSequence.append(Func(cube.rotateBi))
                 elif rotations[i + 1] == "2":
                     readSequence.append(stepTime)
+                    readSequence.append(Func(cube.assertVirtualCube))
                     readSequence.append(Func(cube.rotateB))
                     readSequence.append(stepTime)
+                    readSequence.append(Func(cube.assertVirtualCube))
                     readSequence.append(Func(cube.rotateB))
                 else:
                     readSequence.append(stepTime)
+                    readSequence.append(Func(cube.assertVirtualCube))
                     readSequence.append(Func(cube.rotateB))
             elif rotations[i].upper() == 'X':
                 if rotations[i + 1].lower() == "i":
                     readSequence.append(stepTime)
+                    readSequence.append(Func(cube.assertVirtualCube))
                     readSequence.append(Func(cube.rotateXi))
                 elif rotations[i + 1] == "2":
                     readSequence.append(stepTime)
+                    readSequence.append(Func(cube.assertVirtualCube))
                     readSequence.append(Func(cube.rotateX))
                     readSequence.append(stepTime)
+                    readSequence.append(Func(cube.assertVirtualCube))
                     readSequence.append(Func(cube.rotateX))
                 else:
                     readSequence.append(stepTime)
+                    readSequence.append(Func(cube.assertVirtualCube))
                     readSequence.append(Func(cube.rotateX))
             elif rotations[i].upper() == 'Y':
                 if rotations[i + 1].lower() == "i":
                     readSequence.append(stepTime)
+                    readSequence.append(Func(cube.assertVirtualCube))
                     readSequence.append(Func(cube.rotateYi))
                 elif rotations[i + 1] == "2":
                     readSequence.append(stepTime)
+                    readSequence.append(Func(cube.assertVirtualCube))
                     readSequence.append(Func(cube.rotateY))
                     readSequence.append(stepTime)
+                    readSequence.append(Func(cube.assertVirtualCube))
                     readSequence.append(Func(cube.rotateY))
                 else:
                     readSequence.append(stepTime)
+                    readSequence.append(Func(cube.assertVirtualCube))
                     readSequence.append(Func(cube.rotateY))
             elif rotations[i].upper() == 'Z':
                 if rotations[i + 1].lower() == "i":
                     readSequence.append(stepTime)
+                    readSequence.append(Func(cube.assertVirtualCube))
                     readSequence.append(Func(cube.rotateZi))
                 elif rotations[i + 1] == "2":
                     readSequence.append(stepTime)
+                    readSequence.append(Func(cube.assertVirtualCube))
                     readSequence.append(Func(cube.rotateZ))
                     readSequence.append(stepTime)
+                    readSequence.append(Func(cube.assertVirtualCube))
                     readSequence.append(Func(cube.rotateZ))
                 else:
                     readSequence.append(stepTime)
+                    readSequence.append(Func(cube.assertVirtualCube))
                     readSequence.append(Func(cube.rotateZ))
             elif rotations[i].lower() != 'i' and rotations[i] != ' ' and rotations[i] != '2':
                 print("Invalid Input")
@@ -461,7 +510,7 @@ def toggleInput():  # toggles the text input on or off
 
 def scramble():  # creates a random string of moves
     moves = ["U" ,"E" ,"D" ,"L" ,"M" ,"R" ,"F" ,"S" ,"B" ,"Ui" ,"Ei" ,"Di" ,"Li" ,"Mi" ,"Ri" ,"Fi" ,"Si" ,"Bi"]
-    scrambled_moves = " ".join(random.choices(moves, k=10))
+    scrambled_moves = " ".join(random.choices(moves, k=20))
     readString(scrambled_moves, True)
     #print(cube.virtualCube)
 
@@ -529,13 +578,10 @@ def updateCurrentHint(hintText, hintPicture, next_piece, next_stage):
     current_piece = next_piece
     current_stage = next_stage
 
-    print(current_stage)
     if current_stage == 0:
         hintDisplay.icon = 'hint1'
-        print('test')
     elif current_stage == 1:
         hintDisplay.icon = 'hint2'
-        print('test2')
     elif current_stage == 2:
         hintDisplay.icon = 'hint3'
     elif current_stage == 3:
@@ -553,7 +599,24 @@ def updateCurrentHint(hintText, hintPicture, next_piece, next_stage):
 
 
 def displayNotation():
+    global notation
     cube.toggleNotation()
+    if not notation:
+        rotateLButton.icon = 'rotateLnotation'
+        rotateRButton.icon = 'rotateRnotation'
+        rotateUButton.icon = 'rotateUnotation'
+        rotateDButton.icon = 'rotateDnotation'
+        rotateZLButton.icon = 'rotateZLnotation'
+        rotateZRButton.icon = 'rotateZRnotation'
+        notation = True
+    else:
+        rotateLButton.icon = 'rotateL'
+        rotateRButton.icon = 'rotateR'
+        rotateUButton.icon = 'rotateU'
+        rotateDButton.icon = 'rotateD'
+        rotateZLButton.icon = 'rotateZL'
+        rotateZRButton.icon = 'rotateZR'
+        notation = False
 
 
 def menu():
@@ -901,9 +964,9 @@ rotateUButton = Button(text='', icon='rotateU', color=color.white, highlight_col
                        on_click=Func(rotateR), enabled=False)
 rotateDButton = Button(text='', icon='rotateD', color=color.white, highlight_color=color.light_gray, scale=.152, position=(-.63, .278, 0),
                        on_click=Func(rotateL), enabled=False)
-rotateZRButton = Button(text='', icon='rotateZL', color=color.white, highlight_color=color.light_gray, scale=.152, position=(-.63, -.056, 0),
+rotateZRButton = Button(text='', icon='rotateZL', color=color.white, highlight_color=color.light_gray, scale=.152, position=(-.85, -.056, 0),
                        on_click=Func(rotateZR), enabled=False)
-rotateZLButton = Button(text='', icon='rotateZR', color=color.white, highlight_color=color.light_gray, scale=.152, position=(-.85, -.056, 0),
+rotateZLButton = Button(text='', icon='rotateZR', color=color.white, highlight_color=color.light_gray, scale=.152, position=(-.63, -.056, 0),
                        on_click=Func(rotateZL), enabled=False)
 inputButton = Button(text='', icon='input_button',color=color.clear,highlight_color=color.light_gray, scale=.152, position=(-.63, -.225, 0), on_click=Func(toggleInput),
                      enabled=False)
