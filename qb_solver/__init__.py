@@ -580,20 +580,28 @@ def updateCurrentHint(hintText, hintPicture, next_piece, next_stage):
 
     showhints = True
     if current_stage == 0:
+        backButton.enabled = False
         hintDisplay.icon = 'hint1'
     elif current_stage == 1:
+        backButton.enabled = True
         hintDisplay.icon = 'hint2'
     elif current_stage == 2:
+        backButton.enabled = True
         hintDisplay.icon = 'hint3'
     elif current_stage == 3:
+        backButton.enabled = True
         hintDisplay.icon = 'hint4'
     elif current_stage == 4:
+        backButton.enabled = True
         hintDisplay.icon = 'hint5'
     elif current_stage == 5:
+        backButton.enabled = True
         hintDisplay.icon = 'hint6'
     elif current_stage == 6:
+        backButton.enabled = True
         hintDisplay.icon = 'hint7'
     elif current_stage == -1:
+        backButton.enabled = False
         hintDisplay.icon = 'hint8'
         showhints = False
     hintMoveButton.enabled = showhints
@@ -951,6 +959,35 @@ def start():
     rotateZLButton.enabled = True
     speedSlider.enabled = True
 
+def backStage():
+    global current_stage
+    global current_piece
+    current_piece = None
+    current_stage = current_stage - 1
+    showhints = True
+    backButtonEnabled = True
+    if current_stage == 0:
+        backButtonEnabled = False
+        hintDisplay.icon = 'hint1'
+    elif current_stage == 1:
+        hintDisplay.icon = 'hint2'
+    elif current_stage == 2:
+        hintDisplay.icon = 'hint3'
+    elif current_stage == 3:
+        hintDisplay.icon = 'hint4'
+    elif current_stage == 4:
+        hintDisplay.icon = 'hint5'
+    elif current_stage == 5:
+        hintDisplay.icon = 'hint6'
+    elif current_stage == 6:
+        hintDisplay.icon = 'hint7'
+    elif current_stage == -1:
+        backButtonEnabled = False
+        hintDisplay.icon = 'hint8'
+        showhints = False
+    backButton.enabled = backButtonEnabled
+    hintMoveButton.enabled = showhints
+    hintDetailButton.enabled = showhints
 
 # =============================================================UI buttons======================================================================
 # settings======================
@@ -997,6 +1034,7 @@ hintButton = Button(text='', icon='hints_button', color=color.clear,highlight_co
 hintDisplay = Button(text='', icon='hint1', color=color.gray, highlight_color=color.gray, pressed_color=color.gray,
                     position=(.65, .35, 1), scale=(.58, .252), collider='', enabled=False)
 #Small buttons
+backButton = Button(text='<', icon='', color=color.dark_gray, scale=(.075,.15), position=(-.42, -.375, -1), parent=hintDisplay, on_click=Func(backStage))
 hintMoveButton = Button(text='Help', icon='', color=color.dark_gray, scale=(.25,.15), position=(-.24, -.375, -1), parent=hintDisplay, on_click=Func(hintSpecificToggle))
 hintDetailButton = Button(text='Details', icon='', color=color.dark_gray, scale=(.25,.15), position=(.06, -.375, -1), parent=hintDisplay, on_click=Func(hintDetailToggle))
 #big detailed hint
@@ -1051,5 +1089,5 @@ volumeSlider.label.origin = (0,0)
 volumeSlider.label.position = (.25,.08)
 volumeSlider.label.scale = 2.3
 
-inputList = TextField(max_lines=1, position=(-.22 ,-.33 ,0), enabled=False)
+inputList = TextField(max_lines=1, position=(-.22 ,-.33 ,0), enabled=False, max_width=31)
 error_text = Text(text='Error: Invalid Input', origin=(1.5 ,13.65 ,1), enabled=False, color=color.red)
