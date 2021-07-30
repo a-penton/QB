@@ -2,12 +2,17 @@ from setuptools import setup
 
 setup(
 	name="QB-solver",
-	version="0.1.5",
+	version="0.1.5.1",
 	packages=["qb_solver",],	# name of modules
 	package_data={
 		"qb_solver": [
 			"Models/*.obj",
 			"Models/*.png",
+			"Models/*.jpeg",
+			"Models/*.jpg"
+			"Models/*.gif",
+			"Models/*.mp3",
+			"Models/*.wav",
 			"Models/Notation/*.png",
 			"hints/*.png"
 		],
