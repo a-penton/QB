@@ -515,7 +515,7 @@ def get_co_hint(cube, piece, colorscheme):
 	# check that white is on top
 	white_face = cube.find_piece('W')
 	if white_face.pos != (0,1,0):
-		return ("Rotate the cube so the white face is on top", "rotate-white-bottom.png", white_face, 6)
+		return ("Rotate the cube so the white face is on top", "rotate-white-top.png", white_face, 6)
 
 	# update hint if DFR corner has yellow
 	uf_edge_solved = is_piece_solved(cube, cube.get_piece(0,1,1))
