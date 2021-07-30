@@ -19,7 +19,7 @@ bgmToggle = False
 notation = False
 shape = False
 pageNum = 1
-pages = ['star','square','plus'] #['page1','page2','page3']
+pages = ['page1','page2','page3','page4']
 readSequence = Sequence() #used for sequence of moves
 mousepos = []  # stores mouse position for rotating camera
 app = Ursina()
@@ -929,8 +929,7 @@ def toggleSettings():
 
 def next_page():
     global pageNum
-
-    if pageNum != 3:
+    if pageNum != 4:
         pageNum += 1
         tutorial_box.icon = pages[pageNum-1]
 
@@ -1101,9 +1100,9 @@ legend = Button(text='', icon = 'key1', color=color.gray, enabled=False, highlig
 
 aboutus_menu = Button(text='',icon='aboutus_text', color=color.gray, position=(0,0), scale=(.65,.75),highlight_color=color.gray, pressed_color=color.gray,text_origin=(-.35,.45))
 
-tutorial_box = Button(text='',icon='star',color=color.gray, position=(0,0), scale=(.65,.75),highlight_color=color.gray, pressed_color=color.gray,text_origin=(-.35,.45))
-next_button = Button(text='', icon='next', color=color.clear,highlight_color=color.gray, scale=.07, position=(.1, -.42), on_click=Func(next_page),enabled = False)
-prev_button = Button(text='', icon='prev', color=color.clear,highlight_color=color.gray, scale=.07, position=(-.1, -.42), on_click=Func(prev_page), enabled = False)
+tutorial_box = Button(text='',icon='page1',color=color.gray, position=(0,0), scale=(1010/1163,1010/1280),highlight_color=color.gray, pressed_color=color.gray,text_origin=(-.35,.45))
+next_button = Button(text='', icon='next', color=color.clear,highlight_color=color.gray, scale=.07, position=(.1, -.44), on_click=Func(next_page),enabled = False)
+prev_button = Button(text='', icon='prev', color=color.clear,highlight_color=color.gray, scale=.07, position=(-.1, -.44), on_click=Func(prev_page), enabled = False)
 
 wallpaper = Button(text='',icon='testing_dark',color=color.clear,highlight_color=color.clear, pressed_color=color.clear,enabled=True, parent=camera, position=(0,0,50),scale=(1920/52,1080/52))
 
