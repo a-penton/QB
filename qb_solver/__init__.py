@@ -130,7 +130,7 @@ def mouse_in_zone(mousepos):
     return True
 
 def checkCurrentHint():
-    updateCurrentHint(*hint(cube.virtualCube, current_piece, current_stage))
+    updateCurrentHint(*hint(cube.virtualCube, current_piece, current_stage, colorScheme))
 
 def rotateR(): #rotates right
     global anim

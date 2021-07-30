@@ -25,7 +25,7 @@ Guide for the 'stage' variable:
 """
 
 
-def hint(cube, piece, stage):
+def hint(cube, piece, stage, colorscheme):
 	# returns tuple of string, name of image, and next piece to solve
 	# calls other functions to do so
 
@@ -62,38 +62,43 @@ def hint(cube, piece, stage):
 	if is_co_solved(cube):
 		stage = -1
 
-	# the later stages don't need a specific piece to solve
+	# some stages don't need a specific piece to solve
 	if stage == 0:
-		return get_cross_hint(cube, piece)
+		return get_cross_hint(cube, piece, colorscheme)
 	elif stage == 1:
-		return get_white_layer_hint(cube, piece)
+		return get_white_layer_hint(cube, piece, colorscheme)
 	elif stage == 2:
-		return get_middle_layer_hint(cube, piece)
+		return get_middle_layer_hint(cube, piece, colorscheme)
 	elif stage == 3:
 		return get_eo_hint(cube)
 	elif stage == 4:
 		return get_ep_hint(cube)
 	elif stage == 5:
-		return get_cp_hint(cube)
+		return get_cp_hint(cube, piece, colorscheme)
 	elif stage == 6:
-		return get_co_hint(cube)
+		return get_co_hint(cube, piece, colorscheme)
 	else:
 		# if solved, the piece returned is the white center
 		return ("The cube is solved!", "cross-solved.png", cube.find_piece('W'), -1)
 
-def fix_color_string(s):
+def fix_color_string(s, colorscheme):
     # replace individual letters with their colors
     s = s.replace(' W ', ' white ')
-    s = s.replace(' R ', ' red ')
-    s = s.replace(' O ', ' orange ')
     s = s.replace(' B ', ' blue ')
     s = s.replace(' G ', ' green ')
     s = s.replace(' Y ', ' yellow ')
+    # depending on alt color scheme, may change color names
+    if colorscheme:
+    	s = s.replace(' R ', ' purple ')
+    	s = s.replace(' O ', ' pink ')
+    else:
+    	s = s.replace(' R ', ' red ')
+    	s = s.replace(' O ', ' orange ')
 
     return s
 
 
-def get_cross_hint(cube, piece):
+def get_cross_hint(cube, piece, colorscheme):
     # checks if a new hint is needed or not, then calls a function
     # that function will return the specific hint for the piece
 
@@ -105,17 +110,17 @@ def get_cross_hint(cube, piece):
     # determine if the current edge is solved
     if piece == None or piece == white_face or is_piece_solved(cube, piece):
         next_piece = find_next_cross_edge(cube)
-        return get_specific_cross_hint(cube, next_piece)
+        return get_specific_cross_hint(cube, next_piece, colorscheme)
     elif is_piece_permuted(cube, piece):
         # if the edge is flipped in place
 
-        return get_specific_cross_hint(cube, piece)
+        return get_specific_cross_hint(cube, piece, colorscheme)
     else:
         # piece is still unsolved, don't need to update
         return None, None, piece, 0
 
 
-def get_specific_cross_hint(cube, piece):
+def get_specific_cross_hint(cube, piece, colorscheme):
     # returns tuple of hint text, image, piece, and stage number (0)
     # assuming white on bottom
 
@@ -128,19 +133,19 @@ def get_specific_cross_hint(cube, piece):
         # piece in U-layer
         s = "1. Put the %s %s edge above\n the %s center\n2. Turn the %s center twice" % (
         *piece_colors, non_white, non_white)
-        s = fix_color_string(s)
+        s = fix_color_string(s, colorscheme)
         img = "top.png"
     elif piece.pos[1] == 0:
         # piece in E-slice (middle layer)
         s = "1. Move the %s %s edge to the top layer.\n2. Turn the top\n3. Undo the move from step 1" % (*piece_colors,)
         s += "\n\n4. Put the %s %s edge above\n the %s center\n5. Turn the %s center twice" % (
         *piece_colors, non_white, non_white)
-        s = fix_color_string(s)
+        s = fix_color_string(s, colorscheme)
         img = "middleV2.png"
     elif is_piece_permuted(cube, piece):
         # flipped in place
         s = "We need to flip the %s %s edge" % (*piece_colors,)
-        s = fix_color_string(s)
+        s = fix_color_string(s, colorscheme)
         s += "\n1. Rotate the cube so it is at\n the bottom right"
         s += "\n2. Perform R Di F D"
         img = "flip.png"
@@ -149,13 +154,13 @@ def get_specific_cross_hint(cube, piece):
         s = "1. Bring the %s %s edge to the top\n by turning one side twice" % (*piece_colors,)
         s += "\n\n2. Put the %s %s edge above\n the %s center\n3. Turn the %s center twice" % (
         *piece_colors, non_white, non_white)
-        s = fix_color_string(s)
+        s = fix_color_string(s, colorscheme)
         img = "bottom.png"
 
     return s, img, piece, 0
 
 
-def get_white_layer_hint(cube, piece):
+def get_white_layer_hint(cube, piece, colorscheme):
     # checks if a new hint is needed or not, then returns the appropriate hint
 
     # check that white is on bottom
@@ -166,16 +171,16 @@ def get_white_layer_hint(cube, piece):
     # determine if current piece is solved or a new piece is needed
     if piece == None or piece == white_face or is_piece_solved(cube, piece):
         next_piece = find_next_white_corner(cube)
-        return get_specific_white_layer_hint(cube, next_piece)
+        return get_specific_white_layer_hint(cube, next_piece, colorscheme)
     elif is_cross_solved(cube):
         # update hint for the current piece
-        return get_specific_white_layer_hint(cube, piece)
+        return get_specific_white_layer_hint(cube, piece, colorscheme)
     else:
         # piece is still unsolved, don't need to update
         return None, None, piece, 1
 
 
-def get_specific_white_layer_hint(cube, piece):
+def get_specific_white_layer_hint(cube, piece, colorscheme):
     # returns tuple of hint text, image, piece, and stage number (1)
     # assuming white on bottom
 
@@ -192,20 +197,20 @@ def get_specific_white_layer_hint(cube, piece):
             # piece is above the wrong slot (just turn the top)
             hint = "Move the %s %s %s corner\n" % (*piece_colors,)
             hint += " above the %s and %s centers" % (*filter(lambda x: x != 'W', piece_colors),)
-            hint = fix_color_string(hint)
+            hint = fix_color_string(hint, colorscheme)
             img = "white-corner-u-ui.png"
         # otherwise, the piece is inside the wrong slot: need to take it out
         elif piece.pos[2] == -1:
             # at the back of the cube
             hint = "Rotate the cube so that the\n"
             hint += " %s %s %s corner is at the front" % (*piece_colors,)
-            hint = fix_color_string(hint)
+            hint = fix_color_string(hint, colorscheme)
             img = "rotate-y.png"
         elif piece.pos[0] == 1:
             # in the front-right slot
             hint = "Use the right-hand sequence\n"
             hint += " to take out the %s %s %s corner\n" % (*piece_colors,)
-            hint = fix_color_string(hint)
+            hint = fix_color_string(hint, colorscheme)
             hint += "The sequence is R U Ri Ui"
             # different images if in top/bottom layer
             img = "white-corner-right-wrong.png"
@@ -213,7 +218,7 @@ def get_specific_white_layer_hint(cube, piece):
             # in the front-left slot
             hint = "Use the left-hand sequence\n"
             hint += " to take out the %s %s %s corner\n" % (*piece_colors,)
-            hint = fix_color_string(hint)
+            hint = fix_color_string(hint, colorscheme)
             hint += "The sequence is Li Ui L U"
             # different images if in top/bottom layer
             img = "white-corner-left-wrong.png"
@@ -222,14 +227,14 @@ def get_specific_white_layer_hint(cube, piece):
         # piece/slot is at the back of the cube
         hint = "Rotate the cube so that the\n"
         hint += " %s %s %s corner is at the front" % (*piece_colors,)
-        hint = fix_color_string(hint)
+        hint = fix_color_string(hint, colorscheme)
         img = "rotate-y.png"
     else:
         # piece is at front, at the correct slot, but unsolved
         if piece.pos[0] == 1:
             hint = "Repeat the right-hand sequence\n"
             hint += " to solve the %s %s %s corner\n" % (*piece_colors,)
-            hint = fix_color_string(hint)
+            hint = fix_color_string(hint, colorscheme)
             hint += "The sequence is R U Ri Ui"
             # different images if in top/bottom layer
             img = "white-corner-right-"
@@ -238,7 +243,7 @@ def get_specific_white_layer_hint(cube, piece):
         elif piece.pos[0] == -1:
             hint = "Repeat the left-hand sequence\n"
             hint += " to solve the %s %s %s corner\n" % (*piece_colors,)
-            hint = fix_color_string(hint)
+            hint = fix_color_string(hint, colorscheme)
             hint += "The sequence is Li Ui L U"
             # different images if in top/bottom layer
             img = "white-corner-left-"
@@ -248,7 +253,7 @@ def get_specific_white_layer_hint(cube, piece):
     return hint, img, piece, 1
 
 
-def get_middle_layer_hint(cube, piece):
+def get_middle_layer_hint(cube, piece, colorscheme):
     # determine the type of hint to return for the middle layer
 
     # check that white is on bottom
@@ -259,16 +264,16 @@ def get_middle_layer_hint(cube, piece):
     if piece == None or piece == white_face or is_piece_solved(cube, piece):
         # piece needs to be updated
         next_piece = find_next_middle_layer_edge(cube)
-        return get_specific_middle_layer_hint(cube, next_piece)
+        return get_specific_middle_layer_hint(cube, next_piece, colorscheme)
     elif is_white_solved(cube):
         # may need to update the hint
-        return get_specific_middle_layer_hint(cube, piece)
+        return get_specific_middle_layer_hint(cube, piece, colorscheme)
     else:
         # piece is being solved,  don't update the hint
         return None, None, piece, 2
 
 
-def get_specific_middle_layer_hint(cube, piece):
+def get_specific_middle_layer_hint(cube, piece, colorscheme):
     # return the specific hint for solving a middle layer edge
     # returns tuple of hint text, image, piece, and stage number (2)
 
@@ -280,12 +285,12 @@ def get_specific_middle_layer_hint(cube, piece):
         if piece.pos[2] == -1:
             hint = "Rotate the cube so the %s %s piece\n" % (*piece_colors,)
             hint += " is at the front"
-            hint = fix_color_string(hint)
+            hint = fix_color_string(hint, colorscheme)
             img = "rotate-y.png"
         else:
             hint = "We need to take out the %s %s piece\n" % (*piece_colors,)
             hint += "Do this by inserting a random piece in its place\n"
-            hint = fix_color_string(hint)
+            hint = fix_color_string(hint, colorscheme)
             if piece.pos[0] == 1:
                 # insert on the right side
                 hint += "1. Perform the right-hand move (R U Ri Ui)\n"
@@ -312,7 +317,7 @@ def get_specific_middle_layer_hint(cube, piece):
 
         if side_center.pos != (0, 0, 1):
             hint += "Rotate the cube so the %s center is at the front" % side_color
-            hint = fix_color_string(hint)
+            hint = fix_color_string(hint, colorscheme)
             img = "rotate-y.png"
         elif piece.pos[0] != -1 * top_center.pos[0]:
             if top_center.pos[0] == 1:
@@ -321,19 +326,19 @@ def get_specific_middle_layer_hint(cube, piece):
             else:
                 hint += "Turn the top so the %s %s edge is on the right" % (*piece_colors,)
                 img = "middle-layer-ui.png"
-            hint = fix_color_string(hint)
+            hint = fix_color_string(hint, colorscheme)
         else:
             # the piece is in position to perform the algorithm
             if top_center.pos[0] == 1:
                 hint += "Insert the %s %s edge to the right:\n" % (*piece_colors,)
-                hint = fix_color_string(hint)
+                hint = fix_color_string(hint, colorscheme)
                 hint += "1. Perform the right-hand move (R U Ri Ui)\n"
                 hint += "2. Rotate the cube to face the right (Y)\n"
                 hint += "3. Perform the left-hand move (Li Ui L U)"
                 img = "middle-layer-right.png"
             else:
                 hint += "Insert the %s %s edge to the left:\n" % (*piece_colors,)
-                hint = fix_color_string(hint)
+                hint = fix_color_string(hint, colorscheme)
                 hint += "1. Perform the left-hand move (Li Ui L U)\n"
                 hint += "2. Rotate the cube to face the left (Yi)\n"
                 hint += "3. Perform the right-hand move (R U Ri Ui)"
@@ -372,11 +377,14 @@ def get_specific_eo_hint(cube):
     if cube.get_piece(-1, 1, 0).colors[1] == 'Y':
         num_oriented_edges += 1
 
+    img = None
+
     if num_oriented_edges == 0:
         hint = "No edges have yellow facing up\n"
         hint += "1. Turn the front face clockwise (F)\n"
         hint += "2. Perform the right-hand move (R U Ri Ui)\n"
         hint += "3. Undo the move from step 1 (Fi)"
+        img = "eo_no_edges.png"
     if num_oriented_edges == 2:
         # two possible cases: line or L-shape
         uf_edge_oriented = cube.get_piece(0, 1, 1).colors[1] == 'Y'
@@ -385,11 +393,13 @@ def get_specific_eo_hint(cube):
         if uf_edge_oriented and ub_edge_oriented:
             hint = "Two edges have yellow facing up (line case)\n"
             hint += "Turn the top so they are on the left and right (U)"
+            img = "eo_line_u.png"
         elif not (uf_edge_oriented or ub_edge_oriented):
             hint = "Two edges have yellow facing up (line case)\n"
             hint += "1. Turn the front face clockwise (F)\n"
             hint += "2. Perform the right-hand move (R U Ri Ui)\n"
             hint += "3. Undo the move from step 1 (Fi)"
+            img = "eo_line_shape.png"
         # L-shape cases:
         else:
             hint = "Two edges have yellow facing up (L case)\n"
@@ -398,11 +408,12 @@ def get_specific_eo_hint(cube):
                 hint += "1. Turn the front face clockwise (F)\n"
                 hint += "2. Perform the right-hand move (R U Ri Ui)\n"
                 hint += "3. Undo the move from step 1 (Fi)"
+                img = "eo_L_shape.png"
             else:
                 hint += "Turn the top so that these two edges\n"
                 hint += " are at the back and left of the top face"
+                img = "eo_L_u.png"
 
-    img = None
     return hint, img, None, 3
 
 
@@ -424,35 +435,39 @@ def get_ep_hint(cube):
 def get_specific_ep_hint(cube):
 	# assumes white on D/yellow on U
 
-	# first check for opposite swapped edges
-	uf_edge_color = cube.get_piece(0,1,1).colors[2]
-	ub_edge_color = cube.get_piece(0,1,-1).colors[2]
-	uf_ub_colors = sorted(list((uf_edge_color, ub_edge_color)))
-	if uf_ub_colors in [['B', 'G'], ['O', 'R']]:
-		# opposite swap, perform the algorithm from anywhere
-		hint = "Do the algorithm for positiong yellow edges\n"
-		hint += "R U Ri U R U2 Ri"
-
 	# get number of solved yellow edges
 	num_solved = solved_yellow_edges(cube)
 
+	img = "ep_generic.png"
+
 	if num_solved < 2:
-		hint = "Rotate the top so that at least two edges are solved"
-	elif num_solved == 2 and not uf_ub_colors in [['B', 'G'], ['O', 'R']]:
-		# edges are adjacent swapped
-		# put in position then perform algorithm
-		ur_edge_solved = is_piece_solved(cube, cube.get_piece(1,1,0))
-		ub_edge_solved = is_piece_solved(cube, cube.get_piece(0,1,-1))
-		if ur_edge_solved and ub_edge_solved:
-			hint = "Do the algorithm for positioning yellow edges\n"
+		hint = "Turn the top so that at least two edges are solved"
+	elif num_solved == 2:
+		# first check for opposite swapped edges
+		uf_edge_color = cube.get_piece(0,1,1).colors[2]
+		ub_edge_color = cube.get_piece(0,1,-1).colors[2]
+		uf_ub_colors = sorted(list((uf_edge_color, ub_edge_color)))
+		if uf_ub_colors in [['B', 'G'], ['O', 'R']]:
+			# opposite swap, perform the algorithm from anywhere
+			hint = "Two edges are swapped across from each other\n"
+			hint = "Do the algorithm for positiong yellow edges\n"
 			hint += "R U Ri U R U2 Ri"
 		else:
-			hint = "Rotate the cube so ur/ub are solved"
+			# edges are adjacent swapped
+			# put in position then perform algorithm
+			ur_edge_solved = is_piece_solved(cube, cube.get_piece(1,1,0))
+			ub_edge_solved = is_piece_solved(cube, cube.get_piece(0,1,-1))
+			if ur_edge_solved and ub_edge_solved:
+				hint = "Do the algorithm for positioning yellow edges\n"
+				hint += "R U Ri U R U2 Ri"
+			else:
+				hint = "Rotate the cube so the top-right and\n"
+				hint += "top-back edges are solved"
+				img = "rotate-y.png"
 	
-	img = None
 	return hint, img, None, 4
 
-def get_cp_hint(cube):
+def get_cp_hint(cube, piece, colorscheme):
 	# This step is also very straightforward, only one algorithm
 	# solving all yellow corners, so no particular piece to solve
 
@@ -463,11 +478,11 @@ def get_cp_hint(cube):
 
 	# only need to update hint if previous step is solved
 	if is_ep_solved(cube):
-		return get_specific_cp_hint(cube)
+		return get_specific_cp_hint(cube, colorscheme)
 	else:
-		return None, None, None, 5
+		return None, None, piece, 5
 
-def get_specific_cp_hint(cube):
+def get_specific_cp_hint(cube, colorscheme):
 	corners = get_corner_pieces(cube, cube.find_piece('Y'))
 	count = 0
 	permuted_corner = None
@@ -476,6 +491,7 @@ def get_specific_cp_hint(cube):
 			permuted_corner = corner
 			count += 1
 	hint = None
+	img = "cp_alg.png"
 	if count == 0:
 		hint = "There are no solved corners\n"
 		hint += "Do the algorithm for positioning yellow corners\n"
@@ -485,37 +501,45 @@ def get_specific_cp_hint(cube):
 		if permuted_corner.pos != (1,1,1):
 			hint = "Rotate the cube so the %s %s %s corner\n" % (*piece_colors,)
 			hint += " is at the front-right"
+			hint = fix_color_string(hint, colorscheme)
+			img = "rotate-y.png"
 		else:
 			hint = "Do the algorithm for positioning yellow corners\n"
 			hint += "U R Ui Li U Ri Ui L"
 
-	img = None
 	return hint, img, permuted_corner, 5
 
-def get_co_hint(cube):
+def get_co_hint(cube, piece, colorscheme):
 	# This step is slightly different since white should be on top
 
 	# check that white is on top
 	white_face = cube.find_piece('W')
 	if white_face.pos != (0,1,0):
-		return ("Rotate the cube so the white face is on top", "rotate-white-bottom.png", white_face, 5)
+		return ("Rotate the cube so the white face is on top", "rotate-white-top.png", white_face, 6)
 
 	# update hint if DFR corner has yellow
 	uf_edge_solved = is_piece_solved(cube, cube.get_piece(0,1,1))
 	br_edge_solved = is_piece_solved(cube, cube.get_piece(1,0,-1))
 	if 'Y' in cube.get_piece(1,-1,1).colors and uf_edge_solved and br_edge_solved:
-		return get_specific_co_hint(cube)
+		return get_specific_co_hint(cube, colorscheme)
 	else:
-		return None, None, None, 6
+		return None, None, piece, 6
 
-def get_specific_co_hint(cube):
-	if cube.get_piece(1,-1,1).colors[1] == 'Y':
-		hint = "Turn the bottom layer (D)"
-	else:
-		hint = "Repeat the right-hand move (R U Ri Ui)"
-
+def get_specific_co_hint(cube, colorscheme):
+	dfr_corner = cube.get_piece(1,-1,1)
+	piece_colors = sorted(dfr_corner.colors)
 	img = None
-	return hint, img, None, 6
+
+	if dfr_corner.colors[1] == 'Y':
+		hint = "Turn the bottom layer (D)\n"
+		img = "co_d.png"
+	else:
+		hint = "Repeat the right-hand move (R U Ri Ui)\n"
+		hint += "to twist the %s %s %s corner correctly" % (*piece_colors,)
+		hint = fix_color_string(hint, colorscheme)
+		img = "co_twist.png"
+
+	return hint, img, dfr_corner, 6
 
 def is_cross_solved(cube):
     # determine if the cross is solved
