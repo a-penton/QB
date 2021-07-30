@@ -584,28 +584,36 @@ def updateCurrentHint(hintText, hintPicture, next_piece, next_stage):
     if current_stage == 0:
         backButton.enabled = False
         hintDisplay.icon = 'hint1'
+        hintDetail.icon = 'HintDetail1'
     elif current_stage == 1:
         backButton.enabled = True
         hintDisplay.icon = 'hint2'
+        hintDetail.icon = 'HintDetail2'
     elif current_stage == 2:
         backButton.enabled = True
         hintDisplay.icon = 'hint3'
+        hintDetail.icon = 'HintDetail3'
     elif current_stage == 3:
         backButton.enabled = True
         hintDisplay.icon = 'hint4'
+        hintDetail.icon = 'HintDetail4'
     elif current_stage == 4:
         backButton.enabled = True
         hintDisplay.icon = 'hint5'
+        hintDetail.icon = 'HintDetail5'
     elif current_stage == 5:
         backButton.enabled = True
         hintDisplay.icon = 'hint6'
+        hintDetail.icon = 'HintDetail6'
     elif current_stage == 6:
         backButton.enabled = True
         hintDisplay.icon = 'hint7'
+        hintDetail.icon = 'HintDetail7'
     elif current_stage == -1:
         backButton.enabled = False
         hintDisplay.icon = 'hint8'
         showhints = False
+        hintDetail.enabled = False
     hintMoveButton.enabled = showhints
     hintDetailButton.enabled = showhints
     if blinking:
@@ -996,20 +1004,28 @@ def backStage():
     if current_stage == 0:
         backButtonEnabled = False
         hintDisplay.icon = 'hint1'
+        hintDetail.icon = 'HintDetail1'
     elif current_stage == 1:
         hintDisplay.icon = 'hint2'
+        hintDetail.icon = 'HintDetail2'
     elif current_stage == 2:
         hintDisplay.icon = 'hint3'
+        hintDetail.icon = 'HintDetail3'
     elif current_stage == 3:
         hintDisplay.icon = 'hint4'
+        hintDetail.icon = 'HintDetail4'
     elif current_stage == 4:
         hintDisplay.icon = 'hint5'
+        hintDetail.icon = 'HintDetail5'
     elif current_stage == 5:
         hintDisplay.icon = 'hint6'
+        hintDetail.icon = 'HintDetail6'
     elif current_stage == 6:
         hintDisplay.icon = 'hint7'
+        hintDetail.icon = 'HintDetail7'
     elif current_stage == -1:
         backButtonEnabled = False
+        hintDetail.enabled = False
         hintDisplay.icon = 'hint8'
         showhints = False
     backButton.enabled = backButtonEnabled
