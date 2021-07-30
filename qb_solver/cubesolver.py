@@ -393,6 +393,7 @@ def get_specific_eo_hint(cube):
         if uf_edge_oriented and ub_edge_oriented:
             hint = "Two edges have yellow facing up (line case)\n"
             hint += "Turn the top so they are on the left and right (U)"
+            img = "eo_line_u.png"
         elif not (uf_edge_oriented or ub_edge_oriented):
             hint = "Two edges have yellow facing up (line case)\n"
             hint += "1. Turn the front face clockwise (F)\n"
@@ -411,6 +412,7 @@ def get_specific_eo_hint(cube):
             else:
                 hint += "Turn the top so that these two edges\n"
                 hint += " are at the back and left of the top face"
+                img = "eo_L_u.png"
 
     return hint, img, None, 3
 
@@ -436,8 +438,10 @@ def get_specific_ep_hint(cube):
 	# get number of solved yellow edges
 	num_solved = solved_yellow_edges(cube)
 
+	img = "ep_generic.png"
+
 	if num_solved < 2:
-		hint = "Rotate the top so that at least two edges are solved"
+		hint = "Turn the top so that at least two edges are solved"
 	elif num_solved == 2:
 		# first check for opposite swapped edges
 		uf_edge_color = cube.get_piece(0,1,1).colors[2]
@@ -459,8 +463,8 @@ def get_specific_ep_hint(cube):
 			else:
 				hint = "Rotate the cube so the top-right and\n"
 				hint += "top-back edges are solved"
+				img = "rotate-y.png"
 	
-	img = None
 	return hint, img, None, 4
 
 def get_cp_hint(cube, piece, colorscheme):
@@ -487,6 +491,7 @@ def get_specific_cp_hint(cube, colorscheme):
 			permuted_corner = corner
 			count += 1
 	hint = None
+	img = "cp_alg.png"
 	if count == 0:
 		hint = "There are no solved corners\n"
 		hint += "Do the algorithm for positioning yellow corners\n"
@@ -497,11 +502,11 @@ def get_specific_cp_hint(cube, colorscheme):
 			hint = "Rotate the cube so the %s %s %s corner\n" % (*piece_colors,)
 			hint += " is at the front-right"
 			hint = fix_color_string(hint, colorscheme)
+			img = "rotate-y.png"
 		else:
 			hint = "Do the algorithm for positioning yellow corners\n"
 			hint += "U R Ui Li U Ri Ui L"
 
-	img = None
 	return hint, img, permuted_corner, 5
 
 def get_co_hint(cube, piece, colorscheme):
@@ -523,15 +528,17 @@ def get_co_hint(cube, piece, colorscheme):
 def get_specific_co_hint(cube, colorscheme):
 	dfr_corner = cube.get_piece(1,-1,1)
 	piece_colors = sorted(dfr_corner.colors)
+	img = None
 
 	if dfr_corner.colors[1] == 'Y':
 		hint = "Turn the bottom layer (D)\n"
+		img = "co_d.png"
 	else:
 		hint = "Repeat the right-hand move (R U Ri Ui)\n"
 		hint += "to twist the %s %s %s corner correctly" % (*piece_colors,)
 		hint = fix_color_string(hint, colorscheme)
+		img = "co_twist.png"
 
-	img = None
 	return hint, img, dfr_corner, 6
 
 def is_cross_solved(cube):
