@@ -18,6 +18,8 @@ colorScheme = False #Checks if the color scheme has changed
 bgmToggle = False
 notation = False
 shape = False
+pageNum = 1
+pages = ['star','square','plus'] #['page1','page2','page3']
 readSequence = Sequence() #used for sequence of moves
 mousepos = []  # stores mouse position for rotating camera
 app = Ursina()
@@ -676,6 +678,8 @@ def darkLight():
         wallpaper.icon = 'testing_light'
         title.icon = 'title_text_copy'
         setting_menu.icon = 'gear'
+        next_button.icon = 'next2'
+        prev_button.icon = 'prev2'
 
     elif window.color == color.light_gray:
         window.color = color.dark_gray
@@ -683,6 +687,8 @@ def darkLight():
         wallpaper.icon = 'testing_dark'
         title.icon = 'title_text'
         setting_menu.icon = 'gear_light'
+        next_button.icon = 'next'
+        prev_button.icon = 'prev'
 
 
 def bgm_toggle():
@@ -699,6 +705,8 @@ def bgm_toggle():
 
 def toggleAboutus():
     tutorial_box.enabled = False
+    prev_button.enabled = False
+    next_button.enabled = False
     if aboutus_menu.enabled == True:
         aboutus_menu.enabled = False
     elif aboutus_menu.enabled == False:
@@ -709,8 +717,12 @@ def toggleTutorial():
     aboutus_menu.enabled = False
     if tutorial_box.enabled == True:
         tutorial_box.enabled = False
+        prev_button.enabled = False
+        next_button.enabled = False
     elif tutorial_box.enabled == False:
         tutorial_box.enabled = True
+        prev_button.enabled = True
+        next_button.enabled = True
 
 
 def colorscheme2():
@@ -915,11 +927,27 @@ def toggleSettings():
         shape_title.enabled = True
 
 
+def next_page():
+    global pageNum
+
+    if pageNum != 3:
+        pageNum += 1
+        tutorial_box.icon = pages[pageNum-1]
+
+def prev_page():
+    global pageNum
+    if pageNum != 1:
+        pageNum -= 1
+        tutorial_box.icon = pages[pageNum-1]
+
+
 def start():
     cube_menu_model.enabled = False
     title.enabled = False
     help_menu.enabled = False
     tutorial_menu.enabled = False
+    next_button.enabled = False
+    prev_button.enabled = False
     setting_menu.enabled = False
     exit.enabled = False
     start_menu.enabled = False
@@ -1068,11 +1096,14 @@ bgm_title = Button(text='Music', color=color.clear, position=(.85, 0.045), enabl
 shape_button = Button(text='',icon='off_bgm', color=color.clear,scale=(.2,.08),on_click=Func(shape_toggle), position=(.85,-.12), enabled=False)
 shape_title = Button(text='Symbols', color=color.clear, position=(.85, -.07), enabled=False, scale=.01)
 settings_box = Button(text='', color=color.gray, highlight_color=color.gray, icon = '', pressed_color=color.gray, position = (.85,.087,50),scale=(.23,.51), enabled=False)
-legend = Button(text='', icon = 'key1', color=color.gray, enabled=False, highlight_color=color.gray, pressed_color=color.gray, position = (-.335,.37,1), scale=(.28,.22))
+legend = Button(text='', icon = 'key1', color=color.gray, enabled=False, highlight_color=color.gray, pressed_color=color.gray, position = (-.335,.365,1), scale=(15/48,15/64))
 
-aboutus_menu = Button(text='\t      About Us\n\n\tMembers:\n\tAndrew Penton\n\tNoah Gorgevski-Sharpe\n\tHeinrich Perez\n\tSteven Perez\n\tDaniel Shinkarow',
-                        color=color.gray, position=(0,0), scale=(.69,.73),highlight_color=color.gray, pressed_color=color.gray,text_origin=(-.35,.45))
-tutorial_box = Button(text='Tutorial\nPlace holder text',color=color.gray, position=(0,0), scale=(.69,.73),highlight_color=color.gray, pressed_color=color.gray,text_origin=(-.35,.45))
+
+aboutus_menu = Button(text='',icon='aboutus_text', color=color.gray, position=(0,0), scale=(.65,.75),highlight_color=color.gray, pressed_color=color.gray,text_origin=(-.35,.45))
+
+tutorial_box = Button(text='',icon='star',color=color.gray, position=(0,0), scale=(.65,.75),highlight_color=color.gray, pressed_color=color.gray,text_origin=(-.35,.45))
+next_button = Button(text='', icon='next', color=color.clear,highlight_color=color.gray, scale=.07, position=(.1, -.42), on_click=Func(next_page),enabled = False)
+prev_button = Button(text='', icon='prev', color=color.clear,highlight_color=color.gray, scale=.07, position=(-.1, -.42), on_click=Func(prev_page), enabled = False)
 
 wallpaper = Button(text='',icon='testing_dark',color=color.clear,highlight_color=color.clear, pressed_color=color.clear,enabled=True, parent=camera, position=(0,0,50),scale=(1920/52,1080/52))
 
