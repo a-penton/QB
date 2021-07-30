@@ -1006,10 +1006,10 @@ rotateUButton = Button(text='', icon='rotateU', color=color.white, highlight_col
                        on_click=Func(rotateR), enabled=False)
 rotateDButton = Button(text='', icon='rotateD', color=color.white, highlight_color=color.light_gray, scale=.152, position=(-.63, .278, 0),
                        on_click=Func(rotateL), enabled=False)
-rotateZRButton = Button(text='', icon='rotateZL', color=color.white, highlight_color=color.light_gray, scale=.152, position=(-.85, -.056, 0),
-                       on_click=Func(rotateZR), enabled=False)
-rotateZLButton = Button(text='', icon='rotateZR', color=color.white, highlight_color=color.light_gray, scale=.152, position=(-.63, -.056, 0),
+rotateZRButton = Button(text='', icon='rotateZR', color=color.white, highlight_color=color.light_gray, scale=.152, position=(-.85, -.056, 0),
                        on_click=Func(rotateZL), enabled=False)
+rotateZLButton = Button(text='', icon='rotateZL', color=color.white, highlight_color=color.light_gray, scale=.152, position=(-.63, -.056, 0),
+                       on_click=Func(rotateZR), enabled=False)
 inputButton = Button(text='', icon='input_button',color=color.clear,highlight_color=color.light_gray, scale=.152, position=(-.63, -.225, 0), on_click=Func(toggleInput),
                      enabled=False)
 # inputList = TextField(max_lines=1, position=(-.37 ,-.32 ,0), enabled=False)
