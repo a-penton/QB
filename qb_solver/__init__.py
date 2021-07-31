@@ -18,6 +18,7 @@ colorScheme = False #Checks if the color scheme has changed
 bgmToggle = False
 notation = False
 shape = False
+solvedCheck = True
 pageNum = 1
 pages = ['page1','page2','page3','page4']
 readSequence = Sequence() #used for sequence of moves
@@ -560,6 +561,7 @@ def updateCurrentHint(hintText, hintPicture, next_piece, next_stage):
     global current_piece
     global current_stage
     global blinking
+    global solvedCheck
     if hintText != None:
         hintSpecific.text = hintText
     if hintPicture != None:
@@ -582,34 +584,44 @@ def updateCurrentHint(hintText, hintPicture, next_piece, next_stage):
 
     showhints = True
     if current_stage == 0:
+        solvedCheck = False
         backButton.enabled = False
         hintDisplay.icon = 'hint1'
         hintDetail.icon = 'HintDetail1'
     elif current_stage == 1:
+        solvedCheck = False
         backButton.enabled = True
         hintDisplay.icon = 'hint2'
         hintDetail.icon = 'HintDetail2'
     elif current_stage == 2:
+        solvedCheck = False
         backButton.enabled = True
         hintDisplay.icon = 'hint3'
         hintDetail.icon = 'HintDetail3'
     elif current_stage == 3:
+        solvedCheck = False
         backButton.enabled = True
         hintDisplay.icon = 'hint4'
         hintDetail.icon = 'HintDetail4'
     elif current_stage == 4:
+        solvedCheck = False
         backButton.enabled = True
         hintDisplay.icon = 'hint5'
         hintDetail.icon = 'HintDetail5'
     elif current_stage == 5:
+        solvedCheck = False
         backButton.enabled = True
         hintDisplay.icon = 'hint6'
         hintDetail.icon = 'HintDetail6'
     elif current_stage == 6:
+        solvedCheck = False
         backButton.enabled = True
         hintDisplay.icon = 'hint7'
         hintDetail.icon = 'HintDetail7'
     elif current_stage == -1:
+        if not solvedCheck:
+            solvedCheck = True
+            victoryanim()
         backButton.enabled = False
         hintDisplay.icon = 'hint8'
         showhints = False
@@ -997,33 +1009,44 @@ def start():
 def backStage():
     global current_stage
     global current_piece
+    global solvedCheck
     current_piece = None
     current_stage = current_stage - 1
     showhints = True
     backButtonEnabled = True
     if current_stage == 0:
+        solvedCheck = False
         backButtonEnabled = False
         hintDisplay.icon = 'hint1'
         hintDetail.icon = 'HintDetail1'
     elif current_stage == 1:
+        solvedCheck = False
         hintDisplay.icon = 'hint2'
         hintDetail.icon = 'HintDetail2'
     elif current_stage == 2:
+        solvedCheck = False
         hintDisplay.icon = 'hint3'
         hintDetail.icon = 'HintDetail3'
     elif current_stage == 3:
+        solvedCheck = False
         hintDisplay.icon = 'hint4'
         hintDetail.icon = 'HintDetail4'
     elif current_stage == 4:
+        solvedCheck = False
         hintDisplay.icon = 'hint5'
         hintDetail.icon = 'HintDetail5'
     elif current_stage == 5:
+        solvedCheck = False
         hintDisplay.icon = 'hint6'
         hintDetail.icon = 'HintDetail6'
     elif current_stage == 6:
+        solvedCheck = False
         hintDisplay.icon = 'hint7'
         hintDetail.icon = 'HintDetail7'
     elif current_stage == -1:
+        if not solvedCheck:
+            solvedCheck = True
+            victoryanim()
         backButtonEnabled = False
         hintDetail.enabled = False
         hintDisplay.icon = 'hint8'
@@ -1031,6 +1054,20 @@ def backStage():
     backButton.enabled = backButtonEnabled
     hintMoveButton.enabled = showhints
     hintDetailButton.enabled = showhints
+
+def victoryanim():
+    congratulations.scale_y = 0
+    congratulations.enabled = True
+    congratulations.animate('scale_y', congratulations.scale_y + 15/64, duration=.75, time_step=time.dt)
+    invoke(victoryanimend, delay=1.5)
+
+def victoryanimend():
+    congratulations.animate('scale_y', congratulations.scale_y - 15/64, duration=.75, time_step=time.dt)
+    invoke(disableCongrats, delay=1)
+
+def disableCongrats():
+    congratulations.enabled = False
+
 
 # =============================================================UI buttons======================================================================
 # settings======================
@@ -1111,7 +1148,8 @@ bgm_title = Button(text='Music', color=color.clear, position=(.85, 0.045), enabl
 shape_button = Button(text='',icon='off_bgm', color=color.clear,scale=(.2,.08),on_click=Func(shape_toggle), position=(.85,-.12), enabled=False)
 shape_title = Button(text='Symbols', color=color.clear, position=(.85, -.07), enabled=False, scale=.01)
 settings_box = Button(text='', color=color.gray, highlight_color=color.gray, icon = '', pressed_color=color.gray, position = (.85,.087,50),scale=(.23,.51), enabled=False)
-legend = Button(text='', icon = 'key1', color=color.gray, enabled=False, highlight_color=color.gray, pressed_color=color.gray, position = (-.335,.365,1), scale=(15/48,15/64))
+legend = Button(text='', icon = 'key1', color=color.gray, enabled=False, highlight_color=color.gray, pressed_color=color.gray, position = (-.32,.365,1), scale=(15/48,15/64))
+congratulations = Button(text='Congratulations!', icon = '', color=color.gray, enabled=False, highlight_color=color.gray, pressed_color=color.gray, position = (.1,.365,1), scale=(15/48,15/64))
 
 
 aboutus_menu = Button(text='',icon='aboutus_text', color=color.gray, position=(0,0), scale=(.65,.75),highlight_color=color.gray, pressed_color=color.gray,text_origin=(-.35,.45))
