@@ -565,7 +565,7 @@ def updateCurrentHint(hintText, hintPicture, next_piece, next_stage):
     if hintText != None:
         hintSpecific.text = hintText
     if hintPicture != None:
-        if hintPicture in ['rotate-white-bottom.png', 'cross-solved.png']:
+        if hintPicture in ['rotate-white-bottom.png', 'cube-solved.png']:
             hintSpecific.icon.scale = (.33, .396)
         elif hintPicture == 'top.png':
             hintSpecific.icon.scale=(.33*2, .396*2)

@@ -79,7 +79,7 @@ def hint(cube, piece, stage, colorscheme):
 		return get_co_hint(cube, piece, colorscheme)
 	else:
 		# if solved, the piece returned is the white center
-		return ("The cube is solved!", "cross-solved.png", cube.find_piece('W'), -1)
+		return ("The cube is solved!", "cube-solved.png", cube.find_piece('W'), -1)
 
 def fix_color_string(s, colorscheme):
     # replace individual letters with their colors
