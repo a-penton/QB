@@ -2,7 +2,7 @@ from setuptools import setup
 
 setup(
 	name="QB-solver",
-	version="0.1.6",
+	version="0.1.7",
 	packages=["qb_solver",],	# name of modules
 	package_data={
 		"qb_solver": [
