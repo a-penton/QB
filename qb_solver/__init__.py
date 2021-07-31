@@ -25,11 +25,11 @@ readSequence = Sequence() #used for sequence of moves
 mousepos = []  # stores mouse position for rotating camera
 app = Ursina()
 # window settings
+app.development_mode = False
 window.borderless = False
-window.fps_counter.enabled = True
+window.fps_counter.enabled = False
 window.exit_button.visible = False
 window.color = color.dark_gray
-
 window.fullscreen = True
 window.aspect_ratio = 2
 
@@ -711,16 +711,16 @@ def darkLight():
         prev_button.icon = 'prev'
 
 
-def bgm_toggle():
-    global bgmToggle
-    if not bgmToggle:
-        bgm_buttom.icon = 'off_bgm'
-        bgAudio.stop()
-        bgmToggle = True
-    else:
-        bgm_buttom.icon = 'on_bgm'
-        bgAudio.play()
-        bgmToggle = False
+# def bgm_toggle():
+#     global bgmToggle
+#     if not bgmToggle:
+#         bgm_buttom.icon = 'off_bgm'
+#         bgAudio.stop()
+#         bgmToggle = True
+#     else:
+#         bgm_buttom.icon = 'on_bgm'
+#         bgAudio.play()
+#         bgmToggle = False
 
 
 def toggleAboutus():
@@ -925,18 +925,18 @@ def toggleSettings():
         color_scheme.enabled = False
     elif color_scheme.enabled == False:
         color_scheme.enabled = True
-    if volumeSlider.enabled == True:
-        volumeSlider.enabled = False
-    elif volumeSlider.enabled == False:
-        volumeSlider.enabled = True
-    if bgm_buttom.enabled == True:
-        bgm_buttom.enabled = False
-    elif bgm_buttom.enabled == False:
-        bgm_buttom.enabled = True
-    if bgm_title.enabled == True:
-        bgm_title.enabled = False
-    elif bgm_title.enabled == False:
-        bgm_title.enabled = True
+    # if volumeSlider.enabled == True:
+    #     volumeSlider.enabled = False
+    # elif volumeSlider.enabled == False:
+    #     volumeSlider.enabled = True
+    # if bgm_buttom.enabled == True:
+    #     bgm_buttom.enabled = False
+    # elif bgm_buttom.enabled == False:
+    #     bgm_buttom.enabled = True
+    # if bgm_title.enabled == True:
+    #     bgm_title.enabled = False
+    # elif bgm_title.enabled == False:
+    #     bgm_title.enabled = True
     if shape_button.enabled == True:
         shape_button.enabled = False
     elif shape_button.enabled == False:
@@ -982,9 +982,9 @@ def start():
     light_dark.enabled = False
     color_scheme.enabled = False
     settings_box.enabled = False
-    volumeSlider.enabled = False
-    bgm_buttom.enabled = False
-    bgm_title.enabled = False
+    # volumeSlider.enabled = False
+    # bgm_buttom.enabled = False
+    # bgm_title.enabled = False
     shape_button.enabled = False
     shape_title.enabled = False
     if shape:
@@ -1143,35 +1143,20 @@ title = Button(text='',icon='title_text', color=color.clear, scale = (.5,.21),po
 setting_menu = Button(text='',icon='gear_light', color=color.clear, highlight_color = color.gray, scale=(.1,.1),on_click=Func(toggleSettings), position=(.85,.4))
 light_dark = Button(text='',icon='Picture1', color=color.clear,scale=(.2,.08),on_click=Func(darkLight), position=(.85,.3), enabled=False)
 color_scheme = Button(text='',icon='unfolded_cube', color=color.clear,scale=(.2,.13),on_click=Func(toggle_color_scheme), position=(.85,.19), enabled=False)
-bgm_buttom = Button(text='',icon='on_bgm', color=color.clear,scale=(.2,.08),on_click=Func(bgm_toggle), position=(.85,-0.005), enabled=False)
-bgm_title = Button(text='Music', color=color.clear, position=(.85, 0.045), enabled=False, scale=.01)
-shape_button = Button(text='',icon='off_bgm', color=color.clear,scale=(.2,.08),on_click=Func(shape_toggle), position=(.85,-.12), enabled=False)
-shape_title = Button(text='Symbols', color=color.clear, position=(.85, -.07), enabled=False, scale=.01)
-settings_box = Button(text='', color=color.gray, highlight_color=color.gray, icon = '', pressed_color=color.gray, position = (.85,.087,50),scale=(.23,.51), enabled=False)
-legend = Button(text='', icon = 'key1', color=color.gray, enabled=False, highlight_color=color.gray, pressed_color=color.gray, position = (-.32,.365,1), scale=(15/48,15/64))
-congratulations = Button(text='Congratulations!', icon = '', color=color.gray, enabled=False, highlight_color=color.gray, pressed_color=color.gray, position = (.1,.365,1), scale=(15/48,15/64))
+shape_button = Button(text='',icon='off_bgm', color=color.clear,scale=(.2,.08),on_click=Func(shape_toggle), position=(.85,.06), enabled=False)
+shape_title = Button(text='Symbols', color=color.clear, position=(.85, .11), enabled=False, scale=.01)
 
+settings_box = Button(text='', color=color.gray, highlight_color=color.gray, icon = '', pressed_color=color.gray, position = (.85,.17,50),scale=(.23,.35), enabled=False)
+
+legend = Button(text='', icon = 'key1', color=color.gray, enabled=False, highlight_color=color.gray, pressed_color=color.gray, position = (-.32,.365,1), scale=(15/48,15/64))
+congratulations = Button(text='Congratulations!', icon = '', color=color.gray, enabled=False, highlight_color=color.gray, pressed_color=color.gray, position = (0,.365,1), scale=(15/48,15/64))
 
 aboutus_menu = Button(text='',icon='aboutus_text', color=color.gray, position=(0,0), scale=(.65,.75),highlight_color=color.gray, pressed_color=color.gray,text_origin=(-.35,.45))
-
 tutorial_box = Button(text='',icon='page1',color=color.gray, position=(0,0), scale=(1010/1163,1010/1280),highlight_color=color.gray, pressed_color=color.gray,text_origin=(-.35,.45))
 next_button = Button(text='', icon='next', color=color.clear,highlight_color=color.gray, scale=.07, position=(.1, -.44), on_click=Func(next_page),enabled = False)
 prev_button = Button(text='', icon='prev', color=color.clear,highlight_color=color.gray, scale=.07, position=(-.1, -.44), on_click=Func(prev_page), enabled = False)
 
 wallpaper = Button(text='',icon='testing_dark',color=color.clear,highlight_color=color.clear, pressed_color=color.clear,enabled=True, parent=camera, position=(0,0,50),scale=(1920/52,1080/52))
-
-bgVolume = .5
-bgAudio = Audio('impossiblegame', pitch=1, loop=True, autoplay=True, volume=.5)
-bgAudio.play()
-
-def changeAudio():
-    bgAudio.volume = volumeSlider.value
-
-volumeSlider = Slider(0, 1, default = .5,text = 'Volume',height=.05, dynamic=True, on_value_changed=changeAudio, color=color.gray, scale=.4 ,x = .743,y = .08, enabled=False)
-volumeSlider.knob.text_color = color.clear
-volumeSlider.label.origin = (0,0)
-volumeSlider.label.position = (.25,.08)
-volumeSlider.label.scale = 2.3
 
 inputList = TextField(max_lines=1, position=(-.22 ,-.33 ,0), enabled=False, max_width=31)
 error_text = Text(text='Error: Invalid Input', origin=(1.5 ,13.65 ,1), enabled=False, color=color.red)
