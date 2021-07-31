@@ -683,8 +683,6 @@ def menu():
     notationButton.enabled = False
     settings = False
     legend.enabled = False
-    #settingsButton.color = color.gray
-    #hintButton.color = color.gray
     aboutus_menu.enabled = False
     tutorial_box.enabled = False
     inputList.enabled= False
@@ -709,18 +707,6 @@ def darkLight():
         setting_menu.icon = 'gear_light'
         next_button.icon = 'next'
         prev_button.icon = 'prev'
-
-
-# def bgm_toggle():
-#     global bgmToggle
-#     if not bgmToggle:
-#         bgm_buttom.icon = 'off_bgm'
-#         bgAudio.stop()
-#         bgmToggle = True
-#     else:
-#         bgm_buttom.icon = 'on_bgm'
-#         bgAudio.play()
-#         bgmToggle = False
 
 
 def toggleAboutus():
@@ -925,18 +911,6 @@ def toggleSettings():
         color_scheme.enabled = False
     elif color_scheme.enabled == False:
         color_scheme.enabled = True
-    # if volumeSlider.enabled == True:
-    #     volumeSlider.enabled = False
-    # elif volumeSlider.enabled == False:
-    #     volumeSlider.enabled = True
-    # if bgm_buttom.enabled == True:
-    #     bgm_buttom.enabled = False
-    # elif bgm_buttom.enabled == False:
-    #     bgm_buttom.enabled = True
-    # if bgm_title.enabled == True:
-    #     bgm_title.enabled = False
-    # elif bgm_title.enabled == False:
-    #     bgm_title.enabled = True
     if shape_button.enabled == True:
         shape_button.enabled = False
     elif shape_button.enabled == False:
@@ -982,9 +956,6 @@ def start():
     light_dark.enabled = False
     color_scheme.enabled = False
     settings_box.enabled = False
-    # volumeSlider.enabled = False
-    # bgm_buttom.enabled = False
-    # bgm_title.enabled = False
     shape_button.enabled = False
     shape_title.enabled = False
     if shape:
