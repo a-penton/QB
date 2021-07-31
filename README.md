@@ -3,7 +3,8 @@ Includes:
  - Virtual cube, interactive via clickable arrows or keyboard shortcuts
  - General strategy for each step
  - Specific hints for each step
- - Ability to change cube sticker colors (in-progress)
+ - Ability to change cube sticker colors
+ - Ability to add symbols to different cube sticker colors to better differentiate them
  - Light/Dark Mode
 
 Pip package name: QB-Solver (https://pypi.org/project/QB-solver/)
